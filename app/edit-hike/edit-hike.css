@@ -1,0 +1,66 @@
+#edit-hike {
+  padding-top: 1rem;
+  width: 30rem;
+  margin: auto;
+}
+
+#edit-hike .form-area {
+  width: 30rem;
+  margin: auto;
+}
+
+#edit-hike .form-button {
+  width: 8rem;
+}
+
+#edit-hike form {
+  text-align: left;
+  height: 22rem;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  line-height: 1.5rem;
+  overflow: scroll;
+}
+
+#edit-hike input {
+  width: 20rem;
+}
+
+#edit-hike textarea {
+  width: 20rem;
+  height: 10rem;
+}
+
+@media only screen and (max-width: 768px) {
+  #edit-hike {
+    width: 90%;
+    padding: 1rem;
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #edit-hike {
+    width: 100%;
+    height: auto;
+  }
+  
+  #edit-hike #form-area {
+    height: auto;
+    width: 100%;
+    margin-top: 0.1rem;
+    margin-left: 0.1rem;
+    padding: 0.3rem;
+    line-height: 1.2rem;
+  }
+
+  #edit-hike input {
+    width: 10rem;
+  }
+
+  #edit-hike textarea {
+    width: 15rem;
+    height: 5rem;
+  }
+}
