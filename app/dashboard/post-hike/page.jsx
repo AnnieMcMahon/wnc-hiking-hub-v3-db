@@ -3,6 +3,7 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { allTrails } from "@/app/lib/seed";
+import { filterTrailList } from "@/app/lib/utils";
 import AllTrailsPost from "@/app/ui/AllTrailsPost";
 import ChosenHike from "@/app/ui/ChosenHike";
 import Modal from "@/app/ui/Modal";
@@ -26,35 +27,18 @@ function PostHike() {
 
   function searchByArea(e) {
     setSearchArea(e.target.value);
-    filterTrailList(e.target.value, searchDifficulty, searchLength);
+    setFilteredList(filterTrailList(e.target.value, searchDifficulty, searchLength, allTrails));
   }
 
   function searchByDifficulty(e) {
     setSearchDifficulty(e.target.value);
-    filterTrailList(searchArea, e.target.value, searchLength);
+    setFilteredList(filterTrailList(searchArea, e.target.value, searchLength, allTrails));
   };
 
   function searchByLength(e) {
     setSearchLength(e.target.value);
-    filterTrailList(searchArea, searchDifficulty, e.target.value);
+    setFilteredList(filterTrailList(searchArea, searchDifficulty, e.target.value, allTrails));
   };
-
-  function filterTrailList(area, difficulty, length) {
-    let newList = allTrails;
-    if (area !== "Anywhere in WNC") {
-      newList = newList.filter(trail => trail.area == area)
-    }
-    if (difficulty !== "Any") {
-      newList = newList.filter(trail => trail.difficulty == difficulty)
-    }
-    if (length !== "Any length") {
-      newList = newList.filter(trail => 
-        (length == "Short" && Number(trail.length) < 3) ||
-        (length == "Long" && Number(trail.length > 6)) ||
-          (length == "Medium" && Number(trail.length) >=3 && Number(trail.length) <= 6))
-    }
-    setFilteredList(newList);
-  }
 
   function handleClick(trail) {
     setChosenHike(trail);
