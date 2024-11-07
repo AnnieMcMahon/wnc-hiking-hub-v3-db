@@ -59,7 +59,7 @@ const filterTrailList = (area, difficulty, length, trails) => {
         (length == "Medium" && Number(trail.length) >=3 && Number(trail.length) <= 6))
   }
   return newList;
-}
+};
 
 export { convertDate, convertTime, filterTrailList };
 
