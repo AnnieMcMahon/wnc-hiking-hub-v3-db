@@ -1,6 +1,6 @@
-import './styles.css';
-import Navbar from './components/Navbar';
-import { GlobalProvider } from './context/GlobalContext';
+import { GlobalProvider } from "@/app/context/GlobalContext";
+import Navbar from "@/app/ui/Navbar";
+import "./global.css";
 
 export const metadata = {
   title: "WNC Hiking Hub",

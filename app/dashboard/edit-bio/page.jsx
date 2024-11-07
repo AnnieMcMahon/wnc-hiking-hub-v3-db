@@ -1,8 +1,8 @@
 "use client";
-import "./edit-bio.css";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import { useGlobal } from "../context/GlobalContext";
 import { useState } from "react";
+import "./edit-bio.css";
 
 function EditBio() {
   const router = useRouter();
@@ -25,7 +25,7 @@ function EditBio() {
     if (newBio) newInfo.bio = newBio;
     //Update state and localStorage
     updateUser(newInfo);
-    router.push("/bio");
+    router.push("/dashboard/bio");
   }
 
   function updateUser(userInfo) {
@@ -39,7 +39,7 @@ function EditBio() {
   }
 
   function handleClick() {
-    router.push("/edit-bio");
+    router.push("/dashboard/edit-bio");
   }
 
   function handleChange(e) {

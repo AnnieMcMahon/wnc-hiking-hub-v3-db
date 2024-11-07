@@ -1,6 +1,5 @@
 "use client";
-
-import { useGlobal } from "../context/GlobalContext";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -22,7 +21,7 @@ export default function Navbar() {
 
   function handleClick() {
     if (buttonMessage == "Log In") {
-      router.push("/login");
+      router.push("/dashboard/login");
     } else {
       setCurrentUser(appUsers[0]);
       router.push("/");
@@ -39,20 +38,20 @@ export default function Navbar() {
       </Link>
       <div className="links">
         <Link
-          className={`${pathname === "/bio" ? "active" : "inactive"}`}
-          href="/bio"
+          className={`${pathname === "/dashboard/bio" ? "active" : "inactive"}`}
+          href="/dashboard/bio"
         >
           Bio
         </Link>
         <Link
-          className={`${pathname === "/post-hike" ? "active" : "inactive"}`}
-          href="/post-hike"
+          className={`${pathname === "/dashboard/post-hike" ? "active" : "inactive"}`}
+          href="/dashboard/post-hike"
         >
           Post a Hike
         </Link>
         <Link
-          className={`${pathname === "/join-hike" ? "active" : "inactive"}`}
-          href="/join-hike"
+          className={`${pathname === "/dashboard/join-hike" ? "active" : "inactive"}`}
+          href="/dashboard/join-hike"
         >
           Join a Hike
         </Link>

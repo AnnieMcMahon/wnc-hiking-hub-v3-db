@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
-import { useGlobal } from "../context/GlobalContext";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import AllTrailsPost from "../components/AllTrailsPost";
-import ChosenHike from "../components/ChosenHike";
-import allTrails from "../assets/allTrails";
-import Modal from "../components/Modal";
+import { useState } from "react";
+import { allTrails } from "@/app/lib/seed";
+import AllTrailsPost from "@/app/ui/AllTrailsPost";
+import ChosenHike from "@/app/ui/ChosenHike";
+import Modal from "@/app/ui/Modal";
 import "./post-hike.css";
 
 function PostHike() {
@@ -99,7 +99,7 @@ function PostHike() {
             : user
         )
       );
-      router.push("/bio");
+      router.push("/dashboard/bio");
     } else {
       showModal("Error", "Please fill out all the information");
     }

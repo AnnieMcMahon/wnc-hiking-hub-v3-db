@@ -1,6 +1,5 @@
-import React from "react";
+import { useGlobal } from "@/app/context/GlobalContext";
 import "./Modal.css";
-import { useGlobal } from "../context/GlobalContext";
 
 function Modal() {
   const { modal } = useGlobal();

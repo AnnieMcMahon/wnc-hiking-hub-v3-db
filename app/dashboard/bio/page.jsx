@@ -1,8 +1,8 @@
 "use client";
-import Hike from "../components/Hike";
-import "./bio.css";
-import { useGlobal } from "../context/GlobalContext";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
+import Hike from "@/app/ui/Hike";
+import "./bio.css";
 
 export default function Bio() {
   const { currentUser, hikes } = useGlobal();
@@ -29,7 +29,7 @@ export default function Bio() {
   upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   function handleClick() {
-    router.push("/edit-bio");
+    router.push("/dashboard/edit-bio");
   }
 
   return (

@@ -1,8 +1,7 @@
 "use client";
 
-import Hike from "@/app/components/Hike";
-import { useGlobal } from "../context/GlobalContext";
-
+import Hike from "@/app/ui/Hike";
+import { useGlobal } from "@/app/context/GlobalContext";
 import "./join-hike.css";
 
 function JoinHike() {

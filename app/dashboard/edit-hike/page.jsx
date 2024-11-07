@@ -1,9 +1,9 @@
 "use client";
-import "./edit-hike.css";
-import { useGlobal } from "../context/GlobalContext";
-import { useState } from "react";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import Modal from "../components/Modal";
+import { useState } from "react";
+import Modal from "@/app/ui/Modal";
+import "./edit-hike.css";
 
 export default function EditHike() {
   const { hikes, hike, setHikes, setHike, showModal, closeModal } = useGlobal();
@@ -39,7 +39,7 @@ export default function EditHike() {
         null,
         () => {
           closeModal();
-          router.push("/bio");
+          router.push("/dashboard/bio");
         });
     } else {
       showModal("Error", "Please complete all information");
@@ -54,7 +54,7 @@ export default function EditHike() {
       null,
       () => {
         closeModal();
-        router.push("/bio");
+        router.push("/dashboard/bio");
       });
   }
 
@@ -82,7 +82,7 @@ export default function EditHike() {
       null,
       () => {
         closeModal();
-        router.push("/bio");
+        router.push("/dashboard/bio");
       });
   }
 

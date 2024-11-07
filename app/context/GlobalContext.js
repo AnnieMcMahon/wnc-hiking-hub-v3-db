@@ -1,7 +1,7 @@
 "use client";
+
 import { createContext, useState, useContext, useEffect } from "react";
-import sampleHikes from "../assets/sampleHikes";
-import sampleAppUsers from "../assets/sampleAppUsers";
+import { sampleHikes, sampleAppUsers } from "@/app/lib/seed";
 
 const GlobalContext = createContext();
 

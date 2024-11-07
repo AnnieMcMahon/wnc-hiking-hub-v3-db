@@ -1,8 +1,8 @@
 "use client";
-import "./login.css";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import { useGlobal } from "../context/GlobalContext";
-import Modal from "../components/Modal";
+import Modal from "@/app/ui/Modal";
+import "./login.css";
 
 function Login() {
   const router = useRouter();
@@ -22,7 +22,7 @@ function Login() {
     if (userInfo) {
       if (userInfo.password === userPassword) {
         setCurrentUser(userInfo);
-        router.push("/bio");
+        router.push("/dashboard/bio");
       } else {
         showModal("Error", "Invalid password. Please try again.");
       }
@@ -49,7 +49,7 @@ function Login() {
       setAppUsers((existingUsers) => [...existingUsers, newUser]);
       setCurrentUser(newUser);
       closeModal();
-      router.push("/bio");
+      router.push("/dashboard/bio");
     }
 
   return (

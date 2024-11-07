@@ -1,9 +1,8 @@
 "use client";
-import { useGlobal } from "../context/GlobalContext";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import allTrails from "@/app/assets/allTrails";
-import convertDate from "../assets/convertDate";
-import convertTime from "../assets/convertTime";
+import { allTrails } from "@/app/lib/seed";
+import { convertDate, convertTime } from "@/app/lib/utils";
 
 function Hike({ hikeType, hikeInfo, cancelled }) {
   const { appUsers, setAppUsers, currentUser, setCurrentUser, setHike } =
@@ -42,7 +41,7 @@ function Hike({ hikeType, hikeInfo, cancelled }) {
         break;
       case "Edit Hike":
         setHike(e.target.name);
-        router.push("/edit-hike");
+        router.push("/dashboard/edit-hike");
         break;
       default:
         console.log("Different button");

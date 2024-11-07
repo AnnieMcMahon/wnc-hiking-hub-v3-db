@@ -1,4 +1,4 @@
-export default function convertDate(origDate) {
+const convertDate = (origDate) => {
   const date = new Date(origDate);
   const yyyy = date.getFullYear();
   let d = date.getDay();
@@ -32,4 +32,18 @@ export default function convertDate(origDate) {
   if (mm < 10) mm = "0" + mm;
   const formattedDate = dddd + ", " + mm + "/" + dd + "/" + yyyy;
   return formattedDate;
-}
+};
+
+const convertTime = (time) => {
+  let hh = parseInt(time.slice(0, 2));
+  let mm = time.slice(3, 5);
+  let ampm = hh >= 12 ? 'PM' : 'AM';
+  hh = hh % 12;
+  hh = hh ? hh : 12;
+  const formattedTime = hh + ":" + mm + " " + ampm;
+  return formattedTime;
+};
+
+export { convertDate, convertTime };
+
+
