@@ -96,7 +96,7 @@ function PostHike() {
           <h2>1. Search for a trail</h2>
           <form>
             <label htmlFor="area">Area: </label>
-            <select name="area" id="area" onChange={(e) => searchByArea(e)}>
+            <select name="area" id="area" onChange={searchByArea}>
               <option value="Anywhere in WNC">Anywhere in WNC</option>
               <option value="DuPont State Recreational Forest">
                 DuPont State Recreational Forest
@@ -114,7 +114,7 @@ function PostHike() {
             <select
               name="difficulty"
               id="difficulty"
-              onChange={(e) => searchByDifficulty(e)}
+              onChange={searchByDifficulty}
             >
               <option value="Any">Any</option>
               <option value="Easy">Easy</option>
@@ -122,7 +122,7 @@ function PostHike() {
               <option value="Strenuous">Strenuous</option>
             </select>
             <label htmlFor="length"> Length: </label>
-            <select name="length" id="length" onChange={(e) => searchByLength(e)}>
+            <select name="length" id="length" onChange={searchByLength}>
               <option value="Any length">Any length</option>
               <option value="Short">Shorter than 3 miles</option>
               <option value="Medium">From 3 to 6 miles</option>
@@ -133,7 +133,7 @@ function PostHike() {
           <h2>2. Select a trail from the right column</h2>
           <ChosenHike hikeSelected={chosenHike} />
           <h2>3. Fill out the hike information</h2>
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <form onSubmit={handleSubmit}>
             <label htmlFor="hikeTitle">Title: </label>
             <input type="text" name="hikeTitle" id="hikeTitle" />
             <br />

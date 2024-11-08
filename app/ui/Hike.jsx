@@ -78,7 +78,7 @@ function Hike({ hikeType, hikeInfo, cancelled }) {
           className="hike-button"
           name={hikeInfo.id}
           value={buttonMessage}
-          onClick={(e) => handleClick(e)}
+          onClick={handleClick}
         >
           {buttonMessage}
         </button>

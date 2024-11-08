@@ -57,7 +57,7 @@ function EditBio() {
     <div id="edit-bio">
       <h1>Edit Bio</h1>
       <div id="form-area" className="text-box">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="newName">Name: </label>
           <input
             type="text"
@@ -65,7 +65,7 @@ function EditBio() {
             id="newName"
             value={bioInfo.name || ""}
             autoComplete="true"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <br />
           <label htmlFor="newAvatar">Avatar: </label>
@@ -74,7 +74,7 @@ function EditBio() {
             accept="image/*"
             name="avatar"
             id="newAvatar"
-            onChange={(e) => handleAvatarChange(e)}
+            onChange={handleAvatarChange}
           />
           <br />
           <label htmlFor="newBio">Bio: </label>
@@ -83,7 +83,7 @@ function EditBio() {
             id="newBio"
             value={bioInfo.bio || ""}
             data-gramm="false"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <br />
           <button type="submit" className="form-button">

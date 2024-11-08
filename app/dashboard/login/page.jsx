@@ -56,7 +56,7 @@ function Login() {
     <div id="login">
       <h1>Log In</h1>
       <div id="login-info" className="text-box">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="userEmail">E-mail: </label>
           <input type="email" name="email" id="userEmail" autoComplete="true" />
           <br />
