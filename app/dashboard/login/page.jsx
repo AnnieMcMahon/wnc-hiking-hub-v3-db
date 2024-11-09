@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import Modal from "@/app/ui/Modal";
-import LoginForm from "@/app/ui/LogInForm";
+import LoginForm from "@/app/ui/LoginForm";
 import "./login.css";
 
 function Login() {
