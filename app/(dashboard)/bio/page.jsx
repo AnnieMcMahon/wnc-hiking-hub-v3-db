@@ -30,7 +30,7 @@ export default function Bio() {
   upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   function handleClick() {
-    router.push("/dashboard/edit-bio");
+    router.push("/edit-bio");
   }
 
   return (

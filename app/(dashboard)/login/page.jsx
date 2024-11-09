@@ -23,7 +23,7 @@ function Login() {
     if (userInfo) {
       if (userInfo.password === userPassword) {
         setCurrentUser(userInfo);
-        router.push("/dashboard/bio");
+        router.push("/bio");
       } else {
         showModal("Error", "Invalid password. Please try again.");
       }
@@ -50,7 +50,7 @@ function Login() {
       setAppUsers((existingUsers) => [...existingUsers, newUser]);
       setCurrentUser(newUser);
       closeModal();
-      router.push("/dashboard/bio");
+      router.push("/bio");
     }
 
   return (

@@ -40,7 +40,7 @@ export default function EditHike() {
         null,
         () => {
           closeModal();
-          router.push("/dashboard/bio");
+          router.push("/bio");
         });
     } else {
       showModal("Error", "Please complete all information");
@@ -55,7 +55,7 @@ export default function EditHike() {
       null,
       () => {
         closeModal();
-        router.push("/dashboard/bio");
+        router.push("/bio");
       });
   }
 
@@ -83,7 +83,7 @@ export default function EditHike() {
       null,
       () => {
         closeModal();
-        router.push("/dashboard/bio");
+        router.push("/bio");
       });
   }
 

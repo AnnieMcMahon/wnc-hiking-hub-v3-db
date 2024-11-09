@@ -41,7 +41,7 @@ function Hike({ hikeType, hikeInfo, cancelled }) {
         break;
       case "Edit Hike":
         setHike(e.target.name);
-        router.push("/dashboard/edit-hike");
+        router.push("/edit-hike");
         break;
       default:
         console.log("Different button");

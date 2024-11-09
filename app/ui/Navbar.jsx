@@ -21,7 +21,7 @@ export default function Navbar() {
 
   function handleClick() {
     if (buttonMessage == "Log In") {
-      router.push("/dashboard/login");
+      router.push("/login");
     } else {
       setCurrentUser(appUsers[0]);
       router.push("/");
@@ -38,20 +38,20 @@ export default function Navbar() {
       </Link>
       <div className="links">
         <Link
-          className={`${pathname === "/dashboard/bio" ? "active" : "inactive"}`}
-          href="/dashboard/bio"
+          className={`${pathname === "/bio" ? "active" : "inactive"}`}
+          href="/bio"
         >
           Bio
         </Link>
         <Link
-          className={`${pathname === "/dashboard/post-hike" ? "active" : "inactive"}`}
-          href="/dashboard/post-hike"
+          className={`${pathname === "/post-hike" ? "active" : "inactive"}`}
+          href="/post-hike"
         >
           Post a Hike
         </Link>
         <Link
-          className={`${pathname === "/dashboard/join-hike" ? "active" : "inactive"}`}
-          href="/dashboard/join-hike"
+          className={`${pathname === "/join-hike" ? "active" : "inactive"}`}
+          href="/join-hike"
         >
           Join a Hike
         </Link>

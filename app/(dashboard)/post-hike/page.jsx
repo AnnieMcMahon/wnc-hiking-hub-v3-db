@@ -85,7 +85,7 @@ export default function PostHike() {
             : user
         )
       );
-      router.push("/dashboard/bio");
+      router.push("/bio");
     } else {
       showModal("Error", "Please fill out all the information");
     }

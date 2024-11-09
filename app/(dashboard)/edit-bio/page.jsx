@@ -25,7 +25,7 @@ function EditBio() {
     if (newBio) newInfo.bio = newBio;
     //Update state and localStorage
     updateUser(newInfo);
-    router.push("/dashboard/bio");
+    router.push("/bio");
   }
 
   function updateUser(userInfo) {
@@ -39,7 +39,7 @@ function EditBio() {
   }
 
   function handleClick() {
-    router.push("/dashboard/edit-bio");
+    router.push("/edit-bio");
   }
 
   function handleChange(e) {
