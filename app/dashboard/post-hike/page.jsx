@@ -6,10 +6,12 @@ import { allTrails } from "@/app/lib/seed";
 import { filterTrailList } from "@/app/lib/utils";
 import AllTrailsPost from "@/app/ui/AllTrailsPost";
 import ChosenHike from "@/app/ui/ChosenHike";
+import SearchForm from "@/app/ui/SearchForm";
+import HikeForm from "@/app/ui/HikeForm";
 import Modal from "@/app/ui/Modal";
 import "./post-hike.css";
 
-function PostHike() {
+export default function PostHike() {
   const {
     hikes,
     setHikes,
@@ -94,71 +96,12 @@ function PostHike() {
       <div className="content">
         <div id="form-area" className="text-box">
           <h2>1. Search for a trail</h2>
-          <form>
-            <label htmlFor="area">Area: </label>
-            <select name="area" id="area" onChange={searchByArea}>
-              <option value="Anywhere in WNC">Anywhere in WNC</option>
-              <option value="DuPont State Recreational Forest">
-                DuPont State Recreational Forest
-              </option>
-              <option value="Pisgah National Forest">
-                Pisgah National Forest
-              </option>
-              <option value="North Carolina Arboretum">
-                North Carolina Arboretum
-              </option>
-              <option value="Nantahala Forest">Nantahala Forest</option>
-            </select>
-            <br />
-            <label htmlFor="difficulty">Difficulty: </label>
-            <select
-              name="difficulty"
-              id="difficulty"
-              onChange={searchByDifficulty}
-            >
-              <option value="Any">Any</option>
-              <option value="Easy">Easy</option>
-              <option value="Moderate">Moderate</option>
-              <option value="Strenuous">Strenuous</option>
-            </select>
-            <label htmlFor="length"> Length: </label>
-            <select name="length" id="length" onChange={searchByLength}>
-              <option value="Any length">Any length</option>
-              <option value="Short">Shorter than 3 miles</option>
-              <option value="Medium">From 3 to 6 miles</option>
-              <option value="Long">Longer than 6 miles</option>
-            </select>
-            <br />
-          </form>
+          <SearchForm searchByArea={searchByArea} searchByDifficulty={searchByDifficulty} searchByLength={searchByLength} />
           <h2>2. Select a trail from the right column</h2>
           <ChosenHike hikeSelected={chosenHike} />
           <h2>3. Fill out the hike information</h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="hikeTitle">Title: </label>
-            <input type="text" name="hikeTitle" id="hikeTitle" />
-            <br />
-            <label htmlFor="date">Date: </label>
-            <input type="date" name="date" id="date" />
-            <label htmlFor="time"> Time: </label>
-            <input type="time" name="time" id="time" />
-            <br />
-            <label htmlFor="location"> Location: </label>
-            <input type="text" name="location" id="location" />
-            <br />
-            <label htmlFor="comments">Comments: </label>
-            <br />
-            <textarea
-              type="textarea"
-              name="comments"
-              id="comments"
-              data-gramm="false"
-            />
-            <br />
-            <button type="submit" className="form-button">
-              Submit Form
-            </button>
-            <Modal />
-          </form>
+          <HikeForm onSubmit={handleSubmit}/>
+          <Modal />
         </div>
         <div className="hike-section">
           <h2>Trail Search Results</h2>
@@ -173,5 +116,4 @@ function PostHike() {
       </div>
     </div>
   );
-}
-export default PostHike;
+};

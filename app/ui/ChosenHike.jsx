@@ -1,6 +1,4 @@
-"use client";
-
-function ChosenHike({ hikeSelected }) {
+export default function ChosenHike({ hikeSelected }) {
   if (hikeSelected) {
     return (
       <div>
@@ -31,5 +29,3 @@ function ChosenHike({ hikeSelected }) {
     );
   }
 }
-
-export default ChosenHike;

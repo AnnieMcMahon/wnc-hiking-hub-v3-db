@@ -1,7 +1,8 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import Hike from "@/app/ui/Hike";
+import BioSection from "@/app/ui/BioSection";
+import HikeSection from "@/app/ui/HikeSection";
 import "./bio.css";
 
 export default function Bio() {
@@ -34,44 +35,8 @@ export default function Bio() {
 
   return (
     <div id="bio">
-      <div className="bio-section">
-        <div className="bio-header-section">
-          <img className="avatar" src={currentUser.avatar} alt="avatar"/>
-          <h1>{currentUser.name}</h1>
-          <button onClick={handleClick}>Edit Bio</button>
-        </div>
-        <div className="bio-text-section">
-          <h2>About Me</h2>
-          <div id="bio-text" className="text-box">
-            <p>{currentUser.bio}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="hike-section">
-        <h2>My Hikes - Coming Up</h2>
-        <div>
-          {upcomingHikes.map(hike => 
-            <Hike
-              hikeType={createdHikes.includes(hike.id) ? "created" : "joined"}
-              cancelled={hike.title.includes("CANCELLED") ? true : false}
-              hikeInfo={hike}
-              key={hike.id}
-            />
-          )}
-        </div>
-        <h2>My Hikes - History</h2>
-        <div>
-          {pastHikes.map(hike => 
-            <Hike
-              hikeType="history"
-              hikeInfo={hike}
-              key={hike.id}
-              cancelled={hike.title.includes("CANCELLED") ? true : false}
-            />
-          )}
-        </div>
-      </div>
+      <BioSection user={currentUser} onClick={handleClick}/>
+      <HikeSection pastHikes={pastHikes} upcomingHikes={upcomingHikes} createdHikes={createdHikes}/>
     </div>
   );
 };

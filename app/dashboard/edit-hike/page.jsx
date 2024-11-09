@@ -3,6 +3,7 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Modal from "@/app/ui/Modal";
+import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
@@ -97,69 +98,8 @@ export default function EditHike() {
     <div id="edit-hike">
       <h1>Edit Hike</h1>
       <div id="form-area" className="text-box">
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="newTitle">Title: </label>
-          <input
-            type="text"
-            name="title"
-            id="newTitle"
-            value={hikeInfo.title}
-            onChange={(e) => handleChange(e)}
-          />
-          <br />
-
-          <label htmlFor="newDate">Date: </label>
-          <input
-            type="date"
-            name="date"
-            id="newDate"
-            value={hikeInfo.date}
-            onChange={(e) => handleChange(e)}
-          />
-          <br />
-
-          <label htmlFor="newTime"> Time: </label>
-          <input
-            type="time"
-            name="time"
-            id="newTime"
-            value={hikeInfo.time}
-            onChange={(e) => handleChange(e)}
-          />
-          <br />
-
-          <label htmlFor="newLocation"> Location: </label>
-          <input
-            type="text"
-            name="location"
-            id="newLocation"
-            value={hikeInfo.location}
-            onChange={(e) => handleChange(e)}
-          />
-          <br />
-
-          <label htmlFor="newComments">Comments: </label>
-          <br />
-          <textarea
-            type="textarea"
-            name="comments"
-            id="newComments"
-            value={hikeInfo.comments}
-            data-gramm="false"
-            onChange={(e) => handleChange(e)}
-          />
-          <br />
-          <button type="submit" className="form-button">
-            Save Changes
-          </button>
-          <button type="reset" onClick={handleDiscard} className="form-button">
-            Discard Changes
-          </button>
-          <button type="button" onClick={handleCancel} className="form-button">
-            Cancel Hike
-          </button>
-        </form>
-        <Modal />
+      <EditHikeForm hikeInfo={hikeInfo} onSubmit={handleSubmit} onChange={handleChange} handleCancel={handleCancel} handleDiscard={handleDiscard}/>
+      <Modal />
       </div>
     </div>
   );

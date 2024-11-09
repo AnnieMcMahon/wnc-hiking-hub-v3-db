@@ -2,6 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import Modal from "@/app/ui/Modal";
+import LoginForm from "@/app/ui/LogInForm";
 import "./login.css";
 
 function Login() {
@@ -56,22 +57,7 @@ function Login() {
     <div id="login">
       <h1>Log In</h1>
       <div id="login-info" className="text-box">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="userEmail">E-mail: </label>
-          <input type="email" name="email" id="userEmail" autoComplete="true" />
-          <br />
-          <label htmlFor="userPassword">Password: </label>
-          <input
-            type="password"
-            name="password"
-            id="userPassword"
-            autoComplete="false"
-          />
-          <br />
-          <button type="submit" className="form-button">
-            Log In
-          </button>
-        </form>
+        <LoginForm onSubmit={handleSubmit} />
         <Modal />
       </div>
     </div>
