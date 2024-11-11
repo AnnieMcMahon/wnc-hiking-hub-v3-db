@@ -1,6 +1,4 @@
-"use client";
-
-function AllTrailsPost({hikeInfo, onClick}) {
+export default function AllTrailsPost({hikeInfo, onClick}) {
   return (
     <div id="AllTrailsPost" className="hike" onClick={onClick}>
       <h4>{hikeInfo.name}</h4>
@@ -9,5 +7,4 @@ function AllTrailsPost({hikeInfo, onClick}) {
       <a href={hikeInfo.link} target="_blank" onClick={(e) => e.stopPropagation()}>All Trails Link</a>
     </div>
   );
-}
-export default AllTrailsPost;
+};

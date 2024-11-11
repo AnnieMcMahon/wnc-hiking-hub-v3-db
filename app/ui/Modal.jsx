@@ -1,7 +1,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import "./Modal.css";
 
-function Modal() {
+export default function Modal() {
   const { modal } = useGlobal();
   if (!modal.isOpen) return null;
 
@@ -23,6 +23,4 @@ function Modal() {
       </div>
     </div>
   );
-}
-
-export default Modal;
+};

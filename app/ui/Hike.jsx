@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { allTrails } from "@/app/lib/seed";
 import { convertDate, convertTime } from "@/app/lib/utils";
 
-function Hike({ hikeType, hikeInfo, cancelled }) {
+export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const { appUsers, setAppUsers, currentUser, setCurrentUser, setHike } =
     useGlobal();
   const router = useRouter();
@@ -85,5 +85,4 @@ function Hike({ hikeType, hikeInfo, cancelled }) {
       )}
     </div>
   );
-}
-export default Hike;
+};
