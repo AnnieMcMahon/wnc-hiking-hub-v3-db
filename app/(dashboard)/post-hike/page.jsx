@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { filterTrailList } from "@/app/lib/filterTrailList";
+import { filterTrailList } from "@/app/api/data";
 import { allTrails } from "@/app/lib/seed";
 import ChosenHike from "@/app/ui/ChosenHike";
 import SearchForm from "@/app/ui/SearchForm";

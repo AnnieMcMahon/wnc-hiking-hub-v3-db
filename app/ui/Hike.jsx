@@ -1,13 +1,33 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import { allTrails } from "@/app/lib/seed";
+import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
+import { fetchTrailById } from "../api/data";
 
 export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const { appUsers, setAppUsers, currentUser, setCurrentUser, setHike } =
     useGlobal();
   const router = useRouter();
+  const [allTrailsInfo, setAllTrailsInfo] = useState({
+    id: 0,
+    name: "",
+    area: "",
+    difficulty: "",
+    length: null,
+    elevation: null,
+    type: "",
+    link: ""
+  });
+
+  useEffect(() => {
+    const fetchTrailInfo = async () => {
+      const trailInfo = await fetchTrailById(hikeInfo.id);
+      setAllTrailsInfo(trailInfo[0]);
+      return trailInfo;
+    };
+    fetchTrailInfo();
+  }, []);
 
   let buttonMessage = "";
   if (!cancelled) {
@@ -20,9 +40,6 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     }
   }
 
-  const allTrailsInfo = allTrails.find(
-    (trail) => trail.id == hikeInfo.allTrailsId
-  );
   const hikeCreator = appUsers.find((user) => user.id == hikeInfo.creator);
   const hikingDate = convertDate(hikeInfo.date);
   const hikingTime = convertTime(hikeInfo.time);
