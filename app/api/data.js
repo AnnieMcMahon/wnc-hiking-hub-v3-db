@@ -1,12 +1,16 @@
-import { sql } from '@vercel/postgres';
+import { supabase } from "@/app/lib/initSupabase";
 
-export async function fetchTrails() {
+export async function fetchAllTrails() {
   try {
-    const data = await sql`SELECT * FROM alltrails`;
-    console.log(data.rows);
-    return data.rows;
+    const { data, error } = await supabase.from("allTrails").select("*");
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to fetch trail data.");
+    }
+    return data; 
   } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch trail data.');
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch trail data.");
   }
-}
+};
+

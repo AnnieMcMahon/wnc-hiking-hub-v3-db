@@ -1,4 +1,8 @@
-export default function Home() {
+import { filterTrailList } from "./lib/filterTrailList";
+
+export default async function Home() {
+  let allTrailsList = await filterTrailList("Anywhere in WNC", "Any", "Any length");
+  console.log(allTrailsList);
   return (
     <div id="home" className="text-box">
         <h1>How to Use This Site</h1>
