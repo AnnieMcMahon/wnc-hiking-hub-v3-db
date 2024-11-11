@@ -2,7 +2,6 @@ import { fetchAllTrails } from "@/app/api/data";
 
 export async function filterTrailList(area, difficulty, length) {
   let newList = await fetchAllTrails();
-  console.log(newList);
   if (area !== "Anywhere in WNC") {
     newList = newList.filter(trail => trail.area == area)
   }

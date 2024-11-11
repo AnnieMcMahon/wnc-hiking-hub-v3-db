@@ -1,14 +1,11 @@
-import { filterTrailList } from "@/app/lib/filterTrailList";
 import AllTrailsPost from "@/app/ui/AllTrailsPost";
 
-export default async function AllTrailsSection( { area, difficulty, length }) {
-  let filteredList = await filterTrailList(area, difficulty, length);
-  console.log(filteredList);
-
-  function handleClick(e) {
-    console.log(e.target.key);
-  //   setChosenHike(trail);
-  }
+export default function AllTrailsSection({
+  area,
+  difficulty,
+  length,
+  handleClick,
+}) {
 
   return (
     <div className="hike-section">
@@ -17,7 +14,7 @@ export default async function AllTrailsSection( { area, difficulty, length }) {
         <AllTrailsPost
           hikeInfo={trail}
           key={trail.id}
-          onClick={handleClick}
+          onClick={(trail) => handleClick(trail)}
         />
       ))}
     </div>

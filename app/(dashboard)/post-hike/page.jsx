@@ -1,14 +1,14 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { filterTrailList } from "@/app/lib/filterTrailList";
 import { allTrails } from "@/app/lib/seed";
-import { filterTrailList } from "@/app/lib/utils";
-import AllTrailsPost from "@/app/ui/AllTrailsPost";
 import ChosenHike from "@/app/ui/ChosenHike";
 import SearchForm from "@/app/ui/SearchForm";
 import HikeForm from "@/app/ui/HikeForm";
 import Modal from "@/app/ui/Modal";
+import AllTrailsPost from "@/app/ui/AllTrailsPost";
 import "./post-hike.css";
 
 export default function PostHike() {
@@ -21,25 +21,31 @@ export default function PostHike() {
     showModal,
   } = useGlobal();
   const router = useRouter();
-  const [chosenHike, setChosenHike] = useState(null);
   const [filteredList, setFilteredList] = useState(allTrails);
+  const [chosenHike, setChosenHike] = useState(null);
   const [searchArea, setSearchArea] = useState("Anywhere in WNC");
   const [searchDifficulty, setSearchDifficulty] = useState("Any");
   const [searchLength, setSearchLength] = useState("Any length");
 
+  useEffect(() => {
+    const fetchNewList = async () => {
+      const newList = await filterTrailList(searchArea, searchDifficulty, searchLength);
+      setFilteredList(newList);
+      return newList;
+    };
+    fetchNewList();
+  }, [searchArea, searchDifficulty, searchLength]);
+
   function searchByArea(e) {
     setSearchArea(e.target.value);
-    setFilteredList(filterTrailList(e.target.value, searchDifficulty, searchLength, allTrails));
   }
 
   function searchByDifficulty(e) {
     setSearchDifficulty(e.target.value);
-    setFilteredList(filterTrailList(searchArea, e.target.value, searchLength, allTrails));
   };
 
   function searchByLength(e) {
     setSearchLength(e.target.value);
-    setFilteredList(filterTrailList(searchArea, searchDifficulty, e.target.value, allTrails));
   };
 
   function handleClick(trail) {
@@ -104,15 +110,15 @@ export default function PostHike() {
           <Modal />
         </div>
         <div className="hike-section">
-          <h2>Trail Search Results</h2>
-          {filteredList.map((trail) => (
-            <AllTrailsPost
-              hikeInfo={trail}
-              key={trail.id}
-              onClick={() => handleClick(trail)}
-            />
-          ))}
-        </div>
+      <h2>Trail Search Results</h2>
+      {filteredList.map((trail) => (
+        <AllTrailsPost
+          hikeInfo={trail}
+          key={trail.id}
+          onClick={() => handleClick(trail)}
+        />
+      ))}
+    </div>
       </div>
     </div>
   );
