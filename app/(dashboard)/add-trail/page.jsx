@@ -27,22 +27,22 @@ export default function AddTrail() {
   function handleSubmit(e) {
     e.preventDefault();
     if (
-      e.target.trailName.value &&
+      e.target.trail_name.value &&
       e.target.area_name.value &&
-      e.target.difficulty.value &&
+      e.target.difficulty_rating.value &&
       e.target.length.value &&
-      e.target.elevation.value &&
-      e.target.type.value &&
-      e.target.link.value
+      e.target.elevation_gain.value &&
+      e.target.route_type.value &&
+      e.target.trail_link.value
     ) {
       const newTrailToAdd = {
-        name: e.target.trailName.value,
+        trail_name: e.target.trail_name.value,
         area_name: e.target.area_name.value,
-        difficulty: e.target.difficulty.value,
+        difficulty_rating: e.target.difficulty_rating.value,
         length: e.target.length.value,
-        elevation: e.target.elevation.value,
-        type: e.target.type.value,
-        link: e.target.link.value
+        elevation_gain: e.target.elevation_gain.value,
+        route_type: e.target.route_type.value,
+        trail_link: e.target.trail_link.value
       }
       setAddedTrail(newTrailToAdd);
       showModal(

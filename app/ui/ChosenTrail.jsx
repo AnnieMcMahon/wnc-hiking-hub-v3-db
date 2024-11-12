@@ -3,18 +3,18 @@ export default function ChosenTrail({ trailSelected }) {
     return (
       <div>
         <div id="chosen-trail" className="hike">
-          <h4>{trailSelected.name}</h4>
+          <h4>{trailSelected.trail_name}</h4>
           <p>{trailSelected.area_name}</p>
           <p>
-            {trailSelected.difficulty} * {trailSelected.length} mi *{" "}
-            {trailSelected.elevation} ft * {trailSelected.type}
+            {trailSelected.difficulty_rating} * {trailSelected.length} mi *{" "}
+            {trailSelected.elevation_gain} ft * {trailSelected.route_type}
           </p>
           <a
-            href={trailSelected.link}
+            href={trailSelected.trail_link}
             target="_blank"
             onClick={(e) => e.stopPropagation()}
           >
-            All Trails Link
+            AllTrails Link
           </a>
         </div>
       </div>

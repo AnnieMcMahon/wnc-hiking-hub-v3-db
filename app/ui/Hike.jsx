@@ -11,13 +11,13 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const router = useRouter();
   const [allTrailsInfo, setAllTrailsInfo] = useState({
     id: 0,
-    name: "",
+    trail_name: "",
     area_name: "",
-    difficulty: "",
+    difficulty_rating: "",
     length: null,
-    elevation: null,
-    type: "",
-    link: ""
+    elevation_gain: null,
+    route_type: "",
+    trail_link: ""
   });
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
         const index = newUserInfo.hikes.indexOf(e.target.name);
         newUserInfo.hikes.splice(index, 1);
         updateUser(newUserInfo);
-        router.push("/bio");
+        router.push("/join-hike");
         break;
       case "Edit Hike":
         setHike(e.target.name);
@@ -84,12 +84,12 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
         {hikingDate}, {hikingTime}, {hikeInfo.location}
       </h5>
       <p>
-        {allTrailsInfo.difficulty} * {allTrailsInfo.length} mi *{" "}
-        {allTrailsInfo.elevation} ft * {allTrailsInfo.type}
+        {allTrailsInfo.difficulty_rating} * {allTrailsInfo.length} mi *{" "}
+        {allTrailsInfo.elevation_gain} ft * {allTrailsInfo.route_type}
       </p>
       <p>{hikeInfo.comments}</p>
-      <a href={allTrailsInfo.link} target="_blank">
-        All Trails Link
+      <a href={allTrailsInfo.trail_link} target="_blank">
+        AllTrails Link
       </a>
       {buttonMessage.length > 0 && (
         <button

@@ -1,63 +1,63 @@
 const allTrails = [
   {
     id: 1,
-    name: 'Triple Falls Trail',
+    trail_name: 'Triple Falls Trail',
     area_name: 'DuPont State Recreational Forest',
-    difficulty: 'Moderate',
+    difficulty_rating: 'moderate',
     length: 2.7,
-    elevation: 393,
-    type: 'Loop',
-    link: 'https://www.alltrails.com/trail/us/north-carolina/triple-falls-trail'
+    elevation_gain: 393,
+    route_type: 'loop',
+    trail_link: 'https://www.alltrails.com/trail/us/north-carolina/triple-falls-trail'
   },
   {
     id: 2,
-    name: 'Hard Times Loop',
+    trail_name: 'Hard Times Loop',
     area_name: 'Pisgah National Forest',
-    difficulty: 'Moderate',
+    difficulty_rating: 'moderate',
     length: 6.4,
-    elevation: 531,
-    type: 'Loop',
-    link: 'https://www.alltrails.com/trail/us/north-carolina/hardtimes-loop'
+    elevation_gain: 531,
+    route_type: 'loop',
+    trail_link: 'https://www.alltrails.com/trail/us/north-carolina/hardtimes-loop'
   },
   {
     id: 3,
-    name: 'Lake Powhatan via Bent Creek Trail',
+    trail_name: 'Lake Powhatan via Bent Creek Trail',
     area_name: 'North Carolina Arboretum',
-    difficulty: 'Easy',
+    difficulty_rating: 'easy',
     length: 5.5,
-    elevation: 196,
-    type: 'Out & back',
-    link: 'https://www.alltrails.com/trail/us/north-carolina/lake-powhatan-loop-via-bent-creek-trail'
+    elevation_gain: 196,
+    route_type: 'out-and-back',
+    trail_link: 'https://www.alltrails.com/trail/us/north-carolina/lake-powhatan-loop-via-bent-creek-trail'
   },
   {
     id: 4,
-    name: 'Owl Ridge Trail',
+    trail_name: 'Owl Ridge Trail',
     area_name: 'North Carolina Arboretum',
-    difficulty: 'Moderate',
+    difficulty_rating: 'moderate',
     length: 5.4,
-    elevation: 403,
-    type: 'Loop',
-    link: 'https://www.alltrails.com/trail/us/north-carolina/owl-ridge-trail'
+    elevation_gain: 403,
+    route_type: 'loop',
+    trail_link: 'https://www.alltrails.com/trail/us/north-carolina/owl-ridge-trail'
   },
   {
     id: 5,
-    name: 'Fletcher Loop',
+    trail_name: 'Fletcher Loop',
     area_name: 'Bill Moore Community Park',
-    difficulty: 'Easy',
+    difficulty_rating: 'easy',
     length: 3.1,
-    elevation: 22,
-    type: 'Loop',
-    link: 'https://www.alltrails.com/explore/trail/us/north-carolina/fletcher-park-loop'
+    elevation_gain: 22,
+    route_type: 'loop',
+    trail_link: 'https://www.alltrails.com/explore/trail/us/north-carolina/fletcher-park-loop'
   },
   {
     id: 6,
-    name: 'Looking Glass Rock Trail',
+    trail_name: 'Looking Glass Rock Trail',
     area_name: 'Pisgah National Forest',
-    difficulty: 'Moderate',
+    difficulty_rating: 'moderate',
     length: 6.1,
-    elevation: 1683,
-    type: 'Out & back',
-    link: 'https://www.alltrails.com/trail/us/north-carolina/looking-glass-rock-trail'
+    elevation_gain: 1683,
+    route_type: 'out-and-back',
+    trail_link: 'https://www.alltrails.com/trail/us/north-carolina/looking-glass-rock-trail'
   },
 ];
 

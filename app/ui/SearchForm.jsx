@@ -20,19 +20,19 @@ export default function SearchForm({
         <option value="Nantahala Forest">Nantahala Forest</option>
       </select>
       <br />
-      <label htmlFor="difficulty">Difficulty: </label>
-      <select name="difficulty" id="difficulty" onChange={searchByDifficulty}>
+      <label htmlFor="difficulty_rating">Difficulty Rating: </label>
+      <select name="difficulty_rating" id="difficulty_rating" onChange={searchByDifficulty}>
         <option value={ANY_DIFFICULTY}>{ANY_DIFFICULTY}</option>
-        <option value="Easy">Easy</option>
-        <option value="Moderate">Moderate</option>
-        <option value="Strenuous">Strenuous</option>
+        <option value="easy">easy</option>
+        <option value="moderate">moderate</option>
+        <option value="hard">hard</option>
       </select>
       <label htmlFor="length"> Length: </label>
       <select name="length" id="length" onChange={searchByLength}>
         <option value={ANY_LENGTH}>{ANY_LENGTH}</option>
-        <option value="Short">Shorter than 3 miles</option>
-        <option value="Medium">From 3 to 6 miles</option>
-        <option value="Long">Longer than 6 miles</option>
+        <option value="short">Shorter than 3 miles</option>
+        <option value="medium">From 3 to 6 miles</option>
+        <option value="long">Longer than 6 miles</option>
       </select>
       <br />
     </form>

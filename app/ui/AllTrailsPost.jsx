@@ -1,10 +1,10 @@
 export default function AllTrailsPost({trailInfo, onClick}) {
   return (
     <div id="AllTrailsPost" className="hike" onClick={onClick}>
-      <h4>{trailInfo.name}</h4>
+      <h4>{trailInfo.trail_name}</h4>
       <p>{trailInfo.area_name}</p>
-      <p>{trailInfo.difficulty} * {trailInfo.length} mi * {trailInfo.elevation} ft * {trailInfo.type}</p>
-      <a href={trailInfo.link} target="_blank" onClick={(e) => e.stopPropagation()}>All Trails Link</a>
+      <p>{trailInfo.difficulty_rating} * {trailInfo.length} mi * {trailInfo.elevation_gain} ft * {trailInfo.route_type}</p>
+      <a href={trailInfo.trail_link} target="_blank" onClick={(e) => e.stopPropagation()}>AllTrails Link</a>
     </div>
   );
 };

@@ -38,13 +38,13 @@ export async function addTrail(trailInfo) {
     const { data, error } = await supabase
     .from('trails')
     .insert({ 
-      name: trailInfo.name,
+      trail_name: trailInfo.trail_name,
       area_name: trailInfo.area_name,
-      difficulty: trailInfo.difficulty,
+      difficulty_rating: trailInfo.difficulty_rating,
       length: trailInfo.length,
-      elevation: trailInfo.elevation,
-      type: trailInfo.type,
-      link: trailInfo.link
+      elevation_gain: trailInfo.elevation_gain,
+      route_type: trailInfo.route_type,
+      trail_link: trailInfo.trail_link
      })
      .select();
 
@@ -59,19 +59,19 @@ export async function addTrail(trailInfo) {
   }
 };
 
-export async function filterTrailList(area_name, difficulty, length) {
+export async function filterTrailList(area_name, difficulty_rating, length) {
   let newList = await fetchAllTrails();
   if (area_name !== ANY_AREA) {
     newList = newList.filter(trail => trail.area_name == area_name)
   }
-  if (difficulty !== ANY_DIFFICULTY) {
-    newList = newList.filter(trail => trail.difficulty == difficulty)
+  if (difficulty_rating !== ANY_DIFFICULTY) {
+    newList = newList.filter(trail => trail.difficulty_rating == difficulty_rating)
   }
   if (length !== ANY_LENGTH) {
     newList = newList.filter(trail => 
-      (length == "Short" && Number(trail.length) < 3) ||
-      (length == "Long" && Number(trail.length > 6)) ||
-        (length == "Medium" && Number(trail.length) >=3 && Number(trail.length) <= 6))
+      (length == "short" && Number(trail.length) < 3) ||
+      (length == "long" && Number(trail.length > 6)) ||
+        (length == "medium" && Number(trail.length) >=3 && Number(trail.length) <= 6))
   }
   return newList;
 };
