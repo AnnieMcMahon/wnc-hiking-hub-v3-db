@@ -108,6 +108,12 @@ button .button-link {
   color: inherit;
 }
 
+button .add-trail-button {
+  float: right;
+}
+
+
+
 /*Hike section buttons */
 .hike-button {
   margin: 0.1rem;

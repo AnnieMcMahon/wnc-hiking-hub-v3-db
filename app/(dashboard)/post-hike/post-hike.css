@@ -36,6 +36,12 @@
   height: 4rem;
 }
 
+#post-hike .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #chosen-hike, #chosen-hike-placeholder {
   line-height: 1rem;
   width: 70%;

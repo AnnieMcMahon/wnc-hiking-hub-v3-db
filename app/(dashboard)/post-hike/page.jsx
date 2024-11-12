@@ -29,7 +29,11 @@ export default function PostHike() {
 
   useEffect(() => {
     const fetchNewList = async () => {
-      const newList = await filterTrailList(searchArea, searchDifficulty, searchLength);
+      const newList = await filterTrailList(
+        searchArea,
+        searchDifficulty,
+        searchLength
+      );
       setFilteredList(newList);
       return newList;
     };
@@ -42,14 +46,18 @@ export default function PostHike() {
 
   function searchByDifficulty(e) {
     setSearchDifficulty(e.target.value);
-  };
+  }
 
   function searchByLength(e) {
     setSearchLength(e.target.value);
-  };
+  }
 
   function handleClick(trail) {
     setChosenHike(trail);
+  }
+
+  function handleAddTrail() {
+    router.push("/add-trail");
   }
 
   function handleSubmit(e) {
@@ -102,24 +110,31 @@ export default function PostHike() {
       <div className="content">
         <div id="form-area" className="text-box">
           <h2>1. Search for a trail</h2>
-          <SearchForm searchByArea={searchByArea} searchByDifficulty={searchByDifficulty} searchByLength={searchByLength} />
+          <SearchForm
+            searchByArea={searchByArea}
+            searchByDifficulty={searchByDifficulty}
+            searchByLength={searchByLength}
+          />
           <h2>2. Select a trail from the right column</h2>
           <ChosenHike hikeSelected={chosenHike} />
           <h2>3. Fill out the hike information</h2>
-          <HikeForm onSubmit={handleSubmit}/>
+          <HikeForm onSubmit={handleSubmit} />
           <Modal />
         </div>
         <div className="hike-section">
-      <h2>Trail Search Results</h2>
-      {filteredList.map((trail) => (
-        <AllTrailsPost
-          hikeInfo={trail}
-          key={trail.id}
-          onClick={() => handleClick(trail)}
-        />
-      ))}
-    </div>
+          <div className="section-header">
+          <h2>Trail Search Results</h2>
+          <button className="add-trail-button" onClick={handleAddTrail}>Add New Trail</button>
+          </div>
+          {filteredList.map((trail) => (
+            <AllTrailsPost
+              hikeInfo={trail}
+              key={trail.id}
+              onClick={() => handleClick(trail)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
-};
+}
