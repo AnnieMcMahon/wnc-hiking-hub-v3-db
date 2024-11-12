@@ -58,11 +58,15 @@ export default function AddTrail() {
     }
   }
 
+  function handleCancel() {
+    router.push("/post-hike");
+  }
+
   return (
     <div id="add-trail">
       <h1>Add New Trail</h1>
       <div id="form-area" className="text-box">
-      <TrailForm onSubmit={handleSubmit} />
+      <TrailForm onSubmit={handleSubmit} onClick={handleCancel} />
       <Modal />
       </div>
     </div>

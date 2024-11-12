@@ -1,4 +1,4 @@
-export default function TrailForm({ onSubmit }) {
+export default function TrailForm({ onSubmit, onClick }) {
   return (
     <form className="trail-form" onSubmit={onSubmit}>
       <p>Copy and paste all the information from AllTrails:</p>
@@ -34,6 +34,9 @@ export default function TrailForm({ onSubmit }) {
       <div className="form-button-section">
       <button type="submit" className="form-button">
         Submit Form
+      </button>
+      <button type="button" className="form-button" onClick={onClick}>
+        Cancel
       </button>
       </div>
     </form>

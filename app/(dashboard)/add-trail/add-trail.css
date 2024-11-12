@@ -29,11 +29,11 @@
 
 #add-trail label{
   display: inline-block;
-  width: 5rem;
+  width: 7rem;
 }
 
 #add-trail input {
-  width: 20rem;
+  width: 18rem;
   display: inline-block;
   clear: left;
   padding-right: 1rem;
