@@ -1,4 +1,4 @@
-import { supabase } from "@/app/lib/initSupabase";
+import { supabase } from "@/app/api/initSupabase";
 
 export async function fetchAllTrails() {
   try {

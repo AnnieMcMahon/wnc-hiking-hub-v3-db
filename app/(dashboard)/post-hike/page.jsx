@@ -9,6 +9,7 @@ import SearchForm from "@/app/ui/SearchForm";
 import HikeForm from "@/app/ui/HikeForm";
 import Modal from "@/app/ui/Modal";
 import AllTrailsPost from "@/app/ui/AllTrailsPost";
+import { ANY_AREA, ANY_LENGTH, ANY_DIFFICULTY } from "@/app/lib/constants";
 import "./post-hike.css";
 
 export default function PostHike() {
@@ -23,9 +24,9 @@ export default function PostHike() {
   const router = useRouter();
   const [filteredList, setFilteredList] = useState(allTrails);
   const [chosenHike, setChosenHike] = useState(null);
-  const [searchArea, setSearchArea] = useState("Anywhere in WNC");
-  const [searchDifficulty, setSearchDifficulty] = useState("Any");
-  const [searchLength, setSearchLength] = useState("Any length");
+  const [searchArea, setSearchArea] = useState(ANY_AREA);
+  const [searchDifficulty, setSearchDifficulty] = useState(ANY_DIFFICULTY);
+  const [searchLength, setSearchLength] = useState(ANY_LENGTH);
 
   useEffect(() => {
     const fetchNewList = async () => {

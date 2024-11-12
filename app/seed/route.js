@@ -1,4 +1,4 @@
-import { supabase } from "@/app/lib/initSupabase";
+import { supabase } from "@/app/api/initSupabase";
 import { allTrails } from "@/app/lib/seed";
 
 async function seedAllTrails() {
