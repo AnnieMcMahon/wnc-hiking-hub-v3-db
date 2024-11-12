@@ -1,49 +1,32 @@
-/* Once the code to seed the database is ready, navigate to "/seed" to run the code. Only needs to run once, then delete (or comment out) this file. Need to work on the code to create the table (copy/paste from a tutorial, doesn't work)
+/* Once the code to seed the database is ready, navigate to "/seed" to run the code. Only needs to run once, then delete (or comment out) this file. Need to work on the code to create the table (copy/paste from a tutorial, doesn't work) */
 
 import { supabase } from "@/app/api/initSupabase";
-import { allTrails } from "@/app/lib/seed";
+import { sampleAppUsers } from "@/app/lib/seed";
 
-async function seedAllTrails() {
-  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-  await client.sql`
-    CREATE TABLE IF NOT EXISTS allTrails (
-      id INT PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      area VARCHAR(255) NOT NULL,
-      difficulty VARCHAR(12) NOT NULL,
-      length DECIMAL NOT NULL,
-      elevation INT,
-      type VARCHAR(20),
-      link VARCHAR(255)
-    );
-  `;
-
-  const insertedTrails = await Promise.all(
-    allTrails.map(async (trail) => {
+async function seedUsers() {
+  const insertedUsers = await Promise.all(
+    sampleAppUsers.map(async (user) => {
       return supabase
-        .from("allTrails")
+        .from("users")
         .insert({
-          id: trail.id,
-          name: trail.name,
-          area: trail.area,
-          difficulty: trail.difficulty,
-          length: trail.length,
-          elevation: trail.elevation,
-          type: trail.type,
-          link: trail.link,
+          email: user.email,
+          password: user.password,
+          user_name: user.user_name,
+          avatar: user.avatar,
+          bio: user.bio,
+          user_hikes: user.user_hikes
         })
-        .onConflict("id"); // Prevents insertion if id already exists
     })
   );
-  return insertedTrails;
+  return insertedUsers;
 }
 
 export async function GET() {
   try {
-    const insertedTrails = await seedAllTrails();
-    return Response.json({ message: 'Database seeded successfully', insertedTrails });
+    const insertedUsers = await seedUsers();
+    return Response.json({ message: 'Database seeded successfully', insertedUsers });
   } catch (error) {
     console.error("Error seeding database:", error);
     return Response.json({ error: error.message }, { status: 500 });
   }
-} */
+} 

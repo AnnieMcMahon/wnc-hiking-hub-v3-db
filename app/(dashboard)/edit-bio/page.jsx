@@ -9,7 +9,7 @@ function EditBio() {
   const router = useRouter();
   const { currentUser, setCurrentUser, appUsers, setAppUsers } = useGlobal();
   const [bioInfo, setBioInfo] = useState({
-    name: currentUser.name,
+    user_name: currentUser.user_name,
     bio: currentUser.bio,
   });
   const [avatarFile, setAvatarFile] = useState();
@@ -17,10 +17,10 @@ function EditBio() {
   function handleSubmit(e) {
     e.preventDefault();
     const newInfo = currentUser;
-    let newName = bioInfo.name;
+    let newName = bioInfo.user_name;
     let newAvatar = avatarFile;
     let newBio = bioInfo.bio;
-    if (newName) newInfo.name = newName;
+    if (newName) newInfo.user_name = newName;
     if (newAvatar) newInfo.avatar = newAvatar;
     if (newBio) newInfo.bio = newBio;
     //Update state and localStorage

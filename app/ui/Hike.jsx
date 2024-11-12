@@ -48,12 +48,12 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     let newUserInfo = currentUser;
     switch (e.target.value) {
       case "Join Hike":
-        newUserInfo.hikes.push(Number(e.target.name));
+        newUserInfo.user_hikes.push(Number(e.target.name));
         updateUser(newUserInfo);
         break;
       case "Opt Out":
-        const index = newUserInfo.hikes.indexOf(e.target.name);
-        newUserInfo.hikes.splice(index, 1);
+        const index = newUserInfo.user_hikes.indexOf(e.target.name);
+        newUserInfo.user_hikes.splice(index, 1);
         updateUser(newUserInfo);
         router.push("/join-hike");
         break;

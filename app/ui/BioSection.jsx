@@ -3,7 +3,7 @@ export default function BioSection({user, onClick}) {
     <div className="bio-section">
         <div className="bio-header-section">
           <img className="avatar" src={user.avatar} alt="avatar"/>
-          <h1>{user.name}</h1>
+          <h1>{user.user_name}</h1>
           <button onClick={onClick}>Edit Bio</button>
         </div>
         <div className="bio-text-section">

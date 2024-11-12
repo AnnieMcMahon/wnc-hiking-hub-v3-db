@@ -42,10 +42,10 @@ function Login() {
         id: newUserId,
         email,
         password,
-        name: `Avid Hiker #${newUserId}`,
+        user_name: `Avid Hiker #${newUserId}`,
         avatar: "/newUser.png",
         bio: "Enter your bio description here",
-        hikes: [],
+        user_hikes: [],
       };
       setAppUsers((existingUsers) => [...existingUsers, newUser]);
       setCurrentUser(newUser);

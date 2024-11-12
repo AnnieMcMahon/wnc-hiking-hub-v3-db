@@ -93,12 +93,12 @@ export default function PostHike() {
       setHikes((prevHikes) => [...prevHikes, newHike]);
       setCurrentUser((prevUser) => ({
         ...prevUser,
-        hikes: [...prevUser.hikes, newHike.id],
+        user_hikes: [...prevUser.user_hikes, newHike.id],
       }));
       setAppUsers((prevAppUsers) =>
         prevAppUsers.map((user) =>
           user.id === currentUser.id
-            ? { ...user, hikes: [...user.hikes, newHike.id] }
+            ? { ...user, user_hikes: [...user.user_hikes, newHike.id] }
             : user
         )
       );

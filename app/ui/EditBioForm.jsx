@@ -4,12 +4,12 @@ export default function EditBioForm({bioInfo, onSubmit, onClick, onChange, handl
       <h1>Edit Bio</h1>
       <div id="form-area" className="text-box">
         <form onSubmit={onSubmit}>
-          <label htmlFor="newName">Name: </label>
+          <label htmlFor="user_name">Name: </label>
           <input
             type="text"
-            name="name"
-            id="newName"
-            value={bioInfo.name || ""}
+            name="user_name"
+            id="user_name"
+            value={bioInfo.user_name || ""}
             autoComplete="true"
             onChange={onChange}
           />

@@ -15,7 +15,7 @@ function JoinHike() {
     hikeDate.setHours(0, 0, 0, 0);
     if (hikeDate >= currentDate) {
       if (hike.creator !== currentUser.id) {
-        if (currentUser.hikes.indexOf(hike.id) == -1) {
+        if (currentUser.user_hikes.indexOf(hike.id) == -1) {
           if (!hike.title.includes("CANCELLED"))
             sortedHikeList.push(hike);
         }

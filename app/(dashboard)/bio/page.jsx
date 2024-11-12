@@ -21,7 +21,7 @@ export default function Bio() {
   
     hikes.forEach((hike) => {
       const hikeDate = new Date(hike.date).setHours(0, 0, 0, 0);
-      if (currentUser.hikes.includes(hike.id)) {
+      if (currentUser.user_hikes.includes(hike.id)) {
         if (hikeDate < currentDate) {
           sortedPastHikes.push(hike);
         } else {
