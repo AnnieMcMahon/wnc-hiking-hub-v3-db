@@ -1,20 +1,22 @@
+/* Once the code to seed the database is ready, navigate to "/seed" to run the code. Only needs to run once, then delete (or comment out) this file. Need to work on the code to create the table (copy/paste from a tutorial, doesn't work)
+
 import { supabase } from "@/app/api/initSupabase";
 import { allTrails } from "@/app/lib/seed";
 
 async function seedAllTrails() {
-  // await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-  // await client.sql`
-  //   CREATE TABLE IF NOT EXISTS allTrails (
-  //     id INT PRIMARY KEY,
-  //     name VARCHAR(255) NOT NULL,
-  //     area VARCHAR(255) NOT NULL,
-  //     difficulty VARCHAR(12) NOT NULL,
-  //     length DECIMAL NOT NULL,
-  //     elevation INT,
-  //     type VARCHAR(20),
-  //     link VARCHAR(255)
-  //   );
-  // `;
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS allTrails (
+      id INT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      area VARCHAR(255) NOT NULL,
+      difficulty VARCHAR(12) NOT NULL,
+      length DECIMAL NOT NULL,
+      elevation INT,
+      type VARCHAR(20),
+      link VARCHAR(255)
+    );
+  `;
 
   const insertedTrails = await Promise.all(
     allTrails.map(async (trail) => {
@@ -30,7 +32,7 @@ async function seedAllTrails() {
           type: trail.type,
           link: trail.link,
         })
-        // .onConflict("id"); // Prevents insertion if id already exists
+        .onConflict("id"); // Prevents insertion if id already exists
     })
   );
   return insertedTrails;
@@ -44,4 +46,4 @@ export async function GET() {
     console.error("Error seeding database:", error);
     return Response.json({ error: error.message }, { status: 500 });
   }
-}
+} */

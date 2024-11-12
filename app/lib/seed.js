@@ -2,7 +2,7 @@ const allTrails = [
   {
     id: 1,
     name: 'Triple Falls Trail',
-    area: 'DuPont State Recreational Forest',
+    area_name: 'DuPont State Recreational Forest',
     difficulty: 'Moderate',
     length: 2.7,
     elevation: 393,
@@ -12,7 +12,7 @@ const allTrails = [
   {
     id: 2,
     name: 'Hard Times Loop',
-    area: 'Pisgah National Forest',
+    area_name: 'Pisgah National Forest',
     difficulty: 'Moderate',
     length: 6.4,
     elevation: 531,
@@ -22,7 +22,7 @@ const allTrails = [
   {
     id: 3,
     name: 'Lake Powhatan via Bent Creek Trail',
-    area: 'North Carolina Arboretum',
+    area_name: 'North Carolina Arboretum',
     difficulty: 'Easy',
     length: 5.5,
     elevation: 196,
@@ -32,7 +32,7 @@ const allTrails = [
   {
     id: 4,
     name: 'Owl Ridge Trail',
-    area: 'North Carolina Arboretum',
+    area_name: 'North Carolina Arboretum',
     difficulty: 'Moderate',
     length: 5.4,
     elevation: 403,
@@ -42,7 +42,7 @@ const allTrails = [
   {
     id: 5,
     name: 'Fletcher Loop',
-    area: 'Bill Moore Community Park',
+    area_name: 'Bill Moore Community Park',
     difficulty: 'Easy',
     length: 3.1,
     elevation: 22,
@@ -52,7 +52,7 @@ const allTrails = [
   {
     id: 6,
     name: 'Looking Glass Rock Trail',
-    area: 'Pisgah National Forest',
+    area_name: 'Pisgah National Forest',
     difficulty: 'Moderate',
     length: 6.1,
     elevation: 1683,

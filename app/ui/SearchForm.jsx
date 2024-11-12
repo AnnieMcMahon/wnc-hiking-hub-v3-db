@@ -7,8 +7,8 @@ export default function SearchForm({
 }) {
   return (
     <form>
-      <label htmlFor="area">Area: </label>
-      <select name="area" id="area" onChange={searchByArea}>
+      <label htmlFor="area_name">Area Name: </label>
+      <select name="area_name" id="area_name" onChange={searchByArea}>
         <option value={ANY_AREA}>{ANY_AREA}</option>
         <option value="DuPont State Recreational Forest">
           DuPont State Recreational Forest

@@ -3,8 +3,8 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { filterTrailList } from "@/app/api/data";
-import { allTrails } from "@/app/lib/seed";
-import ChosenHike from "@/app/ui/ChosenHike";
+import { allTrails } from "@/app/lib/seed"; // Need to eliminate
+import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";
 import HikeForm from "@/app/ui/HikeForm";
 import Modal from "@/app/ui/Modal";
@@ -22,8 +22,8 @@ export default function PostHike() {
     showModal,
   } = useGlobal();
   const router = useRouter();
-  const [filteredList, setFilteredList] = useState(allTrails);
-  const [chosenHike, setChosenHike] = useState(null);
+  const [filteredList, setFilteredList] = useState(allTrails); //Need to change
+  const [chosenTrail, setChosenTrail] = useState(null);
   const [searchArea, setSearchArea] = useState(ANY_AREA);
   const [searchDifficulty, setSearchDifficulty] = useState(ANY_DIFFICULTY);
   const [searchLength, setSearchLength] = useState(ANY_LENGTH);
@@ -54,7 +54,7 @@ export default function PostHike() {
   }
 
   function handleClick(trail) {
-    setChosenHike(trail);
+    setChosenTrail(trail);
   }
 
   function handleAddTrail() {
@@ -64,14 +64,15 @@ export default function PostHike() {
   function handleSubmit(e) {
     e.preventDefault();
     const newId = hikes[hikes.length - 1].id + 1;
-    const newAllTrailsId = chosenHike ? chosenHike.id : -1;
+    const newAllTrailsId = chosenTrail.id;
+    console.log("AllTrails ID: ", chosenTrail.id);
     const newTitle = e.target.hikeTitle.value;
     const newDate = e.target.date.value;
     const newTime = e.target.time.value;
     const newLocation = e.target.location.value;
     const newComments = e.target.comments.value;
     if (
-      newAllTrailsId > -1 &&
+      newAllTrailsId &&
       newTitle &&
       newDate &&
       newTime &&
@@ -88,6 +89,7 @@ export default function PostHike() {
         location: newLocation,
         comments: newComments,
       };
+      console.log("AllTrailsID saved: ", newHike.allTrailsId);
       setHikes((prevHikes) => [...prevHikes, newHike]);
       setCurrentUser((prevUser) => ({
         ...prevUser,
@@ -117,7 +119,7 @@ export default function PostHike() {
             searchByLength={searchByLength}
           />
           <h2>2. Select a trail from the right column</h2>
-          <ChosenHike hikeSelected={chosenHike} />
+          <ChosenTrail trailSelected={chosenTrail} />
           <h2>3. Fill out the hike information</h2>
           <HikeForm onSubmit={handleSubmit} />
           <Modal />
@@ -129,7 +131,7 @@ export default function PostHike() {
           </div>
           {filteredList.map((trail) => (
             <AllTrailsPost
-              hikeInfo={trail}
+              trailInfo={trail}
               key={trail.id}
               onClick={() => handleClick(trail)}
             />

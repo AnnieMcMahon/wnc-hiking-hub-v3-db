@@ -42,12 +42,12 @@
   align-items: center;
 }
 
-#chosen-hike, #chosen-hike-placeholder {
+#chosen-hike, #chosen-trail-placeholder {
   line-height: 1rem;
   width: 70%;
 }
 
-#chosen-hike {
+#chosen-trail {
   margin: 0.5rem;
   padding: 0.2rem 1rem;
 }

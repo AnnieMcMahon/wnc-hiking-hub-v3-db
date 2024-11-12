@@ -1,6 +1,7 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import BioSection from "@/app/ui/BioSection";
 import HikeSection from "@/app/ui/HikeSection";
 import "./bio.css";
@@ -8,26 +9,35 @@ import "./bio.css";
 export default function Bio() {
   const { currentUser, hikes } = useGlobal();
   const router = useRouter();
-  const upcomingHikes = [];
-  const pastHikes = [];
-  const createdHikes = [];
-  const currentDate = new Date().setHours(0, 0, 0, 0);
+  const [upcomingHikes, setUpcomingHikes] = useState([]);
+  const [pastHikes, setPastHikes] = useState([]);
+  const [createdHikes, setCreatedHikes] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date().setHours(0, 0, 0, 0));
 
-  hikes.forEach((hike) => {
-    const hikeDate = new Date(hike.date).setHours(0, 0, 0, 0);
-    if (currentUser.hikes.indexOf(hike.id) !== -1) {
-      if (hikeDate < currentDate) {
-        pastHikes.push(hike);
-      } else {
-        upcomingHikes.push(hike);
+  useEffect(() => {
+    const sortedPastHikes = [];
+    const sortedUpcomingHikes = [];
+    const createdHikesList = [];
+  
+    hikes.forEach((hike) => {
+      const hikeDate = new Date(hike.date).setHours(0, 0, 0, 0);
+      if (currentUser.hikes.includes(hike.id)) {
+        if (hikeDate < currentDate) {
+          sortedPastHikes.push(hike);
+        } else {
+          sortedUpcomingHikes.push(hike);
+        }
+        if (hike.creator === currentUser.id) {
+          createdHikesList.push(hike.id);
+        }
       }
-      if (hike.creator == currentUser.id) {
-        createdHikes.push(hike.id);
-      }
-    }
-  });
-  pastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
-  upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
+    });
+    sortedPastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
+    sortedUpcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
+    setPastHikes(sortedPastHikes);
+    setUpcomingHikes(sortedUpcomingHikes);
+    setCreatedHikes(createdHikesList);
+  }, [hikes, currentUser]);
 
   function handleClick() {
     router.push("/edit-bio");

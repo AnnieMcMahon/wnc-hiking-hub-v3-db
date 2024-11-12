@@ -12,7 +12,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const [allTrailsInfo, setAllTrailsInfo] = useState({
     id: 0,
     name: "",
-    area: "",
+    area_name: "",
     difficulty: "",
     length: null,
     elevation: null,
@@ -22,7 +22,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
 
   useEffect(() => {
     const fetchTrailInfo = async () => {
-      const trailInfo = await fetchTrailById(hikeInfo.id);
+      const trailInfo = await fetchTrailById(hikeInfo.allTrailsId);
       setAllTrailsInfo(trailInfo[0]);
       return trailInfo;
     };
@@ -52,9 +52,10 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
         updateUser(newUserInfo);
         break;
       case "Opt Out":
-        const index = newUserInfo.hikes.indexOf(Number(e.target.name));
+        const index = newUserInfo.hikes.indexOf(e.target.name);
         newUserInfo.hikes.splice(index, 1);
         updateUser(newUserInfo);
+        router.push("/bio");
         break;
       case "Edit Hike":
         setHike(e.target.name);
@@ -78,7 +79,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
       <h4>
         {hikeInfo.title}, with {hikeCreator ? hikeCreator.name : "Unknown"}
       </h4>
-      <h5>{allTrailsInfo.area}</h5>
+      <h5>{allTrailsInfo.area_name}</h5>
       <h5>
         {hikingDate}, {hikingTime}, {hikeInfo.location}
       </h5>

@@ -28,7 +28,7 @@ export default function AddTrail() {
     e.preventDefault();
     if (
       e.target.trailName.value &&
-      e.target.area.value &&
+      e.target.area_name.value &&
       e.target.difficulty.value &&
       e.target.length.value &&
       e.target.elevation.value &&
@@ -37,7 +37,7 @@ export default function AddTrail() {
     ) {
       const newTrailToAdd = {
         name: e.target.trailName.value,
-        area: e.target.area.value,
+        area_name: e.target.area_name.value,
         difficulty: e.target.difficulty.value,
         length: e.target.length.value,
         elevation: e.target.elevation.value,

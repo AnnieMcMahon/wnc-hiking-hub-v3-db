@@ -3,7 +3,7 @@ import Hike from "./Hike";
 export default function HikeSection({
   upcomingHikes,
   pastHikes,
-  createdHikes,
+  createdHikes
 }) {
   return (
     <div className="hike-section">

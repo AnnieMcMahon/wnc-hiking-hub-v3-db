@@ -5,8 +5,8 @@ export default function TrailForm({ onSubmit }) {
       <label htmlFor="trailName">Name: </label>
       <input type="text" name="trailName" id="trailName" />
       <br />
-      <label htmlFor="area">Area: </label>
-      <input type="text" name="area" id="area" />
+      <label htmlFor="area_name">Area Name: </label>
+      <input type="text" name="area_name" id="area_name" />
       <br />
       <label htmlFor="difficulty"> Difficulty: </label>
       <select name="difficulty" id="difficulty">

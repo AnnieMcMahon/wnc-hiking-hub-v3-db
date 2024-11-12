@@ -1,0 +1,31 @@
+export default function ChosenTrail({ trailSelected }) {
+  if (trailSelected) {
+    return (
+      <div>
+        <div id="chosen-trail" className="hike">
+          <h4>{trailSelected.name}</h4>
+          <p>{trailSelected.area_name}</p>
+          <p>
+            {trailSelected.difficulty} * {trailSelected.length} mi *{" "}
+            {trailSelected.elevation} ft * {trailSelected.type}
+          </p>
+          <a
+            href={trailSelected.link}
+            target="_blank"
+            onClick={(e) => e.stopPropagation()}
+          >
+            All Trails Link
+          </a>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div className="hike" id="chosen-trail-placeholder">
+        <h2>Choose a trail</h2>
+        </div>
+      </div>
+    );
+  }
+}
