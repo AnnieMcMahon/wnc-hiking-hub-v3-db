@@ -15,7 +15,8 @@ export default function EditHike() {
     date: "",
     time: "",
     location: "",
-    comments: ""
+    comments: "",
+    status: "new"
   }
   const [hikeInfo, setHikeInfo] = useState(currentHikeInfo);
 

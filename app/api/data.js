@@ -50,12 +50,12 @@ export async function addTrail(trailInfo) {
 
     if (error) {
       console.error("Database Error:", error);
-      throw new Error("Failed to fetch trail data.");
+      throw new Error("Failed to add new trail.");
     }
     return data; 
   } catch (error) {
     console.error("Fetch Error:", error);
-    throw new Error("Failed to fetch trail data.");
+    throw new Error("Failed to fetch new trail data.");
   }
 };
 
@@ -76,3 +76,45 @@ export async function filterTrailList(area_name, difficulty_rating, length) {
   return newList;
 };
 
+export async function fetchUserByEmail(email) {
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("email", email);
+      ;
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to fetch user data.");
+    }
+    return data; 
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch user data.");
+  }
+};
+
+export async function addUser(userInfo) {
+  try {
+    const { data, error } = await supabase
+    .from('users')
+    .insert({ 
+      email: userInfo.email,
+      password: userInfo.password,
+      user_name: userInfo.user_name,
+      avatar: userInfo.avatar,
+      bio: userInfo.bio,
+      user_hikes: userInfo.userHikes
+     })
+     .select();
+
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to add user.");
+    }
+    return data; 
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch new user.");
+  }
+};

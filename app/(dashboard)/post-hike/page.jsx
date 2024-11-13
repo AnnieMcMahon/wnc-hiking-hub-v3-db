@@ -88,6 +88,7 @@ export default function PostHike() {
         time: newTime,
         location: newLocation,
         comments: newComments,
+        status: "new"
       };
       console.log("AllTrailsID saved: ", newHike.allTrailsId);
       setHikes((prevHikes) => [...prevHikes, newHike]);

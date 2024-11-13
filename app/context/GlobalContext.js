@@ -34,9 +34,6 @@ export function GlobalProvider({ children }) {
   }
 
   useEffect(() => {
-    // const storedUsers = JSON.parse(localStorage.getItem("appUsers"));
-    // const storedHikes = JSON.parse(localStorage.getItem("hikes"));
-    // const storedUser = JSON.parse(localStorage.getItem("currentUser"));
     localStorage.clear();
     localStorage.setItem("hikes", JSON.stringify(sampleHikes));
     localStorage.setItem("appUsers", JSON.stringify(sampleAppUsers));
