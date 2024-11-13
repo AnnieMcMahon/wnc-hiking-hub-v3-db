@@ -15,9 +15,10 @@ function JoinHike() {
     hikeDate.setHours(0, 0, 0, 0);
     if (hikeDate >= currentDate) {
       if (hike.creator !== currentUser.id) {
-        if (currentUser.user_hikes.indexOf(hike.id) == -1) {
-          if (!hike.title.includes("CANCELLED"))
-            sortedHikeList.push(hike);
+        if (currentUser.user_hikes) {
+          if (currentUser.user_hikes.indexOf(hike.id) == -1) {
+            if (!hike.title.includes("CANCELLED")) sortedHikeList.push(hike);
+          }
         }
       }
     }
@@ -31,9 +32,9 @@ function JoinHike() {
     <div id="join-hike">
       <h3>Select a hike you would like to join:</h3>
       <div className="hike-section">
-        {sortedHikeList.map(hike => 
-        <Hike hikeType="available" hikeInfo={hike} key={hike.id}/>
-        )}
+        {sortedHikeList.map((hike) => (
+          <Hike hikeType="available" hikeInfo={hike} key={hike.id} />
+        ))}
       </div>
     </div>
   );

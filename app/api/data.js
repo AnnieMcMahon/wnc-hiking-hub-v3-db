@@ -94,6 +94,24 @@ export async function fetchUserByEmail(email) {
   }
 };
 
+export async function fetchUserById(id) {
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", id);
+      ;
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to fetch user data.");
+    }
+    return data; 
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch user data.");
+  }
+};
+
 export async function addUser(userInfo) {
   try {
     const { data, error } = await supabase
@@ -122,6 +140,7 @@ export async function updateUser(userInfo) {
       user_name: userInfo.user_name,
       avatar: userInfo.avatar,
       bio: userInfo.bio,
+      user_hikes: userInfo.user_hikes
      })
      .eq("id", userInfo.id);
     if (error) {
@@ -149,3 +168,31 @@ export async function uploadAvatar(file, userId) {
   const publicURL = data.publicUrl;
   return publicURL;
 };
+
+export async function addHike(hikeInfo) {
+  try {
+    const { data, error } = await supabase
+    .from('hikes')
+    .insert({ 
+      creator_id: hikeInfo.creator_id,
+      trail_id: hikeInfo.trail_id,
+      title: hikeInfo.title,
+      date: hikeInfo.date,
+      time: hikeInfo.time,
+      location: hikeInfo.location,
+      comments: hikeInfo.comments,
+      status: hikeInfo.status
+     })
+     .select();
+
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to add new hike.");
+    }
+    return data; 
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch new hike data.");
+  }
+};
+
