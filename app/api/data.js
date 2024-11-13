@@ -196,3 +196,52 @@ export async function addHike(hikeInfo) {
   }
 };
 
+export async function fetchHikeById(id) {
+  try {
+    const { data, error } = await supabase
+      .from("hikes")
+      .select("*")
+      .eq("id", id);
+      ;
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to fetch hike data.");
+    }
+    return data; 
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch hike data.");
+  }
+};
+
+export async function fetchUserHikes(user) {
+  const hikes = user.user_hikes;
+  const upcomingHikes = [];
+  const pastHikes = [];
+  const createdHikes = [];
+  const currentDate = new Date().setHours(0, 0, 0, 0);
+
+  if (hikes) {
+  hikes.forEach(async (hikeId) => {
+      const hikeArray = await fetchHikeById(hikeId);
+      const hike = hikeArray[0];
+      if (hike) {
+        const hikeDate = new Date(hike.date).setHours(0, 0, 0, 0);
+        if (hikeDate < currentDate) {
+          pastHikes.push(hike);
+        } else {
+          upcomingHikes.push(hike);
+        }
+        if (hike.creator_id == user.id) {
+          createdHikes.push(hike.id);
+        }
+      } else {
+        console.log("Hike not found: ", hikeId);
+      }
+    }
+  )
+  pastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
+  upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
+};
+return { upcomingHikes, pastHikes, createdHikes };
+};
