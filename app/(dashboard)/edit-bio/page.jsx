@@ -2,41 +2,49 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { updateUser, uploadAvatar } from "@/app/api/data";
+
 import EditBioForm from "@/app/ui/EditBioForm";
 import "./edit-bio.css";
 
 function EditBio() {
   const router = useRouter();
-  const { currentUser, setCurrentUser, appUsers, setAppUsers } = useGlobal();
+  const { currentUser, setCurrentUser, showModal } = useGlobal();
   const [bioInfo, setBioInfo] = useState({
     user_name: currentUser.user_name,
-    bio: currentUser.bio,
+    bio: currentUser.bio
   });
   const [avatarFile, setAvatarFile] = useState();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const newInfo = currentUser;
-    let newName = bioInfo.user_name;
-    let newAvatar = avatarFile;
-    let newBio = bioInfo.bio;
-    if (newName) newInfo.user_name = newName;
-    if (newAvatar) newInfo.avatar = newAvatar;
-    if (newBio) newInfo.bio = newBio;
-    //Update state and localStorage
-    updateUser(newInfo);
-    router.push("/bio");
-  }
+    // Find out if there are any changes
+    let newName = currentUser.user_name == bioInfo.user_name ? null : bioInfo.user_name;
+    let newBio = currentUser.bio == bioInfo.bio ? null : bioInfo.bio;
 
-  function updateUser(userInfo) {
-    //Update currentUser
-    setCurrentUser(userInfo);
-    //Update userList
-    let userList = [...appUsers];
-    const userIndex = userList.findIndex((user) => user.id == userInfo.id);
-    userList[userIndex] = userInfo;
-    setAppUsers(userList);
-  }
+    // Set currentUser to new information and update database
+    const newInfo = currentUser;
+    if (newName || newBio || avatarFile) {
+      if (avatarFile) {
+        try {
+          newInfo.avatar = await uploadAvatar(avatarFile, currentUser.id);
+        } catch (error) {
+          console.error("Error updating avatar:", error);
+          showModal("Error", "An error occurred while updating an avatar.");
+        }
+      }
+      if (newName) newInfo.user_name = newName;
+      if (newBio) newInfo.bio = newBio;
+      try {
+        updateUser(newInfo);
+        setCurrentUser(newInfo);
+        router.push("/bio");
+      } catch (error) {
+        console.error("Error updating user:", error);
+        showModal("Error", "An error occurred while updating a user.");
+      }
+    } 
+  };
 
   function handleClick() {
     router.push("/edit-bio");
@@ -50,7 +58,7 @@ function EditBio() {
   }
 
   function handleAvatarChange(e) {
-    setAvatarFile(URL.createObjectURL(e.target.files[0]));
+    setAvatarFile(e.target.files[0]);
   }
 
   return (

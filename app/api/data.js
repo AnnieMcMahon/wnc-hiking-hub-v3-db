@@ -100,11 +100,7 @@ export async function addUser(userInfo) {
     .from('users')
     .insert({ 
       email: userInfo.email,
-      password: userInfo.password,
-      user_name: userInfo.user_name,
-      avatar: userInfo.avatar,
-      bio: userInfo.bio,
-      user_hikes: userInfo.userHikes
+      password: userInfo.password
      })
      .select();
 
@@ -117,4 +113,39 @@ export async function addUser(userInfo) {
     console.error("Fetch Error:", error);
     throw new Error("Failed to fetch new user.");
   }
+};
+
+export async function updateUser(userInfo) {
+    const { error } = await supabase
+    .from("users")
+    .update({ 
+      user_name: userInfo.user_name,
+      avatar: userInfo.avatar,
+      bio: userInfo.bio,
+     })
+     .eq("id", userInfo.id);
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to update user.");
+    }
+};
+
+export async function uploadAvatar(file, userId) {
+  const fileName = `${userId}-${file.name}`;
+  const { error } = await supabase.storage
+    .from("avatars")
+    .upload(fileName, file, {
+      cacheControl: "3600",
+      upsert: true,
+    });
+  if (error) {
+    console.error("Upload Error:", error);
+    throw new Error("Failed to upload avatar.");
+  }
+  const { data } = supabase
+  .storage
+  .from('avatars')
+  .getPublicUrl(fileName);
+  const publicURL = data.publicUrl;
+  return publicURL;
 };
