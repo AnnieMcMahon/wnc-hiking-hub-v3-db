@@ -3,10 +3,10 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
-import { fetchTrailById, fetchUserById, updateUserHikes } from "../api/data";
+import { fetchTrailById, fetchUserById, updateUserHikes, fetchHikeById } from "../api/data";
 
 export default function Hike({ hikeType, hikeInfo, cancelled }) {
-  const { currentUser, setCurrentUser, setHike, showModal } = useGlobal();
+  const { currentUser, setCurrentUser, setHike } = useGlobal();
   const router = useRouter();
   const [trailInfo, setTrailInfo] = useState({
     id: 0,
@@ -52,7 +52,6 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
       buttonMessage = "Join Hike";
     }
   }
-
   const hikingDate = convertDate(hikeInfo.date);
   const hikingTime = convertTime(hikeInfo.time);
 
@@ -60,17 +59,22 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     let newUserInfo = currentUser;
     switch (e.target.value) {
       case "Join Hike":
-        newUserInfo.user_hikes.push(e.target.name[id]);
+        console.log("e.target.name: ", e.target.name);
+        console.log("newUserInfo.user_hikes: ", newUserInfo.user_hikes);
+        newUserInfo.user_hikes ?
+        newUserInfo.user_hikes.push(e.target.name) :
+        newUserInfo.user_hikes = [e.target.name];
         setCurrentUser(newUserInfo);
         break;
       case "Opt Out":
-        const index = newUserInfo.user_hikes.indexOf(e.target.name[id]);
+        const index = newUserInfo.user_hikes.indexOf(e.target.name);
         newUserInfo.user_hikes.splice(index, 1);
         setCurrentUser(newUserInfo);
         router.push("/join-hike");
         break;
       case "Edit Hike":
-        setHike(e.target.name);
+        const hikeData = fetchHikeById(e.target.name);
+        setHike(hikeData.id);
         router.push("/edit-hike");
         break;
       default:
@@ -98,7 +102,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
       {buttonMessage.length > 0 && (
         <button
           className="hike-button"
-          name={hikeInfo}
+          name={hikeInfo.id}
           value={buttonMessage}
           onClick={handleClick}
         >

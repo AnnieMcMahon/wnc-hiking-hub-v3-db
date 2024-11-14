@@ -1,8 +1,8 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { updateHike } from "@/app/api/data";
+import { useState, useEffect } from "react";
+import { updateHike, fetchHikeById } from "@/app/api/data";
 import Modal from "@/app/ui/Modal";
 import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
@@ -10,8 +10,17 @@ import "./edit-hike.css";
 export default function EditHike() {
   const { hike, setHike, showModal, closeModal } = useGlobal();
   const router = useRouter();
+  const [hikeInfo, setHikeInfo] = useState();
+  useEffect(() => {
+    const fetchHike = async () => {
+      const hikeInfo = await fetchHikeById(hike);
+      setHikeInfo(hikeInfo);
+    };
+    fetchHike();
+}, []);
+
   // Initializing to no data prevents errors in preloading page
-  let currentHikeInfo = hike || {
+  let currentHikeInfo = hikeInfo || {
     title: "",
     date: "",
     time: "",
@@ -19,7 +28,6 @@ export default function EditHike() {
     comments: "",
     status: "new"
   }
-  const [hikeInfo, setHikeInfo] = useState(currentHikeInfo);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,7 +38,7 @@ export default function EditHike() {
       hikeInfo.location &&
       hikeInfo.comments
     ) {
-      setHike(hikeInfo);
+      setHike(hikeInfo.id);
       updateHike(hikeInfo);
       currentHikeInfo = hikeInfo;
       showModal(
@@ -71,7 +79,7 @@ export default function EditHike() {
     currentHikeInfo.title = `CANCELLED - ${hikeInfo.title}`;
     setHikeInfo(currentHikeInfo);
     //Update hike and hikes in state and localStorage
-    setHike(currentHikeInfo);
+    setHike(currentHikeInfo.id);
     updateHike(currentHikeInfo);
     showModal(
       "Cancel Hike",
