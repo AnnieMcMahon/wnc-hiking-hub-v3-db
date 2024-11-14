@@ -23,12 +23,10 @@ export default function EditHike() {
     const fetchHike = async () => {
       const hikeInfo = await fetchHikeById(hike);
       setHikeInfo(hikeInfo);
+      setCurrentHikeInfo(hikeInfo);
     };
     fetchHike();
 }, []);
-
-  // Initializing to no data prevents errors in preloading page
-  setCurrentHikeInfo(hikeInfo);
 
   function handleSubmit(e) {
     e.preventDefault();
