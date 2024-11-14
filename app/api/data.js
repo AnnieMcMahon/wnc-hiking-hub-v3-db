@@ -334,7 +334,18 @@ export async function fetchUserHikes(userId) {
   const currentDate = new Date().toISOString();
   const hikes = await fetchHikesByParticipant(userId);
   console.log(hikes);
-  // const hikeIds = "(1, 2)"; 
+  let hikeIds = "";
+  if (hikes) {
+    hikeIds = "(";
+    hikes.map((item) => {
+      hikeIds = hikeIds + item.hike_id;
+      if (hikes.indexOf(item) < hikes.length -1) {
+        hikeIds = hikeIds + ", "
+      }
+    });
+    hikeIds = hikeIds + ")";
+  };
+  console.log("hikeIds: ", hikeIds);
   try {
     const { data, error } = await supabase
       .from("hikes")
@@ -342,7 +353,7 @@ export async function fetchUserHikes(userId) {
       .neq("creator_id", userId)
       .neq("status", "CANCELLED")
       .gte("date", currentDate)
-      // .not('id', 'in', hikeIds)
+      .not('id', 'in', hikeIds)
       .order("date", { ascending: true });
     if (error) {
       console.error("Database Error:", error);
