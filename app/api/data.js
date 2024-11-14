@@ -1,6 +1,7 @@
 import { supabase } from "@/app/api/initSupabase";
 import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "../lib/constants";
 
+//Trail functions
 export async function fetchAllTrails() {
   try {
     const { data, error } = await supabase.from("trails").select("*");
@@ -76,6 +77,7 @@ export async function filterTrailList(area_name, difficulty_rating, length) {
   return newList;
 };
 
+//User functions
 export async function fetchUserByEmail(email) {
   try {
     const { data, error } = await supabase
@@ -167,6 +169,7 @@ export async function uploadAvatar(file, userId) {
   return publicURL;
 };
 
+//Hike functions
 export async function addHike(hikeInfo) {
   try {
     const { data, error } = await supabase
@@ -231,66 +234,7 @@ export async function updateHike(hikeInfo) {
   }
 };
 
-export async function fetchUserHikes(userId) {
-  const upcomingHikes = [];
-  const pastHikes = [];
-  const createdHikes = [];
-  const currentDate = new Date().setHours(0, 0, 0, 0);
-  const hikeList = await fetchHikesByParticipant(userId);
-  let hikeIdList = [];
-  if (hikeList) {
-    hikeList.map((item) => hikeIdList.push(item.hike_id))
-  }
-  if (hikeIdList) {
-    hikeIdList.forEach(async (hikeId) => {
-      const hikeArray = await fetchHikeById(hikeId);
-      const hike = hikeArray[0];
-      if (hike) {
-        const hikeDate = new Date(hike.date).setHours(0, 0, 0, 0);
-        if (hikeDate < currentDate) {
-          pastHikes.push(hike);
-        } else {
-          upcomingHikes.push(hike);
-        }
-        if (hike.creator_id == userId) {
-          createdHikes.push(hike.id);
-        }
-      } else {
-        console.log("Hike not found: ", hikeId);
-      }
-    }
-  );
-  if (pastHikes.length > 1) pastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
-  if (upcomingHikes.length > 1) upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
-};
-return { upcomingHikes, pastHikes, createdHikes };
-};
-
- export async function fetchHikesToJoin(userId) {
-  const currentDate = new Date().toISOString();
-  const hikes = await fetchHikesByParticipant(userId);
-  console.log(hikes);
-  // const hikeIds = "(1, 2)"; 
-  try {
-    const { data, error } = await supabase
-      .from("hikes")
-      .select("*")
-      .neq("creator_id", userId)
-      .neq("status", "CANCELLED")
-      .gte("date", currentDate)
-      // .not('id', 'in', hikeIds)
-      .order("date", { ascending: true });
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch hikes to join.");
-    }
-    return data; 
-  } catch (error) {
-    console.error("Fetch Error:", error);
-    throw new Error("Failed to fetch hikes to join.");
-  }
-};
-
+//Participants functions
 export async function fetchParticipantsByHike(hikeId) {
   try {
     const { data, error } = await supabase
@@ -349,3 +293,64 @@ export async function addParticipant(userId, hikeId) {
       throw new Error("Failed to remove participant.");
     }
   };
+
+  //Functions using multiple tables
+export async function fetchUserHikes(userId) {
+  const upcomingHikes = [];
+  const pastHikes = [];
+  const createdHikes = [];
+  const currentDate = new Date().setHours(0, 0, 0, 0);
+  const hikeList = await fetchHikesByParticipant(userId);
+  const hikeIdList = hikeList ? hikeList.map((item) => item.hike_id) : [];
+  if (hikeIdList.length > 0) {
+    const hikesData = await Promise.all(
+      hikeIdList.map(async (hikeId) => {
+        const hikeArray = await fetchHikeById(hikeId);
+        return hikeArray[0]; 
+      })
+    );
+    hikesData.forEach((hike) => {
+      if (hike) {
+        const hikeDate = new Date(hike.date).setHours(0, 0, 0, 0);
+        if (hikeDate < currentDate) {
+          pastHikes.push(hike);
+        } else {
+          upcomingHikes.push(hike);
+        }
+        if (hike.creator_id == userId) {
+          createdHikes.push(hike.id);
+        }
+      } else {
+        console.log("Hike not found in hikesData");
+      }
+    });
+  }
+  if (pastHikes.length > 1) pastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
+  if (upcomingHikes.length > 1) upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
+  return { upcomingHikes, pastHikes, createdHikes };
+}
+
+ export async function fetchHikesToJoin(userId) {
+  const currentDate = new Date().toISOString();
+  const hikes = await fetchHikesByParticipant(userId);
+  console.log(hikes);
+  // const hikeIds = "(1, 2)"; 
+  try {
+    const { data, error } = await supabase
+      .from("hikes")
+      .select("*")
+      .neq("creator_id", userId)
+      .neq("status", "CANCELLED")
+      .gte("date", currentDate)
+      // .not('id', 'in', hikeIds)
+      .order("date", { ascending: true });
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to fetch hikes to join.");
+    }
+    return data; 
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch hikes to join.");
+  }
+};
