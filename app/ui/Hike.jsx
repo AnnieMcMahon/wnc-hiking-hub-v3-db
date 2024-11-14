@@ -35,6 +35,13 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     fetchCreatorName();
   }, []);
 
+  useEffect(() => {
+    const updateUserInfo = async () => {
+        await updateUserHikes(currentUser.id, currentUser.user_hikes);
+    };
+    updateUserInfo();
+  }, [currentUser]);
+
   let buttonMessage = "";
   if (!cancelled) {
     if (hikeType === "joined") {
@@ -54,12 +61,12 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     switch (e.target.value) {
       case "Join Hike":
         newUserInfo.user_hikes.push(e.target.name[id]);
-        updateUserInfo(newUserInfo);
+        setCurrentUser(newUserInfo);
         break;
       case "Opt Out":
         const index = newUserInfo.user_hikes.indexOf(e.target.name[id]);
         newUserInfo.user_hikes.splice(index, 1);
-        updateUserInfo(newUserInfo);
+        setCurrentUser(newUserInfo);
         router.push("/join-hike");
         break;
       case "Edit Hike":
@@ -68,16 +75,6 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
         break;
       default:
         console.log("Different button");
-    }
-  };
-
-  async function updateUserInfo(newInfo) {
-    try {
-      updateUserHikes(newInfo.id, newInfo.user_hikes);
-      setCurrentUser(newInfo);
-    } catch (error) {
-      console.error("Error updating user:", error);
-      showModal("Error", "An error occurred while updating a user.");
     }
   };
 

@@ -257,14 +257,22 @@ return { upcomingHikes, pastHikes, createdHikes };
 };
 
  export async function fetchHikesToJoin(user) {
+  const currentDate = new Date().toISOString();
+  const userHikes = user.user_hikes;
+  let hikeIds = "(";
+  userHikes.map((hikeId) => {
+    hikeIds = hikeIds + hikeId;
+    userHikes.indexOf(hikeId) < userHikes.length - 1 ?
+      hikeIds = hikeIds + ", " : hikeIds = hikeIds + ")"
+    });
   try {
     const { data, error } = await supabase
       .from("hikes")
       .select("*")
       .neq("creator_id", user.id)
       .neq("status", "CANCELLED")
-      .gte("date", now())
-      .not.in("id", user.user_hikes)
+      .gte("date", currentDate)
+      .not('id', 'in', hikeIds)
       .order("date", { ascending: true });
     if (error) {
       console.error("Database Error:", error);

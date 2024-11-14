@@ -1,28 +1,28 @@
 "use client";
-
 import Hike from "@/app/ui/Hike";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { fetchHikesToJoin } from "@/app/api/data";
+import { defaultHike } from "@/app/lib/defaultContent";
 import { useState, useEffect } from "react";
 import "./join-hike.css";
 
-async function JoinHike() {
+function JoinHike() {
   const { currentUser } = useGlobal();
-  const [hikeList, setHikeList] = useState([]);
+  const [hikeList, setHikeList] = useState([defaultHike]);
 
   useEffect(() => {
     const fetchHikes = async () => {
-      const availableHikes = await fetchHikesToJoin(currentUser.id);
+      const availableHikes = await fetchHikesToJoin(currentUser);
       setHikeList(availableHikes);
     };
-   fetchHikes();
+    fetchHikes();
 }, []);
 
   return (
     <div id="join-hike">
       <h3>Select a hike you would like to join:</h3>
       <div className="hike-section">
-        {hikeList?.map((hike) => (
+        {hikeList.map((hike) => (
           <Hike hikeType="available" hikeInfo={hike} key={hike.id} />
         ))}
       </div>
