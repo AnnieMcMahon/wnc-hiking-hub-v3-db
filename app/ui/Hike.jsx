@@ -52,6 +52,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     switch (e.target.value) {
       case "Join Hike":
         addParticipant(currentUser.id, e.target.name);
+        router.push("/bio");
         break;
       case "Opt Out":
         removeParticipant(currentUser.id, e.target.name);

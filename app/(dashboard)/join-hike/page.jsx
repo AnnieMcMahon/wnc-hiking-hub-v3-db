@@ -2,13 +2,12 @@
 import Hike from "@/app/ui/Hike";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { fetchHikesToJoin } from "@/app/api/data";
-import { defaultHike } from "@/app/lib/defaultContent";
 import { useState, useEffect } from "react";
 import "./join-hike.css";
 
 function JoinHike() {
   const { currentUser } = useGlobal();
-  const [hikeList, setHikeList] = useState([defaultHike]);
+  const [hikeList, setHikeList] = useState();
 
   useEffect(() => {
     const fetchHikes = async () => {
@@ -22,7 +21,7 @@ function JoinHike() {
     <div id="join-hike">
       <h3>Select a hike you would like to join:</h3>
       <div className="hike-section">
-        {hikeList.map((hike) => (
+        {hikeList?.map((hike) => (
           <Hike hikeType="available" hikeInfo={hike} key={hike.id} />
         ))}
       </div>
