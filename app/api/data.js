@@ -259,12 +259,15 @@ return { upcomingHikes, pastHikes, createdHikes };
  export async function fetchHikesToJoin(user) {
   const currentDate = new Date().toISOString();
   const userHikes = user.user_hikes;
-  let hikeIds = "(";
+  let hikeIds = "()";
+  if (userHikes) {
+    hikeIds = "(";
   userHikes.map((hikeId) => {
     hikeIds = hikeIds + hikeId;
     userHikes.indexOf(hikeId) < userHikes.length - 1 ?
       hikeIds = hikeIds + ", " : hikeIds = hikeIds + ")"
     });
+  }
   try {
     const { data, error } = await supabase
       .from("hikes")
