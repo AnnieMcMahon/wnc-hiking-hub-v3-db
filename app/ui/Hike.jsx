@@ -3,8 +3,7 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
-import { fetchTrailById, fetchUserById, updateUser } from "../api/data";
-
+import { fetchTrailById, fetchUserById, updateUserHikes } from "../api/data";
 
 export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const { currentUser, setCurrentUser, setHike, showModal } = useGlobal();
@@ -54,11 +53,11 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     let newUserInfo = currentUser;
     switch (e.target.value) {
       case "Join Hike":
-        newUserInfo.user_hikes.push(e.target.name);
+        newUserInfo.user_hikes.push(e.target.name[id]);
         updateUserInfo(newUserInfo);
         break;
       case "Opt Out":
-        const index = newUserInfo.user_hikes.indexOf(e.target.name);
+        const index = newUserInfo.user_hikes.indexOf(e.target.name[id]);
         newUserInfo.user_hikes.splice(index, 1);
         updateUserInfo(newUserInfo);
         router.push("/join-hike");
@@ -70,11 +69,11 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
       default:
         console.log("Different button");
     }
-  }
+  };
 
   async function updateUserInfo(newInfo) {
     try {
-      updateUser(newInfo);
+      updateUserHikes(newInfo.id, newInfo.user_hikes);
       setCurrentUser(newInfo);
     } catch (error) {
       console.error("Error updating user:", error);
@@ -102,7 +101,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
       {buttonMessage.length > 0 && (
         <button
           className="hike-button"
-          name={hikeInfo.id}
+          name={hikeInfo}
           value={buttonMessage}
           onClick={handleClick}
         >

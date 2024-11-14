@@ -1,16 +1,15 @@
 "use client";
 
 import { createContext, useState, useContext, useEffect } from "react";
-import { sampleHikes, sampleAppUsers } from "@/app/lib/seed";
+import { defaultUser, defaultHike } from "@/app/lib/defaultContent";
 
 const GlobalContext = createContext();
 
 export function GlobalProvider({ children }) {
   //Initialize states with sample data
-  const [appUsers, setAppUsers] = useState(sampleAppUsers);
-  const [currentUser, setCurrentUser] = useState(sampleAppUsers[0]);
-  const [hikes, setHikes] = useState(sampleHikes);
-  const [hike, setHike] = useState(sampleHikes[0]);
+  const [currentUser, setCurrentUser] = useState(defaultUser);
+  const [hike, setHike] = useState(defaultHike);
+
   const [modal, setModal] = useState({
     isOpen: false,
     onConfirm: null,
@@ -34,25 +33,13 @@ export function GlobalProvider({ children }) {
   }
 
   useEffect(() => {
-    localStorage.clear();
-    localStorage.setItem("hikes", JSON.stringify(sampleHikes));
-    localStorage.setItem("appUsers", JSON.stringify(sampleAppUsers));
-    localStorage.setItem("currentUser", JSON.stringify(sampleAppUsers[0]));
-    localStorage.setItem("hike", JSON.stringify(sampleHikes[0]));
+    localStorage.setItem("currentUser", JSON.stringify(defaultUser[0]));
   }, []);
   
   // Store info in localStorage when it changes
   useEffect(() => {
     localStorage.setItem("hike", JSON.stringify(hike));
   }, [hike]);
-
-  useEffect(() => {
-    localStorage.setItem("hikes", JSON.stringify(hikes));
-  }, [hikes]);
-
-  useEffect(() => {
-    localStorage.setItem("appUsers", JSON.stringify(appUsers));
-  }, [appUsers]);
   
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
@@ -63,10 +50,6 @@ export function GlobalProvider({ children }) {
       value={{
         currentUser,
         setCurrentUser,
-        appUsers,
-        setAppUsers,
-        hikes,
-        setHikes,
         hike,
         setHike,
         modal,

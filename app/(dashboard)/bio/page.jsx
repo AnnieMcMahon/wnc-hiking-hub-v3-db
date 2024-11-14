@@ -16,13 +16,13 @@ export default function Bio() {
 
   useEffect(() => {
       const fetchHikes = async () => {
-        const newList = await fetchUserHikes(currentUser);
-        setPastHikes(newList.pastHikes);
-        setUpcomingHikes(newList.upcomingHikes);
-        setCreatedHikes(newList.createdHikes);
+        const { upcomingHikes, pastHikes, createdHikes } = await fetchUserHikes(currentUser.user_hikes, currentUser.id);
+        setUpcomingHikes(upcomingHikes);
+        setPastHikes(pastHikes);
+        setCreatedHikes(createdHikes);
       };
       fetchHikes();
-  }, [currentUser]);
+  }, []);
 
   function handleClick() {
     router.push("/edit-bio");

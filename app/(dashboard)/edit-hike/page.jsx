@@ -2,15 +2,16 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { updateHike } from "@/app/api/data";
 import Modal from "@/app/ui/Modal";
 import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
-  const { hikes, hike, setHikes, setHike, showModal, closeModal } = useGlobal();
+  const { hike, setHike, showModal, closeModal } = useGlobal();
   const router = useRouter();
   // Initializing to no data prevents errors in preloading page
-  let currentHikeInfo = hikes?.find((hikeData) => hikeData.id == hike) || {
+  let currentHikeInfo = hike || {
     title: "",
     date: "",
     time: "",
@@ -30,11 +31,8 @@ export default function EditHike() {
       hikeInfo.comments
     ) {
       setHike(hikeInfo);
-      let hikeList = [...hikes];
-      const hikeIndex = hikeList.findIndex((h) => h.id == hikeInfo.id);
-      hikeList[hikeIndex] = hikeInfo;
-      setHikes(hikeList);
-      currentHikeInfo = hikeInfo
+      updateHike(hikeInfo);
+      currentHikeInfo = hikeInfo;
       showModal(
         "Save Changes",
         "Changes have been saved",
@@ -74,10 +72,7 @@ export default function EditHike() {
     setHikeInfo(currentHikeInfo);
     //Update hike and hikes in state and localStorage
     setHike(currentHikeInfo);
-    let hikeList = [...hikes];
-    const hikeIndex = hikeList.findIndex((h) => h.id == hikeInfo.id);
-    hikeList[hikeIndex] = hikeInfo;
-    setHikes(hikeList);
+    updateHike(currentHikeInfo);
     showModal(
       "Cancel Hike",
       "Hike has been cancelled",

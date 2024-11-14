@@ -149,6 +149,19 @@ export async function updateUser(userInfo) {
     }
 };
 
+export async function updateUserHikes(userId, hikes) {
+  const { error } = await supabase
+  .from("users")
+  .update({ 
+    user_hikes: hikes
+   })
+   .eq("id", userId);
+  if (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update user.");
+  }
+};
+
 export async function uploadAvatar(file, userId) {
   const fileName = `${userId}-${file.name}`;
   const { error } = await supabase.storage
@@ -184,7 +197,6 @@ export async function addHike(hikeInfo) {
       status: hikeInfo.status
      })
      .select();
-
     if (error) {
       console.error("Database Error:", error);
       throw new Error("Failed to add new hike.");
@@ -214,15 +226,13 @@ export async function fetchHikeById(id) {
   }
 };
 
-export async function fetchUserHikes(user) {
-  const hikes = user.user_hikes;
+export async function fetchUserHikes(hikeIdList, userId) {
   const upcomingHikes = [];
   const pastHikes = [];
   const createdHikes = [];
   const currentDate = new Date().setHours(0, 0, 0, 0);
-
-  if (hikes) {
-  hikes.forEach(async (hikeId) => {
+  if (hikeIdList) {
+    hikeIdList.forEach(async (hikeId) => {
       const hikeArray = await fetchHikeById(hikeId);
       const hike = hikeArray[0];
       if (hike) {
@@ -232,16 +242,57 @@ export async function fetchUserHikes(user) {
         } else {
           upcomingHikes.push(hike);
         }
-        if (hike.creator_id == user.id) {
+        if (hike.creator_id == userId) {
           createdHikes.push(hike.id);
         }
       } else {
         console.log("Hike not found: ", hikeId);
       }
     }
-  )
-  pastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
-  upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
+  );
+  if (pastHikes.length > 1) pastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
+  if (upcomingHikes.length > 1) upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
 };
 return { upcomingHikes, pastHikes, createdHikes };
+};
+
+ export async function fetchHikesToJoin(user) {
+  try {
+    const { data, error } = await supabase
+      .from("hikes")
+      .select("*")
+      .neq("creator_id", user.id)
+      .neq("status", "CANCELLED")
+      .gte("date", now())
+      .not.in("id", user.user_hikes)
+      .order("date", { ascending: true });
+    if (error) {
+      console.error("Database Error:", error);
+      throw new Error("Failed to fetch hikes to join.");
+    }
+    return data; 
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw new Error("Failed to fetch hikes to join.");
+  }
+};
+
+export async function updateHike(hikeInfo) {
+  const { error } = await supabase
+  .from("hikes")
+  .update({ 
+    creator_id: hikeInfo.creator_id,
+    trail_id: hikeInfo.trail_id,
+    title: hikeInfo.title,
+    date: hikeInfo.date,
+    time: hikeInfo.time,
+    location: hikeInfo.location,
+    comments: hikeInfo.comments,
+    status: hikeInfo.status
+   })
+   .eq("id", hikeInfo.id);
+  if (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update hike.");
+  }
 };

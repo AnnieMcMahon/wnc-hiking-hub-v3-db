@@ -2,11 +2,12 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { defaultUser } from "../lib/defaultContent";
 import Link from "next/link";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const { currentUser, setCurrentUser, appUsers } = useGlobal();
+  const { currentUser, setCurrentUser } = useGlobal();
   const pathname = usePathname();
   const router = useRouter();
   const [buttonMessage, setButtonMessage] = useState(
@@ -23,7 +24,7 @@ export default function Navbar() {
     if (buttonMessage == "Log In") {
       router.push("/login");
     } else {
-      setCurrentUser(appUsers[0]);
+      setCurrentUser(defaultUser);
       router.push("/");
     }
   }
