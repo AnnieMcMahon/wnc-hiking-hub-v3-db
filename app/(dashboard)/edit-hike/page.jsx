@@ -10,7 +10,15 @@ import "./edit-hike.css";
 export default function EditHike() {
   const { hike, setHike, showModal, closeModal } = useGlobal();
   const router = useRouter();
-  const [hikeInfo, setHikeInfo] = useState();
+  const [hikeInfo, setHikeInfo] = useState({
+    title: "",
+    date: "",
+    time: "",
+    location: "",
+    comments: "",
+    status: "new"
+  });
+  const [currentHikeInfo, setCurrentHikeInfo] = useState(hikeInfo);
   useEffect(() => {
     const fetchHike = async () => {
       const hikeInfo = await fetchHikeById(hike);
@@ -20,14 +28,7 @@ export default function EditHike() {
 }, []);
 
   // Initializing to no data prevents errors in preloading page
-  let currentHikeInfo = hikeInfo || {
-    title: "",
-    date: "",
-    time: "",
-    location: "",
-    comments: "",
-    status: "new"
-  }
+  setCurrentHikeInfo(hikeInfo);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,7 +41,7 @@ export default function EditHike() {
     ) {
       setHike(hikeInfo.id);
       updateHike(hikeInfo);
-      currentHikeInfo = hikeInfo;
+      setCurrentHikeInfo(hikeInfo);
       showModal(
         "Save Changes",
         "Changes have been saved",
@@ -76,7 +77,7 @@ export default function EditHike() {
 
   function handleNewCancellation() {
     // Add CANCELLED to the hike title and updates State and localStorage
-    currentHikeInfo.title = `CANCELLED - ${hikeInfo.title}`;
+    setCurrentHikeInfo.title(`CANCELLED - ${hikeInfo.title}`);
     setHikeInfo(currentHikeInfo);
     //Update hike and hikes in state and localStorage
     setHike(currentHikeInfo.id);
