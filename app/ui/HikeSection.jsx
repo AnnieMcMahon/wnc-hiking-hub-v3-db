@@ -1,3 +1,4 @@
+//Need to change CANCELLED - use hike status instead
 import Hike from "./Hike";
 
 export default function HikeSection({

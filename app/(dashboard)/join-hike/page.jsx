@@ -12,7 +12,7 @@ function JoinHike() {
 
   useEffect(() => {
     const fetchHikes = async () => {
-      const availableHikes = await fetchHikesToJoin(currentUser);
+      const availableHikes = await fetchHikesToJoin(currentUser.id);
       setHikeList(availableHikes);
     };
     fetchHikes();

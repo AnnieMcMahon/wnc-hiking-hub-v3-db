@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { filterTrailList, addHike, updateUserHikes } from "@/app/api/data";
+import { filterTrailList, addHike } from "@/app/api/data";
 import { defaultTrail } from "@/app/lib/defaultContent";
 import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";
@@ -13,7 +13,7 @@ import { ANY_AREA, ANY_LENGTH, ANY_DIFFICULTY } from "@/app/lib/constants";
 import "./post-hike.css";
 
 export default function PostHike() {
-  const {currentUser, setCurrentUser, showModal} = useGlobal();
+  const {currentUser, showModal} = useGlobal();
   const router = useRouter();
   const [filteredList, setFilteredList] = useState([defaultTrail]);
   const [chosenTrail, setChosenTrail] = useState(null);
@@ -80,14 +80,8 @@ export default function PostHike() {
         comments: newComments,
         status: "new"
       };
-      setCurrentUser((prevUser) => ({
-        ...prevUser,
-        user_hikes: [...prevUser.user_hikes, newHike.id],
-      }));
       try {
         addHike(newHike);
-        const hikes = currentUser.hikes.push(newHike.id);
-        updateUserHikes(creator_id, hikes);
       } catch (error) {
         console.error("Error adding new hike:", error);
         showModal("Error", "An error occurred while adding a new hike.");

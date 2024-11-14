@@ -49,7 +49,6 @@ function Login() {
       user_name: "New User",
       avatar: "/newUser.png",
       bio: "Enter your bio description here",
-      user_hikes: null
     };
     try {
       addUser(newUser);

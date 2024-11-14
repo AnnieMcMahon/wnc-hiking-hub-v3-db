@@ -16,7 +16,7 @@ export default function Bio() {
 
   useEffect(() => {
       const fetchHikes = async () => {
-        const { upcomingHikes, pastHikes, createdHikes } = await fetchUserHikes(currentUser.user_hikes, currentUser.id);
+        const { upcomingHikes, pastHikes, createdHikes } = await fetchUserHikes(currentUser.id);
         setUpcomingHikes(upcomingHikes);
         setPastHikes(pastHikes);
         setCreatedHikes(createdHikes);

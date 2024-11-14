@@ -3,10 +3,10 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
-import { fetchTrailById, fetchUserById, updateUserHikes, fetchHikeById } from "../api/data";
+import { fetchTrailById, fetchUserById, fetchHikeById, addParticipant, removeParticipant } from "../api/data";
 
 export default function Hike({ hikeType, hikeInfo, cancelled }) {
-  const { currentUser, setCurrentUser, setHike } = useGlobal();
+  const { currentUser, setHike } = useGlobal();
   const router = useRouter();
   const [trailInfo, setTrailInfo] = useState({
     id: 0,
@@ -35,13 +35,6 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
     fetchCreatorName();
   }, []);
 
-  useEffect(() => {
-    const updateUserInfo = async () => {
-        await updateUserHikes(currentUser.id, currentUser.user_hikes);
-    };
-    updateUserInfo();
-  }, [currentUser]);
-
   let buttonMessage = "";
   if (!cancelled) {
     if (hikeType === "joined") {
@@ -56,20 +49,12 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const hikingTime = convertTime(hikeInfo.time);
 
   function handleClick(e) {
-    let newUserInfo = currentUser;
     switch (e.target.value) {
       case "Join Hike":
-        console.log("e.target.name: ", e.target.name);
-        console.log("newUserInfo.user_hikes: ", newUserInfo.user_hikes);
-        newUserInfo.user_hikes ?
-        newUserInfo.user_hikes.push(e.target.name) :
-        newUserInfo.user_hikes = [e.target.name];
-        setCurrentUser(newUserInfo);
+        addParticipant(currentUser.id, e.target.name);
         break;
       case "Opt Out":
-        const index = newUserInfo.user_hikes.indexOf(e.target.name);
-        newUserInfo.user_hikes.splice(index, 1);
-        setCurrentUser(newUserInfo);
+        removeParticipant(currentUser.id, e.target.name);
         router.push("/join-hike");
         break;
       case "Edit Hike":

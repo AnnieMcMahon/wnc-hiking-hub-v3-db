@@ -8,7 +8,7 @@ const GlobalContext = createContext();
 export function GlobalProvider({ children }) {
   //Initialize states with sample data
   const [currentUser, setCurrentUser] = useState(defaultUser);
-  const [hike, setHike] = useState(defaultHike);
+  const [hike, setHike] = useState(defaultHike.id);
 
   const [modal, setModal] = useState({
     isOpen: false,
@@ -31,10 +31,6 @@ export function GlobalProvider({ children }) {
   function closeModal() {
     setModal({ isOpen: false, title: "", message: "", onConfirm: null, onClose: null });
   }
-
-  useEffect(() => {
-    localStorage.setItem("currentUser", JSON.stringify(defaultUser[0]));
-  }, []);
   
   // Store info in localStorage when it changes
   useEffect(() => {
