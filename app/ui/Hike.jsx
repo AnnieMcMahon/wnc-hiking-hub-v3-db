@@ -6,7 +6,7 @@ import { convertDate, convertTime } from "@/app/lib/utils";
 import { fetchTrailById, fetchUserById, addParticipant, removeParticipant } from "@/app/api/data";
 
 export default function Hike({ hikeType, hikeInfo }) {
-  const { currentUser, setHike } = useGlobal();
+  const { currentUser } = useGlobal();
   const router = useRouter();
   const [trailInfo, setTrailInfo] = useState({
     trail_name: "",
@@ -58,8 +58,8 @@ export default function Hike({ hikeType, hikeInfo }) {
         router.push("/join-hike");
         break;
       case "Edit Hike":
-        setHike(e.target.name);
         router.push("/edit-hike");
+        router.push(`/edit-hike?hikeId=${e.target.name}`);
         break;
       default:
         console.log("Different button");

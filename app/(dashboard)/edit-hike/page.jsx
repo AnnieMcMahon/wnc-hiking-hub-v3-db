@@ -1,6 +1,6 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { updateHike, fetchHikeById, fetchUserHikes } from "@/app/api/data";
 import Modal from "@/app/ui/Modal";
@@ -8,8 +8,10 @@ import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
-  const { hike, showModal, closeModal, currentUser } = useGlobal();
+  const { showModal, closeModal, currentUser } = useGlobal();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const hikeId = searchParams.get("hikeId");
   const [hikeInfo, setHikeInfo] = useState({
     title: "",
     date: "",
@@ -22,7 +24,7 @@ export default function EditHike() {
 
   useEffect(() => {
     const fetchHike = async () => {
-      const fetchedHikeInfo = await fetchHikeById(hike);
+      const fetchedHikeInfo = await fetchHikeById(hikeId);
       setHikeInfo(fetchedHikeInfo[0]);
       setCurrentHikeInfo(fetchedHikeInfo[0]);
       };
