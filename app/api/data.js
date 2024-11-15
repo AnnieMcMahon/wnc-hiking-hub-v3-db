@@ -4,9 +4,6 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
 //Trail functions
 export async function fetchAllTrails() {
   try {
@@ -305,6 +302,8 @@ export async function fetchUserHikes(userId) {
   const currentDate = dayjs().tz('America/New_York').startOf('day');
   const hikeList = await fetchHikesByParticipant(userId);
   const hikeIdList = hikeList ? hikeList.map((item) => item.hike_id) : [];
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
   if (hikeIdList.length > 0) {
     const hikesData = await Promise.all(
       hikeIdList.map(async (hikeId) => {

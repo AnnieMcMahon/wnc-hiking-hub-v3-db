@@ -56,7 +56,7 @@ export default function PostHike() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newTrailId = chosenTrail.id;
+    const newTrailId = chosenTrail ? chosenTrail.id : null;
     const newTitle = e.target.hikeTitle.value;
     const newDate = e.target.date.value;
     const newTime = e.target.time.value;

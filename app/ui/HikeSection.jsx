@@ -1,4 +1,3 @@
-//Need to change CANCELLED - use hike status instead
 import Hike from "./Hike";
 
 export default function HikeSection({
@@ -13,7 +12,6 @@ export default function HikeSection({
         {upcomingHikes.map((hike) => (
           <Hike
             hikeType={createdHikes.includes(hike.id) ? "created" : "joined"}
-            cancelled={hike.title.includes("CANCELLED") ? true : false}
             hikeInfo={hike}
             key={hike.id}
           />
@@ -26,7 +24,6 @@ export default function HikeSection({
             hikeType="history"
             hikeInfo={hike}
             key={hike.id}
-            cancelled={hike.title.includes("CANCELLED") ? true : false}
           />
         ))}
       </div>

@@ -3,9 +3,9 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
-import { fetchTrailById, fetchUserById, addParticipant, removeParticipant } from "../api/data";
+import { fetchTrailById, fetchUserById, addParticipant, removeParticipant } from "@/app/api/data";
 
-export default function Hike({ hikeType, hikeInfo, cancelled }) {
+export default function Hike({ hikeType, hikeInfo }) {
   const { currentUser, setHike } = useGlobal();
   const router = useRouter();
   const [trailInfo, setTrailInfo] = useState({
@@ -35,7 +35,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
   }, []);
 
   let buttonMessage = "";
-  if (!cancelled) {
+  if (hikeInfo.status !== "cancelled") {
     if (hikeType === "joined") {
       buttonMessage = "Opt Out";
     } else if (hikeType === "created") {
