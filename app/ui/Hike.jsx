@@ -3,7 +3,7 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
-import { fetchTrailById, fetchUserById, fetchHikeById, addParticipant, removeParticipant } from "../api/data";
+import { fetchTrailById, fetchUserById, addParticipant, removeParticipant } from "../api/data";
 
 export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const { currentUser, setHike } = useGlobal();
