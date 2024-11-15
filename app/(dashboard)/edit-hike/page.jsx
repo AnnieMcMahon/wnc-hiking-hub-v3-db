@@ -8,7 +8,7 @@ import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
-  const { showModal, closeModal, currentUser } = useGlobal();
+  const { hike, showModal, closeModal, currentUser } = useGlobal();
   const router = useRouter();
   const [hikeInfo, setHikeInfo] = useState({
     title: "",
@@ -29,8 +29,6 @@ export default function EditHike() {
       }
     };
     const fetchHike = async () => {
-      const hikeId = fetchParams();
-      if (!hikeId) return;
       const fetchedHikeInfo = await fetchHikeById(hikeId);
       setHikeInfo(fetchedHikeInfo[0]);
       setCurrentHikeInfo(fetchedHikeInfo[0]);
