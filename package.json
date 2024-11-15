@@ -11,6 +11,9 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.46.1",
     "@vercel/postgres": "^0.10.0",
+    "dayjs": "^1.11.13",
+    "dayjs-plugin-utc": "^0.1.2",
+    "dayjs-timezone-iana-plugin": "^0.1.0",
     "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028"

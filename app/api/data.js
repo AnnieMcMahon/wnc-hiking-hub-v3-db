@@ -1,5 +1,11 @@
 import { supabase } from "@/app/api/initSupabase";
 import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "../lib/constants";
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 //Trail functions
 export async function fetchAllTrails() {
@@ -296,7 +302,7 @@ export async function fetchUserHikes(userId) {
   const upcomingHikes = [];
   const pastHikes = [];
   const createdHikes = [];
-  const currentDate = new Date().setHours(0, 0, 0, 0);
+  const currentDate = dayjs().tz('America/New_York').startOf('day');
   const hikeList = await fetchHikesByParticipant(userId);
   const hikeIdList = hikeList ? hikeList.map((item) => item.hike_id) : [];
   if (hikeIdList.length > 0) {
@@ -308,8 +314,8 @@ export async function fetchUserHikes(userId) {
     );
     hikesData.forEach((hike) => {
       if (hike) {
-        const hikeDate = new Date(hike.date).setHours(0, 0, 0, 0);
-        if (hikeDate < currentDate) {
+        const hikeDate = dayjs(hike.date).tz('America/New_York').startOf('day');
+        if (hikeDate.isBefore(currentDate)) {
           pastHikes.push(hike);
         } else {
           upcomingHikes.push(hike);
@@ -322,8 +328,8 @@ export async function fetchUserHikes(userId) {
       }
     });
   }
-  if (pastHikes.length > 1) pastHikes.sort((a, b) => new Date(b.date) - new Date(a.date));
-  if (upcomingHikes.length > 1) upcomingHikes.sort((a, b) => new Date(a.date) - new Date(b.date));
+  if (pastHikes.length > 1) pastHikes.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
+  if (upcomingHikes.length > 1) upcomingHikes.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
   return { upcomingHikes, pastHikes, createdHikes };
 }
 
