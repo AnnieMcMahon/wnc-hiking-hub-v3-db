@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { filterTrailList, addHike } from "@/app/api/data";
+import { filterTrailList, handleAddHike } from "@/app/api/data";
 import { defaultTrail } from "@/app/lib/defaultContent";
 import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";
@@ -81,7 +81,7 @@ export default function PostHike() {
         status: "new"
       };
       try {
-        addHike(newHike);
+        handleAddHike(newHike);
       } catch (error) {
         console.error("Error adding new hike:", error);
         showModal("Error", "An error occurred while adding a new hike.");

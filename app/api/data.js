@@ -333,7 +333,6 @@ export async function fetchUserHikes(userId) {
  export async function fetchHikesToJoin(userId) {
   const currentDate = new Date().toISOString();
   const hikes = await fetchHikesByParticipant(userId);
-  console.log(hikes);
   let hikeIds = "";
   if (hikes) {
     hikeIds = "(";
@@ -345,7 +344,6 @@ export async function fetchUserHikes(userId) {
     });
     hikeIds = hikeIds + ")";
   };
-  console.log("hikeIds: ", hikeIds);
   try {
     const { data, error } = await supabase
       .from("hikes")
@@ -364,4 +362,10 @@ export async function fetchUserHikes(userId) {
     console.error("Fetch Error:", error);
     throw new Error("Failed to fetch hikes to join.");
   }
+};
+
+export async function handleAddHike(hikeInfo) {
+  const newHike = await addHike(hikeInfo);
+  const newHikeId = newHike[0].id;
+  addParticipant(hikeInfo.creator_id, newHikeId);
 };
