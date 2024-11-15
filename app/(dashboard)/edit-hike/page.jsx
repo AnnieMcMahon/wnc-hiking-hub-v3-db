@@ -2,13 +2,13 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { updateHike, fetchHikeById } from "@/app/api/data";
+import { updateHike, fetchHikeById, fetchUserHikes } from "@/app/api/data";
 import Modal from "@/app/ui/Modal";
 import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
-  const { hike, showModal, closeModal } = useGlobal();
+  const { hike, showModal, closeModal, currentUser } = useGlobal();
   const router = useRouter();
   const [hikeInfo, setHikeInfo] = useState({
     title: "",
@@ -33,6 +33,7 @@ useEffect(() => {
   const updateHikeWithNewInfo = async () => {
     if (currentHikeInfo.status == "cancelled" || currentHikeInfo.status == "updated") {
       await updateHike(currentHikeInfo);
+      await fetchUserHikes(currentUser.id);
     }
   }
   updateHikeWithNewInfo();
