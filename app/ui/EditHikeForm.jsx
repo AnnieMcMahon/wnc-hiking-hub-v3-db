@@ -6,7 +6,7 @@ export default function EditHikeForm({hikeInfo, onSubmit, onChange, handleCancel
       type="text"
       name="title"
       id="newTitle"
-      value={hikeInfo.title}
+      value={hikeInfo.title ? hikeInfo.title : ""}
       onChange={onChange}
     />
     <br />
@@ -16,7 +16,7 @@ export default function EditHikeForm({hikeInfo, onSubmit, onChange, handleCancel
       type="date"
       name="date"
       id="newDate"
-      value={hikeInfo.date}
+      value={hikeInfo.date ? hikeInfo.date : ""}
       onChange={onChange}
     />
     <br />
@@ -26,7 +26,7 @@ export default function EditHikeForm({hikeInfo, onSubmit, onChange, handleCancel
       type="time"
       name="time"
       id="newTime"
-      value={hikeInfo.time}
+      value={hikeInfo.time ? hikeInfo.time : ""}
       onChange={onChange}
     />
     <br />
@@ -36,7 +36,7 @@ export default function EditHikeForm({hikeInfo, onSubmit, onChange, handleCancel
       type="text"
       name="location"
       id="newLocation"
-      value={hikeInfo.location}
+      value={hikeInfo.location ? hikeInfo.location : ""}
       onChange={onChange}
     />
     <br />
@@ -47,7 +47,7 @@ export default function EditHikeForm({hikeInfo, onSubmit, onChange, handleCancel
       type="textarea"
       name="comments"
       id="newComments"
-      value={hikeInfo.comments}
+      value={hikeInfo.comments ? hikeInfo.comments : ""}
       data-gramm="false"
       onChange={onChange}
     />

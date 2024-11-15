@@ -9,12 +9,11 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
   const { currentUser, setHike } = useGlobal();
   const router = useRouter();
   const [trailInfo, setTrailInfo] = useState({
-    id: 0,
     trail_name: "",
     area_name: "",
     difficulty_rating: "",
-    length: null,
-    elevation_gain: null,
+    length: 0,
+    elevation_gain: 0,
     route_type: "",
     trail_link: ""
   });
@@ -59,8 +58,7 @@ export default function Hike({ hikeType, hikeInfo, cancelled }) {
         router.push("/join-hike");
         break;
       case "Edit Hike":
-        const hikeData = fetchHikeById(e.target.name);
-        setHike(hikeData.id);
+        setHike(e.target.name);
         router.push("/edit-hike");
         break;
       default:

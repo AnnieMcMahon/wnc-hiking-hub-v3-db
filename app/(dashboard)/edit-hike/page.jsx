@@ -8,7 +8,7 @@ import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
-  const { hike, setHike, showModal, closeModal } = useGlobal();
+  const { hike, showModal, closeModal } = useGlobal();
   const router = useRouter();
   const [hikeInfo, setHikeInfo] = useState({
     title: "",
@@ -19,14 +19,24 @@ export default function EditHike() {
     status: "new"
   });
   const [currentHikeInfo, setCurrentHikeInfo] = useState(hikeInfo);
+
   useEffect(() => {
     const fetchHike = async () => {
-      const hikeInfo = await fetchHikeById(hike);
-      setHikeInfo(hikeInfo);
-      setCurrentHikeInfo(hikeInfo);
-    };
+      const fetchedHikeInfo = await fetchHikeById(hike);
+      setHikeInfo(fetchedHikeInfo[0]);
+      setCurrentHikeInfo(fetchedHikeInfo[0]);
+      };
     fetchHike();
 }, []);
+
+useEffect(() => {
+  const updateHikeWithNewInfo = async () => {
+    if (currentHikeInfo.status == "cancelled" || currentHikeInfo.status == "updated") {
+      await updateHike(currentHikeInfo);
+    }
+  }
+  updateHikeWithNewInfo();
+}, [currentHikeInfo]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,9 +47,11 @@ export default function EditHike() {
       hikeInfo.location &&
       hikeInfo.comments
     ) {
-      setHike(hikeInfo.id);
-      updateHike(hikeInfo);
       setCurrentHikeInfo(hikeInfo);
+      setCurrentHikeInfo((prevState) => ({
+        ...prevState,
+        status: "updated",
+      }));
       showModal(
         "Save Changes",
         "Changes have been saved",
@@ -74,12 +86,13 @@ export default function EditHike() {
   }
 
   function handleNewCancellation() {
-    // Add CANCELLED to the hike title and updates State and localStorage
-    setCurrentHikeInfo.title(`CANCELLED - ${hikeInfo.title}`);
+    const newTitle = `CANCELLED - ${hikeInfo.title}`
+    setCurrentHikeInfo((prevState) => ({
+      ...prevState,
+      title: newTitle,
+      status: "cancelled",
+    }));
     setHikeInfo(currentHikeInfo);
-    //Update hike and hikes in state and localStorage
-    setHike(currentHikeInfo.id);
-    updateHike(currentHikeInfo);
     showModal(
       "Cancel Hike",
       "Hike has been cancelled",

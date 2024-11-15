@@ -202,7 +202,6 @@ export async function fetchHikeById(id) {
       .from("hikes")
       .select("*")
       .eq("id", id);
-      ;
     if (error) {
       console.error("Database Error:", error);
       throw new Error("Failed to fetch hike data.");
@@ -218,8 +217,6 @@ export async function updateHike(hikeInfo) {
   const { error } = await supabase
   .from("hikes")
   .update({ 
-    creator_id: hikeInfo.creator_id,
-    trail_id: hikeInfo.trail_id,
     title: hikeInfo.title,
     date: hikeInfo.date,
     time: hikeInfo.time,
@@ -349,7 +346,7 @@ export async function fetchUserHikes(userId) {
       .from("hikes")
       .select("*")
       .neq("creator_id", userId)
-      .neq("status", "CANCELLED")
+      .neq("status", "cancelled")
       .gte("date", currentDate)
       .not('id', 'in', hikeIds)
       .order("date", { ascending: true });
