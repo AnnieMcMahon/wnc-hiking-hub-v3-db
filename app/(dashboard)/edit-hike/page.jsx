@@ -1,14 +1,15 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
+import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { updateHike, fetchHikeById, fetchUserHikes } from "@/app/api/data";
-import Modal from "@/app/ui/Modal";
 import EditHikeForm from "@/app/ui/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
-  const { hike, showModal, closeModal, currentUser } = useGlobal();
+  const { hike, currentUser } = useGlobal();
+  const { showModal, closeModal } = useModal();
   const router = useRouter();
   const [hikeInfo, setHikeInfo] = useState({
     title: "",
@@ -116,7 +117,6 @@ useEffect(() => {
       <h1>Edit Hike</h1>
       <div id="form-area" className="text-box">
       <EditHikeForm hikeInfo={hikeInfo} onSubmit={handleSubmit} onChange={handleChange} handleCancel={handleCancel} handleDiscard={handleDiscard}/>
-      <Modal />
       </div>
     </div>
   );

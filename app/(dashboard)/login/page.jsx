@@ -1,15 +1,15 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
+import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { fetchUserByEmail, addUser } from "@/app/api/data";
-import Modal from "@/app/ui/Modal";
 import LoginForm from "@/app/ui/LoginForm";
 import "./login.css";
 
 function Login() {
   const router = useRouter();
-  const { setCurrentUser, showModal, closeModal } =
-    useGlobal();
+  const { setCurrentUser } = useGlobal();
+  const { showModal, closeModal } = useModal();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -66,7 +66,6 @@ function Login() {
       <h1>Log In</h1>
       <div id="login-info" className="text-box">
         <LoginForm onSubmit={handleSubmit} />
-        <Modal />
       </div>
     </div>
   );

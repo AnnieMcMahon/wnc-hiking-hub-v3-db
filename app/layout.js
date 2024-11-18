@@ -1,4 +1,6 @@
 import { GlobalProvider } from "@/app/context/GlobalContext";
+import { ModalProvider } from "@/app/context/ModalContext";
+import Modal from "./Modal";
 import Navbar from "@/app/ui/Navbar";
 import "./global.css";
 
@@ -12,8 +14,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <GlobalProvider>
-          <Navbar />
-          {children}
+          <ModalProvider>
+            <Modal />
+            <Navbar />
+            {children}
+          </ModalProvider>
         </GlobalProvider>
       </body>
     </html>

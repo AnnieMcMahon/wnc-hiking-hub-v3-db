@@ -9,28 +9,6 @@ export function GlobalProvider({ children }) {
   //Initialize states with sample data
   const [currentUser, setCurrentUser] = useState(defaultUser);
   const [hike, setHike] = useState(defaultHike.id);
-
-  const [modal, setModal] = useState({
-    isOpen: false,
-    onConfirm: null,
-    title: "",
-    message: "",
-    onClose: null
-  });
-
-  function showModal(title, message, onConfirm = null, onClose = null) {
-    setModal({ 
-      isOpen: true, 
-      title: title, 
-      message: message, 
-      onConfirm: onConfirm, 
-      onClose: onClose || closeModal
-     });
-  }
-
-  function closeModal() {
-    setModal({ isOpen: false, title: "", message: "", onConfirm: null, onClose: null });
-  }
   
   // Store info in localStorage when it changes
   useEffect(() => {
@@ -48,10 +26,6 @@ export function GlobalProvider({ children }) {
         setCurrentUser,
         hike,
         setHike,
-        modal,
-        setModal,
-        showModal,
-        closeModal
       }}
     >
       {children}

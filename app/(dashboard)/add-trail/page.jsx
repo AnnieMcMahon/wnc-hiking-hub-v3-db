@@ -1,15 +1,15 @@
 "use client";
-import { useGlobal } from "@/app/context/GlobalContext";
+import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { addTrail } from "@/app/api/data";
-import Modal from "@/app/ui/Modal";
+
 import TrailForm from "@/app/ui/TrailForm";
 import "./add-trail.css";
 
 export default function AddTrail() {
-  const { showModal, closeModal } = useGlobal();
   const router = useRouter();
+  const { showModal, closeModal } = useModal();
   const [addedTrail, setAddedTrail] = useState(null);
 
   useEffect(() => {
@@ -67,7 +67,6 @@ export default function AddTrail() {
       <h1>Add New Trail</h1>
       <div id="form-area" className="text-box">
       <TrailForm onSubmit={handleSubmit} onClick={handleCancel} />
-      <Modal />
       </div>
     </div>
   );

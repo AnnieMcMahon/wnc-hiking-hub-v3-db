@@ -1,5 +1,6 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
+import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { filterTrailList, handleAddHike } from "@/app/api/data";
@@ -7,13 +8,13 @@ import { defaultTrail } from "@/app/lib/defaultContent";
 import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";
 import HikeForm from "@/app/ui/HikeForm";
-import Modal from "@/app/ui/Modal";
 import AllTrailsPost from "@/app/ui/AllTrailsPost";
 import { ANY_AREA, ANY_LENGTH, ANY_DIFFICULTY } from "@/app/lib/constants";
 import "./post-hike.css";
 
 export default function PostHike() {
-  const {currentUser, showModal} = useGlobal();
+  const { currentUser } = useGlobal();
+  const { showModal } = useModal();
   const router = useRouter();
   const [filteredList, setFilteredList] = useState([defaultTrail]);
   const [chosenTrail, setChosenTrail] = useState(null);
@@ -106,7 +107,6 @@ export default function PostHike() {
           <ChosenTrail trailSelected={chosenTrail} />
           <h2>3. Fill out the hike information</h2>
           <HikeForm onSubmit={handleSubmit} />
-          <Modal />
         </div>
         <div className="hike-section">
           <div className="section-header">

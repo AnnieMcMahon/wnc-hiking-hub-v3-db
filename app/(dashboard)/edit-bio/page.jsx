@@ -1,5 +1,6 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
+import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateUser, uploadAvatar } from "@/app/api/data";
@@ -9,7 +10,8 @@ import "./edit-bio.css";
 
 function EditBio() {
   const router = useRouter();
-  const { currentUser, setCurrentUser, showModal } = useGlobal();
+  const { currentUser, setCurrentUser } = useGlobal();
+  const { showModal } = useModal();
   const [bioInfo, setBioInfo] = useState({
     user_name: currentUser.user_name,
     bio: currentUser.bio
