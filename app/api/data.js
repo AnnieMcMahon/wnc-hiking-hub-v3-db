@@ -340,6 +340,8 @@ export async function fetchUserHikes(userId) {
       }
     })
     hikeIds = hikeIds + ")"
+  } else {
+    hikeIds = "()"
   }
   try {
     const { data, error } = await supabase
