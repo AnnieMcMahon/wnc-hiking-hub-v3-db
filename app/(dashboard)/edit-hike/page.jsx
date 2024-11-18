@@ -60,8 +60,8 @@ useEffect(() => {
         null,
         () => {
           closeModal();
-          router.push("/bio");
         });
+        router.push("/bio");
     } else {
       showModal("Error", "Please complete all information");
     }
