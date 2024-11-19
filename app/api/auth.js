@@ -1,4 +1,4 @@
-import { supabase } from "@/app/api/initSupabase";
+import { supabase } from "@/app/api/supabase/initSupabase";
 
 export async function checkStatus() {
   const { data } = supabase.auth.onAuthStateChange((event, session) => {

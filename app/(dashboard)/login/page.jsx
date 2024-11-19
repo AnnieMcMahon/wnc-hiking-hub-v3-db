@@ -52,8 +52,9 @@ function Login() {
       bio: DEFAULT_BIO,
     }
     try {
-      addUser(newUser)
-      setCurrentUser(newUser)
+      const user = await addUser(newUser)
+      setCurrentUser(user[0])
+      console.log("User: ", user[0])
       closeModal()
       router.push("/bio")
     } catch (error) {

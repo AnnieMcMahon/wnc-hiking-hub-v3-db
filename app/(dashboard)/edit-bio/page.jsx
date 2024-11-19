@@ -38,7 +38,7 @@ function EditBio() {
       if (newName) newInfo.user_name = newName;
       if (newBio) newInfo.bio = newBio;
       try {
-        updateUser(newInfo);
+        await updateUser(newInfo);
         setCurrentUser(newInfo);
         router.push("/bio");
       } catch (error) {

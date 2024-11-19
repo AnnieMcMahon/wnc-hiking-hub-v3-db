@@ -1,4 +1,4 @@
-import { supabase } from "@/app/api/initSupabase"
+import { supabase } from "@/app/api/supabase/initSupabase"
 import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "../lib/constants"
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'

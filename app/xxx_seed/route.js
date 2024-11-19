@@ -1,6 +1,6 @@
 /* Once the code to seed the database is ready, navigate to "/seed" to run the code. Only needs to run once, then delete (or comment out) this file. Need to work on the code to create the table (copy/paste from a tutorial, doesn't work) */
 
-import { supabase } from "@/app/api/initSupabase";
+import { supabase } from "@/app/api/supabase/initSupabase";
 import { sampleAppUsers } from "@/app/xxx_seed/seed";
 
 async function seedUsers() {
