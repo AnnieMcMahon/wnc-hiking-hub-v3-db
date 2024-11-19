@@ -312,7 +312,7 @@ button .add-trail-button {
   /**** General sections ****/
   /* Hike Sections on Bio, Join Hike and Post Hike pages */
   .hike-section {
-    height: auto;
+    height: 100%;
     margin: 0.1rem;
     padding: 0 0.3rem;
     margin-left: 0.1rem;

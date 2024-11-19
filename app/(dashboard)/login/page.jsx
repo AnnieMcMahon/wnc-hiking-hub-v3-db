@@ -12,7 +12,7 @@ function Login() {
   const { setCurrentUser } = useGlobal()
   const { showModal, closeModal } = useModal()
 
-  async function handleSubmit(e) {
+  async function handleLogin(e) {
     e.preventDefault()
     const userEmail = e.target.email.value.trim()
     const userPassword = e.target.password.value
@@ -34,7 +34,7 @@ function Login() {
         showModal(
           "Create Account",
           "No account found. Would you like to create one?",
-          () => handleNewAccount(userEmail, userPassword)
+          () => handleSignup(userEmail, userPassword)
         )
       }
     } catch (error) {
@@ -43,7 +43,7 @@ function Login() {
     }
   }
 
-  async function handleNewAccount(email, password) {
+  async function handleSignup(email, password) {
     const newUser = {
       email: email,
       password: password,
@@ -54,7 +54,6 @@ function Login() {
     try {
       const user = await addUser(newUser)
       setCurrentUser(user[0])
-      console.log("User: ", user[0])
       closeModal()
       router.push("/bio")
     } catch (error) {
@@ -66,7 +65,7 @@ function Login() {
     <div id="login">
       <h1>Log In</h1>
       <div id="login-info" className="text-box">
-        <LoginForm onSubmit={handleSubmit} />
+        <LoginForm onSubmit={handleLogin} />
       </div>
     </div>
   )

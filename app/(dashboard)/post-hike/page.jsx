@@ -55,7 +55,7 @@ export default function PostHike() {
     router.push("/add-trail");
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const newTrailId = chosenTrail ? chosenTrail.id : null;
     const newTitle = e.target.hikeTitle.value;
@@ -79,14 +79,9 @@ export default function PostHike() {
         time: newTime,
         location: newLocation,
         comments: newComments,
-        status: "new"
+        status: "new",
       };
-      try {
-        handleAddHike(newHike);
-      } catch (error) {
-        console.error("Error adding new hike:", error);
-        showModal("Error", "An error occurred while adding a new hike.");
-      }
+      await handleAddHike(newHike);
       router.push("/bio");
     } else {
       showModal("Error", "Please fill out all the information");
@@ -110,8 +105,10 @@ export default function PostHike() {
         </div>
         <div className="hike-section">
           <div className="section-header">
-          <h2>Trail Search Results</h2>
-          <button className="add-trail-button" onClick={handleAddTrail}>Add New Trail</button>
+            <h2>Trail Search Results</h2>
+            <button className="add-trail-button" onClick={handleAddTrail}>
+              Add New Trail
+            </button>
           </div>
           {filteredList.map((trail) => (
             <AllTrailsPost
