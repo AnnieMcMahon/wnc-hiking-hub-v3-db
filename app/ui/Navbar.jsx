@@ -3,6 +3,7 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { defaultUser } from "../lib/defaultContent";
+import { logOut } from "../api/supabase/auth";
 import Link from "next/link";
 import "./Navbar.css";
 
@@ -20,11 +21,12 @@ export default function Navbar() {
       : setButtonMessage("Log Out");
   }, [currentUser]);
 
-  function handleClick() {
+  async function handleClick() {
     if (buttonMessage == "Log In") {
       router.push("/login");
     } else {
       setCurrentUser(defaultUser);
+      await logOut();
       router.push("/");
     }
   }

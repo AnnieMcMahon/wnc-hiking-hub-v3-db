@@ -1,6 +1,53 @@
-import { supabase } from "@/app/api/supabase/initSupabase";
+"use server";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { createClient } from "@/app/api/supabase/server";
+
+export async function login(email, password) {
+  const supabase = await createClient();
+  const data = {
+    email: email,
+    password: password,
+  };
+  const { error } = await supabase.auth.signInWithPassword(data);
+  if (error) {
+    console.error("Auth Error:", error);
+  }
+  return error;
+}
+
+export async function signup(email, password) {
+  const supabase = await createClient();
+  const data = {
+    email: email,
+    password: password,
+  };
+  const { error } = await supabase.auth.signUp(data);
+  if (error) {
+    console.error("Auth Error:", error);
+  }
+  return error;
+}
+
+export async function retrieveUser() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser()
+  return user; 
+};
+
+export async function logOut() {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut()
+  if (error) {
+    console.error("Auth Error:", error);
+    throw new Error("Failed to log out.");
+  }
+  revalidatePath("/", "layout");
+  redirect("/");
+};
 
 export async function checkStatus() {
+  const supabase = await createClient();
   const { data } = supabase.auth.onAuthStateChange((event, session) => {
     console.log(event, session)
     if (event === 'INITIAL_SESSION') {
@@ -20,38 +67,10 @@ export async function checkStatus() {
   data.subscription.unsubscribe()
 };
 
-export async function retrieveUser() {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to retrieve user.");
-  }
-  return user; 
-};
+// Sample Code from Supabase docs
 
-export async function createUser(email, password) {
-  const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password,
-  });
-  if (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to add user.");
-  }
-  return data; 
-};
 
-export async function signIn(email, password) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: password,
-  })
-  if (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to sign in with e-mail.");
-  }
-  return data; 
-};
+
 
 export async function signInWithProvider(provider) {
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -62,14 +81,6 @@ export async function signInWithProvider(provider) {
     throw new Error("Failed to sign in with provider.");
   }
   return data; 
-};
-
-export async function signOut() {
-  const { error } = await supabase.auth.signOut()
-  if (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to sign out.");
-  }
 };
 
 export async function resetPassword(email, link) {

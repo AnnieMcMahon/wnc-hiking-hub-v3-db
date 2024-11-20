@@ -1,6 +1,8 @@
 "use client";
-
 import { createContext, useState, useContext, useEffect } from "react";
+import { retrieveUser } from "@/app/api/supabase/auth";
+import { fetchUserByEmail } from "../api/data";
+
 import { defaultUser, defaultHike } from "@/app/lib/defaultContent";
 
 const GlobalContext = createContext();
@@ -10,6 +12,19 @@ export function GlobalProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(defaultUser);
   const [hike, setHike] = useState(defaultHike.id);
   
+useEffect(() => {
+  const fetchUser = async () => {
+    const user = await retrieveUser();
+    if (user) {
+      const userInfo = await fetchUserByEmail(user.email);
+      if (userInfo) {
+        setCurrentUser(userInfo[0]);
+      }
+    }
+  };
+  fetchUser();
+}, []);
+
   // Store info in localStorage when it changes
   useEffect(() => {
     localStorage.setItem("hike", JSON.stringify(hike));

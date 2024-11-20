@@ -4,7 +4,7 @@ export default function LoginForm({ onSubmit }) {
   return (
     <Form onSubmit={onSubmit}>
       <label htmlFor="email">E-mail: </label>
-      <input type="email" name="email" id="email" autoComplete="on" />
+      <input type="email" name="email" id="email"  required />
       <br />
       <label htmlFor="password">Password: </label>
       <input
@@ -12,6 +12,7 @@ export default function LoginForm({ onSubmit }) {
         name="password"
         id="password"
         autoComplete="off"
+        required
       />
       <br />
       <button type="submit" className="form-button">

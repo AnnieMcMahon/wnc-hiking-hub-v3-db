@@ -123,13 +123,12 @@ export async function fetchUserById(id) {
   }
 }
 
-export async function addUser(userInfo) {
+export async function addUser(email) {
   try {
     const { data, error } = await supabase
       .from("users")
       .insert({
-        email: userInfo.email,
-        password: userInfo.password,
+        email: email,
       })
       .select();
     if (error) {
