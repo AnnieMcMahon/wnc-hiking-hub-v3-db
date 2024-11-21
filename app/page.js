@@ -1,4 +1,4 @@
-export default async function Home() {
+export default function Home() {
   return (
     <div id="home" className="text-box">
         <h1>How to Use This Site</h1>
