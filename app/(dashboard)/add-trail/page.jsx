@@ -2,7 +2,7 @@
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { addTrail } from "@/app/api/data";
+import { addTrail } from "@/app/api/data/data";
 
 import TrailForm from "@/app/ui/TrailForm";
 import "./add-trail.css";

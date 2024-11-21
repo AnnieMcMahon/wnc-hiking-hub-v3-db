@@ -1,5 +1,5 @@
-import { supabase } from "@/app/api/supabase/initSupabase";
-import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "../lib/constants";
+import { supabase } from "@/app/api/data/initSupabase";
+import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "@/app/lib/constants";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";

@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useState, useContext, useEffect } from "react";
-import { retrieveUser } from "@/app/api/supabase/auth";
-import { fetchUserByEmail } from "../api/data";
+import { retrieveUser } from "@/app/api/authentication/auth";
+import { fetchUserByEmail } from "@/app/api/data/data";
 
 import { defaultUser, defaultHike } from "@/app/lib/defaultContent";
 

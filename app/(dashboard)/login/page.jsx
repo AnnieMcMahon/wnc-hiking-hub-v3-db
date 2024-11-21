@@ -2,8 +2,8 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
-import { login, signup } from "@/app/api/supabase/auth";
-import { fetchUserByEmail, addUser } from "@/app/api/data";
+import { login, signup } from "@/app/api/authentication/auth";
+import { fetchUserByEmail, addUser } from "@/app/api/data/data";
 import LoginForm from "@/app/ui/LoginForm";
 import "./login.css";
 

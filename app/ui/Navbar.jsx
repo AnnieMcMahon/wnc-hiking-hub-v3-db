@@ -2,8 +2,8 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { defaultUser } from "../lib/defaultContent";
-import { logOut } from "../api/supabase/auth";
+import { defaultUser } from "@/app/lib/defaultContent";
+import { logout } from "@/app/api/authentication/auth";
 import Link from "next/link";
 import "./Navbar.css";
 
@@ -26,7 +26,7 @@ export default function Navbar() {
       router.push("/login");
     } else {
       setCurrentUser(defaultUser);
-      await logOut();
+      await logout();
       router.push("/");
     }
   }

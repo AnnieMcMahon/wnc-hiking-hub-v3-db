@@ -1,4 +1,4 @@
-import { updateSession } from "@/app/api/supabase/middleware";
+import { updateSession } from "@/app/api/authentication/middleware";
 
 export async function middleware(request) {
   return await updateSession(request);

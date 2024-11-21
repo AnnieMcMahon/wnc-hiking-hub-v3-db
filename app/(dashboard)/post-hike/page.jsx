@@ -3,7 +3,7 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { filterTrailList, handleAddHike } from "@/app/api/data";
+import { filterTrailList, handleAddHike } from "@/app/api/data/data";
 import { defaultTrail } from "@/app/lib/defaultContent";
 import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";

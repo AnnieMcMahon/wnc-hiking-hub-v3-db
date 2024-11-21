@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createClient } from "@/app/api/supabase/server";
+import { createClient } from "@/app/api/authentication/server";
 
 export async function login(email, password) {
   const supabase = await createClient();
@@ -35,7 +35,7 @@ export async function retrieveUser() {
   return user; 
 };
 
-export async function logOut() {
+export async function logout() {
   const supabase = await createClient();
   const { error } = await supabase.auth.signOut()
   if (error) {

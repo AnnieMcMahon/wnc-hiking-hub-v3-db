@@ -3,7 +3,7 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { updateUser, uploadAvatar } from "@/app/api/data";
+import { updateUser, uploadAvatar } from "@/app/api/data/data";
 
 import EditBioForm from "@/app/ui/EditBioForm";
 import "./edit-bio.css";
@@ -49,7 +49,7 @@ function EditBio() {
   };
 
   function handleClick() {
-    router.push("/edit-bio");
+    router.push("/bio");
   }
 
   function handleChange(e) {
