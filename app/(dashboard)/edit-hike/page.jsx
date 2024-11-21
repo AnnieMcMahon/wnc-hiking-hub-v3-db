@@ -75,8 +75,8 @@ useEffect(() => {
       null,
       () => {
         closeModal();
-        router.push("/bio");
       });
+      router.push("/bio");
   }
 
   function handleCancel() {
@@ -101,8 +101,8 @@ useEffect(() => {
       null,
       () => {
         closeModal();
-        router.push("/bio");
       });
+      router.push("/bio");
   }
 
   function handleChange(e) {
