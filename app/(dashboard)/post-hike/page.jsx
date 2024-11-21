@@ -4,7 +4,6 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { filterTrailList, handleAddHike } from "@/app/api/data/data";
-import { defaultTrail } from "@/app/lib/defaultContent";
 import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";
 import HikeForm from "@/app/ui/HikeForm";
@@ -16,7 +15,7 @@ export default function PostHike() {
   const { currentUser } = useGlobal();
   const { showModal } = useModal();
   const router = useRouter();
-  const [filteredList, setFilteredList] = useState([defaultTrail]);
+  const [filteredList, setFilteredList] = useState([]);
   const [chosenTrail, setChosenTrail] = useState(null);
   const [searchArea, setSearchArea] = useState(ANY_AREA);
   const [searchDifficulty, setSearchDifficulty] = useState(ANY_DIFFICULTY);
@@ -110,7 +109,7 @@ export default function PostHike() {
               Add New Trail
             </button>
           </div>
-          {filteredList.map((trail) => (
+          {filteredList?.map((trail) => (
             <AllTrailsPost
               trailInfo={trail}
               key={trail.id}

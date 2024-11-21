@@ -43,7 +43,7 @@ function Login() {
       const user = await addUser(email);
       setCurrentUser(user[0]);
       closeModal();
-      router.push("/bio");
+      router.push("/edit-bio");
     }
   }
   return (

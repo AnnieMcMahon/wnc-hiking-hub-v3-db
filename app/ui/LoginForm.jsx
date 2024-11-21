@@ -6,12 +6,13 @@ export default function LoginForm({ onSubmit }) {
       <label htmlFor="email">E-mail: </label>
       <input type="email" name="email" id="email"  required />
       <br />
-      <label htmlFor="password">Password: </label>
+      <label htmlFor="password">Password (6 characters minimum): </label>
       <input
         type="password"
         name="password"
         id="password"
         autoComplete="off"
+        minLength="6"
         required
       />
       <br />
