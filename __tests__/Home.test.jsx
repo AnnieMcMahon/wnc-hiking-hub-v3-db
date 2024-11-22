@@ -8,7 +8,7 @@ describe("Home", () => {
   });
   it("renders a title", () => {
     render(<Home />);
-    screen.getByText("How to Use This Site");
+    expect(screen.getByText(/How to Use This Site/)).toBeInTheDocument();
     screen.debug;
   });
 });

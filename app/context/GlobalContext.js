@@ -2,12 +2,12 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { retrieveUser } from "@/app/api/authentication/auth";
 import { fetchUserByEmail } from "@/app/api/data/data";
-import { defaultUser } from "@/app/lib/defaultContent";
+import { DEFAULT_USER } from "../lib/constants";
 
 const GlobalContext = createContext();
 
 export function GlobalProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(defaultUser);
+  const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
   const [hike, setHike] = useState();
   
 useEffect(() => {

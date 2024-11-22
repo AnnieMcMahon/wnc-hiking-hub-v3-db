@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BioSection matches the snapshot 1`] = `
+<div>
+  <div
+    class="bio-section"
+  >
+    <div
+      class="bio-header-section"
+    >
+      <img
+        alt="avatar"
+        class="avatar"
+        src="/newUser.png"
+      />
+      <h1>
+        Demo User
+      </h1>
+      <button>
+        Edit Bio
+      </button>
+    </div>
+    <div
+      class="bio-text-section"
+    >
+      <h2>
+        About Me
+      </h2>
+      <div
+        class="text-box"
+        id="bio-text"
+      >
+        <p>
+          Bio text goes here ... Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem reprehenderit assumenda quibusdam iste eos exercitationem molestias nulla fuga repellat incidunt ullam cupiditate necessitatibus quidem debitis dolorum nesciunt labore quos, laboriosam tempora qui tempore quo velit! Libero quod eligendi at eum.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

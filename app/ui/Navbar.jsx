@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { defaultUser } from "@/app/lib/defaultContent";
+import { DEFAULT_USER } from "../lib/constants";
 import { logout } from "@/app/api/authentication/auth";
 import Link from "next/link";
 import "./Navbar.css";
@@ -25,7 +25,7 @@ export default function Navbar() {
     if (buttonMessage == "Log In") {
       router.push("/login");
     } else {
-      setCurrentUser(defaultUser);
+      setCurrentUser(DEFAULT_USER);
       await logout();
       router.push("/");
     }
