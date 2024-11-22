@@ -2,90 +2,45 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { filterTrailList, handleAddHike } from "@/app/api/data/data";
+import { useState } from "react";
+import { useTrailSearch } from "@/app/hooks/useTrailSearch";
 import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";
 import HikeForm from "@/app/ui/HikeForm";
 import AllTrailsPost from "@/app/ui/AllTrailsPost";
-import { ANY_AREA, ANY_LENGTH, ANY_DIFFICULTY } from "@/app/lib/constants";
 import "./post-hike.css";
 
 export default function PostHike() {
   const { currentUser } = useGlobal();
   const { showModal } = useModal();
   const router = useRouter();
-  const [filteredList, setFilteredList] = useState([]);
+  const { filteredList, updateSearchCriteria } = useTrailSearch();
+
   const [chosenTrail, setChosenTrail] = useState(null);
-  const [searchArea, setSearchArea] = useState(ANY_AREA);
-  const [searchDifficulty, setSearchDifficulty] = useState(ANY_DIFFICULTY);
-  const [searchLength, setSearchLength] = useState(ANY_LENGTH);
 
-  useEffect(() => {
-    const fetchNewList = async () => {
-      const newList = await filterTrailList(
-        searchArea,
-        searchDifficulty,
-        searchLength
-      );
-      setFilteredList(newList);
-      return newList;
-    };
-    fetchNewList();
-  }, [searchArea, searchDifficulty, searchLength]);
+  const handleAddTrail = () => router.push("/add-trail");
 
-  function searchByArea(e) {
-    setSearchArea(e.target.value);
-  }
-
-  function searchByDifficulty(e) {
-    setSearchDifficulty(e.target.value);
-  }
-
-  function searchByLength(e) {
-    setSearchLength(e.target.value);
-  }
-
-  function handleClick(trail) {
-    setChosenTrail(trail);
-  }
-
-  function handleAddTrail() {
-    router.push("/add-trail");
-  }
-
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newTrailId = chosenTrail ? chosenTrail.id : null;
-    const newTitle = e.target.hikeTitle.value;
-    const newDate = e.target.date.value;
-    const newTime = e.target.time.value;
-    const newLocation = e.target.location.value;
-    const newComments = e.target.comments.value;
-    if (
-      newTrailId &&
-      newTitle &&
-      newDate &&
-      newTime &&
-      newLocation &&
-      newComments
-    ) {
-      const newHike = {
-        creator_id: currentUser.id,
-        trail_id: newTrailId,
-        title: newTitle,
-        date: newDate,
-        time: newTime,
-        location: newLocation,
-        comments: newComments,
-        status: "new",
-      };
-      await handleAddHike(newHike);
-      router.push("/bio");
-    } else {
-      showModal("Error", "Please fill out all the information");
+    const formData = new FormData(e.target);
+    const newHike = {
+      creator_id: currentUser.id,
+      trail_id: chosenTrail?.id || null,
+      title: formData.get("hikeTitle"),
+      date: formData.get("date"),
+      time: formData.get("time"),
+      location: formData.get("location"),
+      comments: formData.get("comments"),
+      status: "new",
+    };
+
+    if (Object.values(newHike).some((value) => !value)) {
+      return showModal("Error", "Please fill out all the information");
     }
-  }
+
+    await handleAddHike(newHike);
+    router.push("/bio");
+  };
 
   return (
     <div id="post-hike">
@@ -93,9 +48,7 @@ export default function PostHike() {
         <div id="form-area" className="text-box">
           <h2>1. Search for a trail</h2>
           <SearchForm
-            searchByArea={searchByArea}
-            searchByDifficulty={searchByDifficulty}
-            searchByLength={searchByLength}
+            onSearch={(key, value) => updateSearchCriteria(key, value)}
           />
           <h2>2. Select a trail from the right column</h2>
           <ChosenTrail trailSelected={chosenTrail} />
@@ -109,11 +62,11 @@ export default function PostHike() {
               Add New Trail
             </button>
           </div>
-          {filteredList?.map((trail) => (
+          {filteredList.map((trail) => (
             <AllTrailsPost
               trailInfo={trail}
               key={trail.id}
-              onClick={() => handleClick(trail)}
+              onClick={() => setChosenTrail(trail)}
             />
           ))}
         </div>

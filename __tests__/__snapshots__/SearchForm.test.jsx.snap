@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchForm matches the snapshot 1`] = `
+<div>
+  <form
+    class="search-form"
+  >
+    <label
+      for="area"
+    >
+      Area Name: 
+    </label>
+    <select
+      id="area"
+      name="area"
+    >
+      <option
+        value="Anywhere in WNC"
+      >
+        Anywhere in WNC
+      </option>
+      <option
+        value="DuPont State Recreational Forest"
+      >
+        DuPont State Recreational Forest
+      </option>
+      <option
+        value="Pisgah National Forest"
+      >
+        Pisgah National Forest
+      </option>
+      <option
+        value="North Carolina Arboretum"
+      >
+        North Carolina Arboretum
+      </option>
+      <option
+        value="Nantahala Forest"
+      >
+        Nantahala Forest
+      </option>
+    </select>
+    <br />
+    <label
+      for="difficulty"
+    >
+      Difficulty Rating: 
+    </label>
+    <select
+      id="difficulty"
+      name="difficulty"
+    >
+      <option
+        value="Any difficulty"
+      >
+        Any difficulty
+      </option>
+      <option
+        value="easy"
+      >
+        easy
+      </option>
+      <option
+        value="moderate"
+      >
+        moderate
+      </option>
+      <option
+        value="hard"
+      >
+        hard
+      </option>
+    </select>
+    <label
+      for="length"
+    >
+       Length: 
+    </label>
+    <select
+      id="length"
+      name="length"
+    >
+      <option
+        value="Any length"
+      >
+        Any length
+      </option>
+      <option
+        value="short"
+      >
+        Shorter than 3 miles
+      </option>
+      <option
+        value="medium"
+      >
+        From 3 to 6 miles
+      </option>
+      <option
+        value="long"
+      >
+        Longer than 6 miles
+      </option>
+    </select>
+    <br />
+  </form>
+</div>
+`;

@@ -1,5 +1,5 @@
 import { supabase } from "@/app/api/data/initSupabase";
-import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "@/app/lib/constants";
+import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH, SHORT, MEDIUM, LONG } from "@/app/lib/constants";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -76,9 +76,9 @@ export async function filterTrailList(area_name, difficulty_rating, length) {
   if (length !== ANY_LENGTH) {
     newList = newList.filter(
       (trail) =>
-        (length == "short" && Number(trail.length) < 3) ||
-        (length == "long" && Number(trail.length > 6)) ||
-        (length == "medium" &&
+        (length == SHORT && Number(trail.length) < 3) ||
+        (length == LONG && Number(trail.length > 6)) ||
+        (length == MEDIUM &&
           Number(trail.length) >= 3 &&
           Number(trail.length) <= 6)
     );
