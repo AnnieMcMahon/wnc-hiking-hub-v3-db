@@ -9,7 +9,6 @@ describe("Home", () => {
   it("renders a title", () => {
     render(<Home />);
     expect(screen.getByText(/How to Use This Site/)).toBeInTheDocument();
-    screen.debug;
   });
 });
 

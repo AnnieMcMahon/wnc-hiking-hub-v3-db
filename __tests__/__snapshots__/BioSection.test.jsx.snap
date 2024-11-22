@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BioSection matches the snapshot 1`] = `
+exports[`BioSection rendering matches the snapshot 1`] = `
 <div>
   <div
     class="bio-section"
