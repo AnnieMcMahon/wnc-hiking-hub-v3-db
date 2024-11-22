@@ -86,17 +86,17 @@ exports[`SearchForm matches the snapshot 1`] = `
         Any length
       </option>
       <option
-        value="short"
+        value="Shorter than 3 miles"
       >
         Shorter than 3 miles
       </option>
       <option
-        value="medium"
+        value="From 3 to 6 miles"
       >
         From 3 to 6 miles
       </option>
       <option
-        value="long"
+        value="Longer than 6 miles"
       >
         Longer than 6 miles
       </option>
