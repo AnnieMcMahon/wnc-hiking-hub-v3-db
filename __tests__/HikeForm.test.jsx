@@ -60,7 +60,7 @@ describe("HikeForm", () => {
       await user.click(button);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
       expect(mockOnSubmit).toHaveBeenCalledWith({
-        title: "abc",
+        hikeTitle: "abc",
         date: "2020-01-01",
         time: "10:30",
         location: "here",
