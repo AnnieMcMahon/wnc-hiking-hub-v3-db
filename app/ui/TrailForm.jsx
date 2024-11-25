@@ -7,16 +7,10 @@ export default function TrailForm({ onSubmit = () => {}, onClick = () => {} }) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const newTrail = Object.fromEntries(formData.entries());
-    if (
-      newTrail.trail_name &&
-      newTrail.area_name &&
-      newTrail.length &&
-      newTrail.elevation_gain &&
-      newTrail.trail_link
-    ) {
-      onSubmit(newTrail);
-    } else {
+    if (Object.values(newTrail).some((value) => !value)) {
       showModal("Error", "Please complete all information");
+    } else {
+      onSubmit(newTrail);
     }
   };
 

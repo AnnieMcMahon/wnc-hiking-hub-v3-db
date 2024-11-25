@@ -4,6 +4,7 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTrailSearch } from "@/app/hooks/useTrailSearch";
+import { handleAddHike } from "@/app/api/data/data";
 import ChosenTrail from "@/app/ui/ChosenTrail";
 import SearchForm from "@/app/ui/SearchForm";
 import HikeForm from "@/app/ui/HikeForm";
@@ -20,26 +21,17 @@ export default function PostHike() {
 
   const handleAddTrail = () => router.push("/add-trail");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const newHike = {
-      creator_id: currentUser.id,
-      trail_id: chosenTrail?.id || null,
-      title: formData.get("hikeTitle"),
-      date: formData.get("date"),
-      time: formData.get("time"),
-      location: formData.get("location"),
-      comments: formData.get("comments"),
-      status: "new",
-    };
-
-    if (Object.values(newHike).some((value) => !value)) {
-      return showModal("Error", "Please fill out all the information");
+  const handleSubmit = async (newHikeInfo) => {
+    if (!chosenTrail) {
+      showModal("Error", "Please choose a trail");
+    } else {
+      let newHike = newHikeInfo;
+      newHike.creator_id = currentUser.id;
+      newHike.trail_id = chosenTrail.id;
+      newHike.status = "new";
+      await handleAddHike(newHike);
+      router.push("/bio");
     }
-
-    await handleAddHike(newHike);
-    router.push("/bio");
   };
 
   return (

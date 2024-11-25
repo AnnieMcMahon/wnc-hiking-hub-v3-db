@@ -1,8 +1,23 @@
-export default function HikeForm({ onSubmit }) {
+import { useModal } from "@/app/context/ModalContext";
+
+export default function HikeForm({ onSubmit = () => {} }) {
+  const { showModal } = useModal();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newHike = Object.fromEntries(formData.entries());
+    if (Object.values(newHike).some((value) => !value)) {
+      showModal("Error", "Please fill out all the information");
+    } else {
+      onSubmit(newHike);
+    }
+  }
+
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="hikeTitle">Title: </label>
-      <input type="text" name="hikeTitle" id="hikeTitle" />
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="title">Title: </label>
+      <input type="text" name="title" id="title" />
       <br />
       <label htmlFor="date">Date: </label>
       <input type="date" name="date" id="date" />
