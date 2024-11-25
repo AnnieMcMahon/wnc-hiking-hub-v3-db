@@ -182,7 +182,7 @@ export async function addHike(hikeInfo) {
       .insert({
         creator_id: hikeInfo.creator_id,
         trail_id: hikeInfo.trail_id,
-        title: hikeInfo.title,
+        title: hikeInfo.hikeTitle,
         date: hikeInfo.date,
         time: hikeInfo.time,
         location: hikeInfo.location,

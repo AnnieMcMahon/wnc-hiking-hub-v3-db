@@ -16,8 +16,8 @@ export default function HikeForm({ onSubmit = () => {} }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="title">Title: </label>
-      <input type="text" name="title" id="title" />
+      <label htmlFor="hikeTitle">Title: </label>
+      <input type="text" name="hikeTitle" id="hikeTitle" />
       <br />
       <label htmlFor="date">Date: </label>
       <input type="date" name="date" id="date" />
