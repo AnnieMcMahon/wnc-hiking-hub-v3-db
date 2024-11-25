@@ -6,12 +6,12 @@ export default function LoginForm({ onSubmit = () => {} }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const password = formData.get("password");
-    if (password.length < 6) {
+    const newLogin = Object.fromEntries(formData.entries());
+    if (newLogin.password.length < 6) {
       showModal("Error", "Password must be at least 6 characters.");
       return;
     }
-    onSubmit(e);
+    onSubmit(newLogin);
   };
 
   return (

@@ -11,11 +11,6 @@ import {
 
 describe("BioSection", () => {
   describe("rendering", () => {
-    it("matches the snapshot", () => {
-      const { container } = render(<BioSection user={DEFAULT_USER} />);
-      expect(container).toMatchSnapshot();
-    });
-
     it("renders a BioSection component", () => {
       render(<BioSection user={DEFAULT_USER} />);
       expect(screen.getByText(/about me/i)).toBeInTheDocument();

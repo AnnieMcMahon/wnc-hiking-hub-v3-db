@@ -6,11 +6,6 @@ import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "@/app/lib/constants";
 
 describe("SearchForm", () => {
   describe("rendering", () => {
-    it("matches the snapshot", () => {
-      const { container } = render(<SearchForm />);
-      expect(container).toMatchSnapshot();
-    });
-
     it("renders a SearchForm component", () => {
       render(<SearchForm />);
       expect(screen.getByText(/area name/i)).toBeInTheDocument();

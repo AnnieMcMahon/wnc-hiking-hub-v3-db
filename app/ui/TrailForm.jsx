@@ -1,6 +1,31 @@
-export default function TrailForm({ onSubmit, onClick }) {
+import { useModal } from "@/app/context/ModalContext";
+
+export default function TrailForm({ onSubmit = () => {}, onClick = () => {} }) {
+  const { showModal } = useModal();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newTrail = Object.fromEntries(formData.entries());
+    if (
+      newTrail.trail_name &&
+      newTrail.area_name &&
+      newTrail.length &&
+      newTrail.elevation_gain &&
+      newTrail.trail_link
+    ) {
+      onSubmit(newTrail);
+    } else {
+      showModal("Error", "Please complete all information");
+    }
+  };
+
+  const handleClick = () => {
+    onClick();
+  };
+
   return (
-    <form className="trail-form" onSubmit={onSubmit}>
+    <form className="trail-form" onSubmit={handleSubmit}>
       <p>Copy and paste all the information from AllTrails:</p>
       <label htmlFor="trail_name">Trail Name: </label>
       <input type="text" name="trail_name" id="trail_name" />
@@ -32,12 +57,12 @@ export default function TrailForm({ onSubmit, onClick }) {
       <input type="trail_link" name="trail_link" id="trail_link" />
       <br />
       <div className="form-button-section">
-      <button type="submit" className="form-button">
-        Submit Form
-      </button>
-      <button type="button" className="form-button" onClick={onClick}>
-        Cancel
-      </button>
+        <button type="submit" className="form-button">
+          Submit Form
+        </button>
+        <button type="button" className="form-button" onClick={handleClick}>
+          Cancel
+        </button>
       </div>
     </form>
   );

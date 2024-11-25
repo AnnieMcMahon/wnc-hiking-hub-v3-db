@@ -12,14 +12,11 @@ function Login() {
   const { setCurrentUser } = useGlobal();
   const { showModal, closeModal } = useModal();
 
-  async function handleLogin(e) {
-    e.preventDefault();
-    const userEmail = e.target.email.value.trim();
-    const userPassword = e.target.password.value;
-    const userInfoArray = await fetchUserByEmail(userEmail);
+  async function handleLogin(newLogin) {
+    const userInfoArray = await fetchUserByEmail(newLogin.email);
     const userInfo = userInfoArray[0];
     if (userInfo) {
-        const error = await login(userEmail, userPassword);
+        const error = await login(newLogin);
         if (error) {
           showModal("Error", "Invalid password. Please try again.");
         } else {
@@ -30,17 +27,17 @@ function Login() {
       showModal(
         "Create Account",
         "No account found. Would you like to create one?",
-        () => handleSignup(userEmail, userPassword)
+        () => handleSignup(newLogin)
       );
     }
   }
 
-  async function handleSignup(email, password) {
-    const error = await signup(email, password);
+  async function handleSignup(loginInfo) {
+    const error = await signup(loginInfo);
     if (error) {
       showModal("Error", "An error has occurred. Please try again.");
     } else {
-      const user = await addUser(email);
+      const user = await addUser(loginInfo.email);
       setCurrentUser(user[0]);
       closeModal();
       router.push("/edit-bio");

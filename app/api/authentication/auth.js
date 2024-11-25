@@ -3,12 +3,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/app/api/authentication/server";
 
-export async function login(email, password) {
+export async function login(newLogin) {
   const supabase = await createClient();
-  const data = {
-    email: email,
-    password: password,
-  };
+  const data = newLogin;
   const { error } = await supabase.auth.signInWithPassword(data);
   if (error) {
     console.error("Auth Error:", error);
@@ -16,12 +13,9 @@ export async function login(email, password) {
   return error;
 }
 
-export async function signup(email, password) {
+export async function signup(loginInfo) {
   const supabase = await createClient();
-  const data = {
-    email: email,
-    password: password,
-  };
+  const data = loginInfo;
   const { error } = await supabase.auth.signUp(data);
   if (error) {
     console.error("Auth Error:", error);

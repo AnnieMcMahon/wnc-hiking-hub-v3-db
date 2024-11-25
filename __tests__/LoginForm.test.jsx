@@ -29,7 +29,7 @@ describe("LoginForm", () => {
   });
 
   describe("functional", () => {
-    it("does not throw when no onClick is provided", async () => {
+    it("does not throw when onSubmit is not provided", async () => {
       render(<LoginForm />);
       const button = screen.getByRole("button", { name: /log in/i });
       await userEvent.click(button);
@@ -70,12 +70,6 @@ describe("LoginForm", () => {
       const button = screen.getByRole("button");
       await userEvent.click(button);
       expect(mockOnSubmit).not.toHaveBeenCalled();
-    });
-
-    it("does not throw an error if onSubmit is not provided", async () => {
-      render(<LoginForm />);
-      const button = screen.getByRole("button");
-      await userEvent.click(button);
     });
 
     it("prevents submission if email format is invalid", async () => {
