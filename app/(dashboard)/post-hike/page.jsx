@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTrailSearch } from "@/app/hooks/useTrailSearch";
 import { handleAddHike } from "@/app/api/data/data";
-import ChosenTrail from "@/app/ui/ChosenTrail";
-import SearchForm from "@/app/ui/SearchForm";
-import HikeForm from "@/app/ui/HikeForm";
-import AllTrailsPost from "@/app/ui/AllTrailsPost";
+import ChosenTrail from "@/app/ui/components/ChosenTrail";
+import SearchForm from "@/app/ui/forms/SearchForm";
+import HikeForm from "@/app/ui/forms/HikeForm";
+import AllTrailsPost from "@/app/ui/components/AllTrailsPost";
 import "./post-hike.css";
 
 export default function PostHike() {

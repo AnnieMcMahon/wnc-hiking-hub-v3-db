@@ -4,7 +4,7 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { login, signup } from "@/app/api/authentication/auth";
 import { fetchUserByEmail, addUser } from "@/app/api/data/data";
-import LoginForm from "@/app/ui/LoginForm";
+import LoginForm from "@/app/ui/forms/LoginForm";
 import "./login.css";
 
 function Login() {

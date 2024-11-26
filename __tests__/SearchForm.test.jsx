@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import SearchForm from "@/app/ui/SearchForm";
+import SearchForm from "@/app/ui/forms/SearchForm";
 import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "@/app/lib/constants";
 
 describe("SearchForm", () => {

@@ -1,7 +1,7 @@
 import { GlobalProvider } from "@/app/context/GlobalContext";
 import { ModalProvider } from "@/app/context/ModalContext";
 import Modal from "./Modal";
-import Navbar from "@/app/ui/Navbar";
+import Navbar from "./ui/components/Navbar";
 import "./global.css";
 
 export const metadata = {

@@ -3,8 +3,8 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { fetchUserHikes } from "@/app/api/data/data";
-import BioSection from "@/app/ui/BioSection";
-import HikeSection from "@/app/ui/HikeSection";
+import BioSection from "./BioSection";
+import HikeSection from "./HikeSection";
 import "./bio.css";
 
 export default function Bio() {

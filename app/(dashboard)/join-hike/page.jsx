@@ -1,8 +1,8 @@
 "use client";
-import Hike from "@/app/ui/Hike";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { fetchHikesToJoin } from "@/app/api/data/data";
 import { useState, useEffect } from "react";
+import Hike from "@/app/ui/components/Hike";
 import "./join-hike.css";
 
 function JoinHike() {

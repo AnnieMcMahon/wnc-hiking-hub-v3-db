@@ -1,4 +1,4 @@
-import { DEFAULT_USER_NAME, DEFAULT_BIO, DEFAULT_AVATAR } from "../lib/constants";
+import { DEFAULT_USER_NAME, DEFAULT_BIO, DEFAULT_AVATAR } from "@/app/lib/constants";
 
 export default function BioSection({ user = {}, onClick = () => {} }) {
   const avatar = user.avatar || DEFAULT_AVATAR;

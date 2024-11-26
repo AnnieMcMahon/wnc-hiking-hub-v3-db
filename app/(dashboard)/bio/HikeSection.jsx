@@ -1,4 +1,4 @@
-import Hike from "./Hike";
+import Hike from "@/app/ui/components/Hike";
 
 export default function HikeSection({
   upcomingHikes,

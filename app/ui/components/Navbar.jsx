@@ -2,9 +2,9 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { DEFAULT_USER } from "../lib/constants";
-import { logout } from "@/app/api/authentication/auth";
 import Link from "next/link";
+import { DEFAULT_USER } from "@/app/lib/constants";
+import { logout } from "@/app/api/authentication/auth";
 import "./Navbar.css";
 
 export default function Navbar() {

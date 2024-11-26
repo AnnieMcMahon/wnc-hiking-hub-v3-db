@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateUser, uploadAvatar } from "@/app/api/data/data";
 
-import EditBioForm from "@/app/ui/EditBioForm";
+import EditBioForm from "@/app/ui/forms/EditBioForm";
 import "./edit-bio.css";
 
 function EditBio() {

@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import HikeForm from "@/app/ui/HikeForm";
+import HikeForm from "@/app/ui/forms/HikeForm";
 import { useModal } from "@/app/context/ModalContext";
 
 jest.mock("@/app/context/ModalContext", () => ({

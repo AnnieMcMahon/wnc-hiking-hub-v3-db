@@ -2,7 +2,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { retrieveUser } from "@/app/api/authentication/auth";
 import { fetchUserByEmail } from "@/app/api/data/data";
-import { DEFAULT_USER } from "../lib/constants";
+import { DEFAULT_USER } from "@/app/lib/constants";
 
 const GlobalContext = createContext();
 

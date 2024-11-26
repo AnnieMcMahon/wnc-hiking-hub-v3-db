@@ -4,7 +4,7 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { updateHike, fetchHikeById, fetchUserHikes } from "@/app/api/data/data";
-import EditHikeForm from "@/app/ui/EditHikeForm";
+import EditHikeForm from "@/app/ui/forms/EditHikeForm";
 import "./edit-hike.css";
 
 export default function EditHike() {
