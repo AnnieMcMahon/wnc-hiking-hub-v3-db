@@ -1,8 +1,9 @@
 import { AREAS, DIFFICULTIES, LENGTHS, ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "@/app/lib/constants";
 
 export default function SearchForm({ onSearch = () => {} }) {
-  const handleSearch = (key, value) => {
-    onSearch(key, value);
+  const handleSearch = (e) => {
+    const { name, value } = e.target;
+    onSearch(name, value);
   };
   return (
     <form className="search-form">
@@ -10,7 +11,7 @@ export default function SearchForm({ onSearch = () => {} }) {
       <select
         name="area"
         id="area"
-        onChange={(e) => handleSearch("area", e.target.value)}
+        onChange={handleSearch}
       >
         <option key={ANY_AREA} value={ANY_AREA}>{ANY_AREA}</option>
         {AREAS.map((area) => (
@@ -22,7 +23,7 @@ export default function SearchForm({ onSearch = () => {} }) {
       <select
         name="difficulty"
         id="difficulty"
-        onChange={(e) => handleSearch("difficulty", e.target.value)}
+        onChange={handleSearch}
       >
         <option key={ANY_DIFFICULTY} value={ANY_DIFFICULTY}>
           {ANY_DIFFICULTY}</option>
@@ -34,7 +35,7 @@ export default function SearchForm({ onSearch = () => {} }) {
       <select
         name="length"
         id="length"
-        onChange={(e) => handleSearch("length", e.target.value)}
+        onChange={handleSearch}
       >
         <option key={ANY_LENGTH} value={ANY_LENGTH}>{ANY_LENGTH}</option>
         {LENGTHS.map((length) => (
