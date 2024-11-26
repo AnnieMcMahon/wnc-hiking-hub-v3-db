@@ -40,6 +40,30 @@ export async function logout() {
   redirect("/");
 };
 
+export async function resetPassword(email, link) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: link,
+  })  
+  if (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to reset password.");
+  }
+  return data; 
+};
+
+export async function updatePassword(password) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.updateUser({
+    password: password
+  })   
+  if (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update password.");
+  }
+  return data; 
+};
+
 export async function checkStatus() {
   const supabase = await createClient();
   const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -77,27 +101,7 @@ export async function signInWithProvider(provider) {
   return data; 
 };
 
-export async function resetPassword(email, link) {
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: link, //example: 'https://example.com/update-password'
-  })  
-  if (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to reset password.");
-  }
-  return data; 
-};
 
-export async function updatePassword(password) {
-  const { data, error } = await supabase.auth.updateUser({
-    password: password
-  })   
-  if (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to update password.");
-  }
-  return data; 
-};
 
 export async function updateEmail(email) {
   const { data, error } = await supabase.auth.updateUser({

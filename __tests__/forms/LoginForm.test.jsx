@@ -10,6 +10,8 @@ jest.mock("@/app/context/ModalContext", () => ({
 
 describe("LoginForm", () => {
   let showModalMock;
+  const validPassword = "Test123!"
+  const validEmail = "user@gmail.com";
 
   beforeEach(() => {
     showModalMock = jest.fn();
@@ -23,8 +25,8 @@ describe("LoginForm", () => {
   describe("rendering", () => {
     it("renders a LoginForm component", () => {
       render(<LoginForm />);
-      expect(screen.getByText(/e-mail/i)).toBeInTheDocument();
-      expect(screen.getByText(/password/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/e-mail/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
     });
   });
 
@@ -35,27 +37,67 @@ describe("LoginForm", () => {
       await userEvent.click(button);
     });
 
-    it("calls onSubmit when button is clicked and data is present", async () => {
+    it("uses the default onSubmit function when none is provided", async () => {
+      render(<LoginForm />);
+      const button = screen.getByRole("button", { name: /log in/i });
+      await userEvent.click(button);
+    });
+
+    it("does not call onSubmit if required fields are empty", async () => {
       const mockOnSubmit = jest.fn();
-      const user = userEvent.setup();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button");
+      const button = screen.getByRole("button", { name: /log in/i });
+      await userEvent.click(button);
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+
+    it("does not call onSubmit if email format is invalid", async () => {
+      const mockOnSubmit = jest.fn();
+      render(<LoginForm onSubmit={mockOnSubmit} />);
+      const button = screen.getByRole("button", { name: /log in/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
-      await user.type(emailField, "user@gmail.com");
-      await user.type(passwordField, "password123");
-      await user.click(button);
+      await userEvent.type(emailField, "invalid-email");
+      await userEvent.type(passwordField, validPassword);
+      await userEvent.click(button);
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+      expect(showModalMock).not.toHaveBeenCalled();
+    });
+
+    it("allows submission when button is clicked and e-mail and password are valid", async () => {
+      const mockOnSubmit = jest.fn();
+      render(<LoginForm onSubmit={mockOnSubmit} />);
+      const button = screen.getByRole("button", { name: /log in/i });
+      const emailField = screen.getByLabelText(/e-mail/i);
+      const passwordField = screen.getByLabelText(/password/i);
+      await userEvent.type(emailField, validEmail);
+      await userEvent.type(passwordField, validPassword);
+      await userEvent.click(button);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
+      expect(showModalMock).not.toHaveBeenCalled();
+    });
+
+    it("allows submission when password length is exactly 6 characters", async () => {
+      const mockOnSubmit = jest.fn();
+      render(<LoginForm onSubmit={mockOnSubmit} />);
+      const button = screen.getByRole("button", { name: /log in/i });
+      const emailField = screen.getByLabelText(/e-mail/i);
+      const passwordField = screen.getByLabelText(/password/i);
+      await userEvent.type(emailField, validEmail);
+      await userEvent.type(passwordField, "Test1!");
+      await userEvent.click(button);
+      expect(mockOnSubmit).toHaveBeenCalledTimes(1);
+      expect(showModalMock).not.toHaveBeenCalled();
     });
 
     it("calls showModal with the correct error message when the password is too short", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button");
+      const button = screen.getByRole("button", { name: /log in/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
-      await userEvent.type(emailField, "user@gmail.com");
-      await userEvent.type(passwordField, "pass");
+      await userEvent.type(emailField, validEmail);
+      await userEvent.type(passwordField, "T1!");
       await userEvent.click(button);
       expect(showModalMock).toHaveBeenCalledWith(
         "Error",
@@ -64,57 +106,52 @@ describe("LoginForm", () => {
       expect(mockOnSubmit).not.toHaveBeenCalled();
     });
 
-    it("does not call onSubmit if required fields are empty", async () => {
+    it("calls showModal with the correct error message when the password does not have a number", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button");
-      await userEvent.click(button);
-      expect(mockOnSubmit).not.toHaveBeenCalled();
-    });
-
-    it("prevents submission if email format is invalid", async () => {
-      const mockOnSubmit = jest.fn();
-      render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button");
-      const emailField = screen.getByLabelText(/e-mail/i);
-      const passwordField = screen.getByLabelText(/password/i);
-      await userEvent.type(emailField, "invalid-email");
-      await userEvent.type(passwordField, "password123");
-      await userEvent.click(button);
-      expect(mockOnSubmit).not.toHaveBeenCalled();
-      expect(showModalMock).not.toHaveBeenCalled();
-    });
-
-    it("does not call showModal if password length is sufficient", async () => {
-      const mockOnSubmit = jest.fn();
-      render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button");
-      const emailField = screen.getByLabelText(/e-mail/i);
-      const passwordField = screen.getByLabelText(/password/i);
-      await userEvent.type(emailField, "user@gmail.com");
-      await userEvent.type(passwordField, "password123");
-      await userEvent.click(button);
-      expect(showModalMock).not.toHaveBeenCalled();
-      expect(mockOnSubmit).toHaveBeenCalledTimes(1);
-    });
-
-    it("uses the default onSubmit function when none is provided", async () => {
-      render(<LoginForm />);
       const button = screen.getByRole("button", { name: /log in/i });
-      await userEvent.click(button);
-    });
-
-    it("allows submission when password length is exactly 6 characters", async () => {
-      const mockOnSubmit = jest.fn();
-      render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button");
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
-      await userEvent.type(emailField, "user@gmail.com");
-      await userEvent.type(passwordField, "123456");
+      await userEvent.type(emailField, validEmail);
+      await userEvent.type(passwordField, "Testing!");
       await userEvent.click(button);
-      expect(mockOnSubmit).toHaveBeenCalledTimes(1);
-      expect(showModalMock).not.toHaveBeenCalled();
+      expect(showModalMock).toHaveBeenCalledWith(
+        "Error",
+        "Password must contain at least one number."
+      );
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+
+    it("calls showModal with the correct error message when the password does not have an uppercase letter", async () => {
+      const mockOnSubmit = jest.fn();
+      render(<LoginForm onSubmit={mockOnSubmit} />);
+      const button = screen.getByRole("button", { name: /log in/i });
+      const emailField = screen.getByLabelText(/e-mail/i);
+      const passwordField = screen.getByLabelText(/password/i);
+      await userEvent.type(emailField, validEmail);
+      await userEvent.type(passwordField, "testing123!");
+      await userEvent.click(button);
+      expect(showModalMock).toHaveBeenCalledWith(
+        "Error",
+        "Password must contain at least one uppercase letter."
+      );
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+
+    it("calls showModal with the correct error message when the password does not have a special character", async () => {
+      const mockOnSubmit = jest.fn();
+      render(<LoginForm onSubmit={mockOnSubmit} />);
+      const button = screen.getByRole("button", { name: /log in/i });
+      const emailField = screen.getByLabelText(/e-mail/i);
+      const passwordField = screen.getByLabelText(/password/i);
+      await userEvent.type(emailField, validEmail);
+      await userEvent.type(passwordField, "Testing123");
+      await userEvent.click(button);
+      expect(showModalMock).toHaveBeenCalledWith(
+        "Error",
+        "Password must contain at least one special character."
+      );
+      expect(mockOnSubmit).not.toHaveBeenCalled();
     });
   });
 });

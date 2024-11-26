@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
-import { login, signup } from "@/app/api/authentication/auth";
+import { login, signup, resetPassword } from "@/app/api/authentication/auth";
 import { fetchUserByEmail, addUser } from "@/app/api/data/data";
 import LoginForm from "@/app/ui/forms/LoginForm";
 import "./login.css";
@@ -43,11 +43,27 @@ function Login() {
       router.push("/edit-bio");
     }
   }
+
+  async function handlePasswordReset(email) {
+    const userInfoArray = await fetchUserByEmail(email);
+    const userInfo = userInfoArray[0];
+    if (!userInfo) {
+      showModal("Error", "Please enter a valid e-mail address.");
+      return;
+    }
+    const { error } = await resetPassword(email, `${window.location.origin}/reset-password`);
+    if (error) {
+      showModal("Error", "Error sending reset e-mail.");
+    } else {
+      showModal("Success", "Please follow the link in your e-mail to reset your password.");
+    }
+  };
+
   return (
     <div id="login">
       <h1>Log In</h1>
       <div id="login-info" className="text-box">
-        <LoginForm onSubmit={handleLogin} />
+        <LoginForm onSubmit={handleLogin} onClick={handlePasswordReset} />
       </div>
     </div>
   );
