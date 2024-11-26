@@ -1,4 +1,4 @@
-import { AREAS, DIFFICULTIES, LENGTHS } from "@/app/lib/constants";
+import { AREAS, DIFFICULTIES, LENGTHS, ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH } from "@/app/lib/constants";
 
 export default function SearchForm({ onSearch = () => {} }) {
   const handleSearch = (key, value) => {
@@ -12,10 +12,9 @@ export default function SearchForm({ onSearch = () => {} }) {
         id="area"
         onChange={(e) => handleSearch("area", e.target.value)}
       >
+        <option key={ANY_AREA} value={ANY_AREA}>{ANY_AREA}</option>
         {AREAS.map((area) => (
-          <option key={area} value={area}>
-            {area}
-          </option>
+          <option key={area} value={area}>{area}</option>
         ))}
       </select>
       <br />
@@ -25,10 +24,10 @@ export default function SearchForm({ onSearch = () => {} }) {
         id="difficulty"
         onChange={(e) => handleSearch("difficulty", e.target.value)}
       >
+        <option key={ANY_DIFFICULTY} value={ANY_DIFFICULTY}>
+          {ANY_DIFFICULTY}</option>
         {DIFFICULTIES.map((diff) => (
-          <option key={diff} value={diff}>
-            {diff}
-          </option>
+          <option key={diff} value={diff}>{diff}</option>
         ))}
       </select>
       <label htmlFor="length"> Length: </label>
@@ -37,10 +36,9 @@ export default function SearchForm({ onSearch = () => {} }) {
         id="length"
         onChange={(e) => handleSearch("length", e.target.value)}
       >
+        <option key={ANY_LENGTH} value={ANY_LENGTH}>{ANY_LENGTH}</option>
         {LENGTHS.map((length) => (
-          <option key={length} value={length}>
-            {length}
-          </option>
+          <option key={length} value={length}>{length}</option>
         ))}
       </select>
       <br />

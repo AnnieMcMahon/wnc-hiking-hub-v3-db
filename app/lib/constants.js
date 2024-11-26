@@ -8,7 +8,6 @@ export const MEDIUM = "From 3 to 6 miles";
 export const LONG = "Longer than 6 miles";
 
 export const AREAS = [
-  ANY_AREA,
   "DuPont State Recreational Forest",
   "Pisgah National Forest",
   "North Carolina Arboretum",
@@ -16,17 +15,21 @@ export const AREAS = [
 ];
 
 export const DIFFICULTIES = [
-  ANY_DIFFICULTY,
   "easy",
   "moderate",
   "hard"
 ]
 
 export const LENGTHS = [
-  ANY_LENGTH,
   SHORT,
   MEDIUM,
   LONG
+];
+
+export const ROUTE_TYPES = [
+  "loop",
+  "out-and-back",
+  "point-to-point"
 ];
 
 //BIO INFO
