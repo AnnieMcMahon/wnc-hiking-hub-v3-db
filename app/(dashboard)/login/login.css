@@ -18,6 +18,10 @@
   width: 20rem;
 }
 
+#login a {
+  margin-left: 0.5rem;
+}
+
 @media only screen and (max-width: 768px) {
   #login {
     width: 90%;

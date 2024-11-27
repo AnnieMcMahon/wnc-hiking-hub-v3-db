@@ -78,5 +78,17 @@ describe("TrailForm", () => {
       const button = screen.getByRole("button", { name: /cancel/i });
       await userEvent.click(button);
     });
+
+    it("renders dropdowns with default values", () => {
+      render(<TrailForm />);
+      const areaDropdown = screen.getByRole("combobox", { name: /area name/i });
+      const difficultyDropdown = screen.getByRole("combobox", {
+        name: /difficulty rating/i,
+      });
+      const lengthDropdown = screen.getByRole("combobox", { name: /route type/i });
+      expect(areaDropdown).toHaveValue("");
+      expect(difficultyDropdown).toHaveValue("easy");
+      expect(lengthDropdown).toHaveValue("loop");
+    });
   });
 });

@@ -34,6 +34,12 @@ describe("HikeForm", () => {
       await userEvent.click(button);
     });
 
+    it("uses the default onSubmit function when none is provided", async () => {
+      render(<HikeForm />);
+      const button = screen.getByRole("button", { name: /submit form/i });
+      await userEvent.click(button);
+    });
+
     it("does not call onSubmit if required fields are empty", async () => {
       const mockOnSubmit = jest.fn();
       render(<HikeForm onSubmit={mockOnSubmit} />);
@@ -66,12 +72,6 @@ describe("HikeForm", () => {
         location: "here",
         comments: "hello",
       });
-    });
-
-    it("uses the default onSubmit function when none is provided", async () => {
-      render(<HikeForm />);
-      const button = screen.getByRole("button", { name: /submit form/i });
-      await userEvent.click(button);
     });
   });
 });

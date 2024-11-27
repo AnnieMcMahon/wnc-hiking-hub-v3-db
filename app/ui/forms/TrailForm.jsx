@@ -21,13 +21,13 @@ export default function TrailForm({ onSubmit = () => {}, onClick = () => {} }) {
 
   return (
     <form className="trail-form" onSubmit={handleSubmit}>
-      <p>Enter all the information from AllTrails:</p>
+      <p>Enter all the information from <a href="https://www.alltrails.com/" target="_blank">AllTrails</a>:</p>
       <label htmlFor="trail_name">Trail Name: </label>
       <input type="text" name="trail_name" id="trail_name" />
       <br />
       <label htmlFor="area_name">Area Name: </label>
-      <input list="area_name" name="area_name" id="area_name" aria-label="Area Name" />
-        <datalist name="area_name">
+      <input list="area_name_list" name="area_name" id="area_name" aria-label="Area Name" />
+        <datalist id="area_name_list">
           {AREAS.map((area) => (
             <option key={area} value={area} />
         ))}

@@ -37,10 +37,22 @@ describe("LoginForm", () => {
       await userEvent.click(button);
     });
 
+    it("does not throw when onClick is not provided", async () => {
+      render(<LoginForm />);
+      const link = screen.getByRole("link", { name: /forgot password/i });
+      await userEvent.click(link);
+    });
+
     it("uses the default onSubmit function when none is provided", async () => {
       render(<LoginForm />);
       const button = screen.getByRole("button", { name: /log in/i });
       await userEvent.click(button);
+    });
+
+    it("uses the default onClick function when none is provided", async () => {
+      render(<LoginForm />);
+      const link = screen.getByRole("link", { name: /forgot password/i });
+      await userEvent.click(link);
     });
 
     it("does not call onSubmit if required fields are empty", async () => {
@@ -62,6 +74,14 @@ describe("LoginForm", () => {
       await userEvent.click(button);
       expect(mockOnSubmit).not.toHaveBeenCalled();
       expect(showModalMock).not.toHaveBeenCalled();
+    });
+
+    it("does not call onClick if email is not present", async () => {
+      const mockOnClick = jest.fn();
+      render(<LoginForm onClick={mockOnClick} />);
+      const link = screen.getByRole("link", { name: /forgot password/i });
+      await userEvent.click(link);
+      expect(mockOnClick).not.toHaveBeenCalled();
     });
 
     it("allows submission when button is clicked and e-mail and password are valid", async () => {
