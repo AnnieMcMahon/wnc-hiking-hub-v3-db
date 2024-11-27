@@ -44,7 +44,7 @@ describe("EditBioForm", () => {
       expect(fileInput.files).toHaveLength(1);
     });
 
-    it("calls onChange when form fields are updated", async () => {
+    it("calls onChange when the name field is updated", async () => {
       const onChangeMock = jest.fn();
       const bioInfo = {
         user_name: "Hiker 123",
@@ -55,6 +55,19 @@ describe("EditBioForm", () => {
       await userEvent.clear(nameField);
       await userEvent.type(nameField, "New Hiker");
       expect(onChangeMock).toHaveBeenCalledTimes("New Hiker".length + 1);
+    });
+
+    it("calls onChange when the bio field is updated", async () => {
+      const onChangeMock = jest.fn();
+      const bioInfo = {
+        user_name: "Hiker 123",
+        bio: "Hello World",
+      };
+      render(<EditBioForm bioInfo={bioInfo} onChange={onChangeMock} />);
+      const bioField = screen.getByLabelText(/bio/i);
+      await userEvent.clear(bioField);
+      await userEvent.type(bioField, "I love hiking.");
+      expect(onChangeMock).toHaveBeenCalledTimes("I love hiking.".length + 1);
     });
 
     it("calls onSubmit when the form is submitted", async () => {

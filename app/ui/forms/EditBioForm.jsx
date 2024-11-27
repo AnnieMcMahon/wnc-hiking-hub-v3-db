@@ -16,8 +16,6 @@ export default function EditBioForm({
     onSubmit(updatedBio);
   };
 
-  
-
   return (
     <div id="edit-bio">
       <h1>Edit Bio</h1>
