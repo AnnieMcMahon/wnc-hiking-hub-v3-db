@@ -8,7 +8,7 @@ import { handleAddHike } from "@/app/api/data/data";
 import ChosenTrail from "@/app/ui/components/ChosenTrail";
 import SearchForm from "@/app/ui/forms/SearchForm";
 import HikeForm from "@/app/ui/forms/HikeForm";
-import AllTrailsPost from "@/app/ui/components/AllTrailsPost";
+import TrailPost from "@/app/ui/components/TrailPost";
 import "./post-hike.css";
 
 export default function PostHike() {
@@ -55,7 +55,7 @@ export default function PostHike() {
             </button>
           </div>
           {filteredList.map((trail) => (
-            <AllTrailsPost
+            <TrailPost
               trailInfo={trail}
               key={trail.id}
               onClick={() => setChosenTrail(trail)}

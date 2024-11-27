@@ -1,6 +1,11 @@
-export default function AllTrailsPost({trailInfo, onClick}) {
+export default function TrailPost({trailInfo = {}, onClick = () => {}}) {
+
+  const handleClick = () => {
+    onClick();
+  };
+
   return (
-    <div id="AllTrailsPost" className="hike" onClick={onClick}>
+    <div id="TrailPost" className="hike" onClick={handleClick}>
       <h4>{trailInfo.trail_name}</h4>
       <p>{trailInfo.area_name}</p>
       <p>{trailInfo.difficulty_rating} * {trailInfo.length} mi * {trailInfo.elevation_gain} ft * {trailInfo.route_type}</p>

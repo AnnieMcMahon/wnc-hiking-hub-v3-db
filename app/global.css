@@ -181,7 +181,7 @@ button .add-trail-button {
   line-height: 1rem;
 }
 
-#AllTrailsPost:hover {
+#TrailPost:hover {
   background-color: #14af5d;
   cursor: pointer;
 }
