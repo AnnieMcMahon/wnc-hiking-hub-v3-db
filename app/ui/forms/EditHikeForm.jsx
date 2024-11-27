@@ -1,3 +1,5 @@
+import { useModal } from "@/app/context/ModalContext";
+
 export default function EditHikeForm({
   hikeInfo = {
     title: "",
@@ -11,8 +13,22 @@ export default function EditHikeForm({
   handleCancel = () => {},
   handleDiscard = () => {},
 }) {
+
+  const { showModal } = useModal();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updatedHike = Object.fromEntries(formData.entries());
+    if (Object.values(updatedHike).some((value) => !value)) {
+      showModal("Error", "Please fill out all the information");
+    } else {
+      onSubmit(updatedHike);
+    }
+  }
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="newTitle">Title: </label>
       <input
         type="text"

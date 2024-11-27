@@ -40,20 +40,12 @@ useEffect(() => {
   updateHikeWithNewInfo();
 }, [currentHikeInfo]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (
-      hikeInfo.title &&
-      hikeInfo.date &&
-      hikeInfo.time &&
-      hikeInfo.location &&
-      hikeInfo.comments
-    ) {
-      setCurrentHikeInfo(hikeInfo);
-      setCurrentHikeInfo((prevState) => ({
-        ...prevState,
-        status: "updated",
-      }));
+  function handleSubmit(newHikeInfo) {  
+      let updatedHike = newHikeInfo;
+      updatedHike.id = currentHikeInfo.id;
+      updatedHike.status = "updated";
+      setHikeInfo(updatedHike);
+      setCurrentHikeInfo(updatedHike);
       showModal(
         "Save Changes",
         "Changes have been saved",
@@ -62,9 +54,6 @@ useEffect(() => {
           closeModal();
         });
         router.push("/bio");
-    } else {
-      showModal("Error", "Please complete all information");
-    }
   }
 
   function handleDiscard() {
