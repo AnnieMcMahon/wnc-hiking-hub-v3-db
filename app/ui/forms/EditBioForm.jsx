@@ -1,9 +1,28 @@
-export default function EditBioForm({bioInfo, onSubmit, onClick, onChange, handleAvatarChange }) {
+export default function EditBioForm({
+  bioInfo = {
+    user_name: "",
+    bio: "",
+  },
+  onSubmit = () => {},
+  onClick = () => {},
+  onChange = () => {},
+  handleAvatarChange = () => {},
+}) {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updatedBio = Object.fromEntries(formData.entries());
+    onSubmit(updatedBio);
+  };
+
+  
+
   return (
-<div id="edit-bio">
+    <div id="edit-bio">
       <h1>Edit Bio</h1>
       <div id="form-area" className="text-box">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="user_name">Name: </label>
           <input
             type="text"
@@ -42,4 +61,4 @@ export default function EditBioForm({bioInfo, onSubmit, onClick, onChange, handl
       </div>
     </div>
   );
-};
+}

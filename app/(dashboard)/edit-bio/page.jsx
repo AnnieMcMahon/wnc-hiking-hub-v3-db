@@ -18,11 +18,9 @@ function EditBio() {
   });
   const [avatarFile, setAvatarFile] = useState();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    // Find out if there are any changes
-    let newName = currentUser.user_name == bioInfo.user_name ? null : bioInfo.user_name;
-    let newBio = currentUser.bio == bioInfo.bio ? null : bioInfo.bio;
+  async function handleSubmit(newBioInfo) {
+    let newName = currentUser.user_name == newBioInfo.user_name ? null : newBioInfo.user_name;
+    let newBio = currentUser.bio == newBioInfo.bio ? null : newBioInfo.bio;
 
     // Set currentUser to new information and update database
     const newInfo = currentUser;
