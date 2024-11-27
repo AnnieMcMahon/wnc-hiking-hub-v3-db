@@ -31,26 +31,10 @@ describe("LoginForm", () => {
   });
 
   describe("functional", () => {
-    it("does not throw when onSubmit is not provided", async () => {
+    it("does not throw when function props are not provided", async () => {
       render(<LoginForm />);
-      const button = screen.getByRole("button", { name: /log in/i });
-      await userEvent.click(button);
-    });
-
-    it("does not throw when onClick is not provided", async () => {
-      render(<LoginForm />);
-      const link = screen.getByRole("link", { name: /forgot password/i });
-      await userEvent.click(link);
-    });
-
-    it("uses the default onSubmit function when none is provided", async () => {
-      render(<LoginForm />);
-      const button = screen.getByRole("button", { name: /log in/i });
-      await userEvent.click(button);
-    });
-
-    it("uses the default onClick function when none is provided", async () => {
-      render(<LoginForm />);
+      const loginButton = screen.getByRole("button", { name: /log in/i });
+      await userEvent.click(loginButton);
       const link = screen.getByRole("link", { name: /forgot password/i });
       await userEvent.click(link);
     });

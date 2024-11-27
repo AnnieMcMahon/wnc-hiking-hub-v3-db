@@ -28,16 +28,12 @@ describe("TrailForm", () => {
   });
 
   describe("functional", () => {
-    it("does not throw when onClick is not provided", async () => {
+    it("does not throw when functions are not provided", async () => {
       render(<TrailForm />);
-      const button = screen.getByRole("button", { name: /cancel/i });
-      await userEvent.click(button);
-    });
-
-    it("does not throw when onSubmit is not provided", async () => {
-      render(<TrailForm />);
-      const button = screen.getByRole("button", { name: /submit form/i });
-      await userEvent.click(button);
+      const cancelButton = screen.getByRole("button", { name: /cancel/i });
+      await userEvent.click(cancelButton);
+      const submitButton = screen.getByRole("button", { name: /submit form/i });
+      await userEvent.click(submitButton);
     });
 
     it("does not call onSubmit if required fields are empty", async () => {
@@ -65,18 +61,6 @@ describe("TrailForm", () => {
       await user.type(trailLinkField, "www.abc.com");
       await user.click(button);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
-    });
-
-    it("uses the default onSubmit function when none is provided", async () => {
-      render(<TrailForm />);
-      const button = screen.getByRole("button", { name: /submit form/i });
-      await userEvent.click(button);
-    });
-
-    it("uses the default onClick function when none is provided", async () => {
-      render(<TrailForm />);
-      const button = screen.getByRole("button", { name: /cancel/i });
-      await userEvent.click(button);
     });
 
     it("renders dropdowns with default values", () => {
