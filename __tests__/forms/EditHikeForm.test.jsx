@@ -56,14 +56,14 @@ describe("EditHikeForm", () => {
 
     it("does not throw when handleCancel is not provided", async () => {
       render(<EditHikeForm />);
-      const cancelButton = screen.getByRole("button", { name: /cancel hike/i });
-      await userEvent.click(cancelButton);
+      const button = screen.getByRole("button", { name: /cancel hike/i });
+      await userEvent.click(button);
     });
 
     it("does not throw when handleDiscard is not provided", async () => {
       render(<EditHikeForm />);
-      const discardButton = screen.getByRole("button", { name: /discard changes/i });
-      await userEvent.click(discardButton);
+      const button = screen.getByRole("button", { name: /discard changes/i });
+      await userEvent.click(button);
     });
 
     it("calls onChange when form fields are updated", async () => {
@@ -93,24 +93,24 @@ describe("EditHikeForm", () => {
         comments: "Bring water and snacks.",
       };
       render(<EditHikeForm onSubmit={onSubmitMock} hikeInfo={hikeInfo} />);
-      const saveButton = screen.getByRole("button", { name: /save changes/i });
-      await userEvent.click(saveButton);
+      const button = screen.getByRole("button", { name: /save changes/i });
+      await userEvent.click(button);
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
     });
 
     it("calls handleDiscard when the reset button is clicked", async () => {
       const handleDiscardMock = jest.fn();
       render(<EditHikeForm handleDiscard={handleDiscardMock} />);
-      const discardButton = screen.getByRole("button", { name: /discard changes/i });
-      await userEvent.click(discardButton);
+      const button = screen.getByRole("button", { name: /discard changes/i });
+      await userEvent.click(button);
       expect(handleDiscardMock).toHaveBeenCalledTimes(1);
     });
 
     it("calls handleCancel when the cancel button is clicked", async () => {
       const handleCancelMock = jest.fn();
       render(<EditHikeForm handleCancel={handleCancelMock} />);
-      const cancelButton = screen.getByRole("button", { name: /cancel hike/i });
-      await userEvent.click(cancelButton);
+      const button = screen.getByRole("button", { name: /cancel hike/i });
+      await userEvent.click(button);
       expect(handleCancelMock).toHaveBeenCalledTimes(1);
     });
 
@@ -126,8 +126,8 @@ describe("EditHikeForm", () => {
       const titleField = screen.getByLabelText(/title/i);
       await userEvent.clear(titleField);
       await userEvent.type(titleField, "Changed Title");
-      const discardButton = screen.getByRole("button", { name: /discard changes/i });
-      await userEvent.click(discardButton);
+      const button = screen.getByRole("button", { name: /discard changes/i });
+      await userEvent.click(button);
       expect(titleField).toHaveValue(hikeInfo.title);
     });
 
