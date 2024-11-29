@@ -72,13 +72,13 @@ describe("Navbar", () => {
       expect(mockPush).toHaveBeenCalledWith("/");
     });
 
-    it("highlights the active link based on pathname", () => {
+    it("verifies the WNC Hiking Hub link is active when the pathname is /", () => {
       usePathname.mockReturnValueOnce("/");
       render(<Navbar />);
       expect(screen.getByText("WNC Hiking Hub")).toHaveClass("active");
     });
 
-    it("highlights the bio link when pressed", () => {
+    it("verifies the Bio link is active when the pathname is /bio", () => {
       usePathname.mockReturnValueOnce("/bio");
       render(<Navbar />);
       const bioLink = screen.getByRole("link", { name: "Bio" });
