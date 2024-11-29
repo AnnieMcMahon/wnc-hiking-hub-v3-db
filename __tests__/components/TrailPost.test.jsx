@@ -6,10 +6,10 @@ import TrailPost from "@/app/ui/components/TrailPost";
 const mockTrailInfo = {
   trail_name: "Blue Ridge Trail",
   area_name: "Blue Ridge Mountains",
-  difficulty_rating: "Moderate",
+  difficulty_rating: "moderate",
   length: 5.4,
   elevation_gain: 1200,
-  route_type: "Loop",
+  route_type: "loop",
   trail_link: "https://www.alltrails.com/trail/blue-ridge-trail",
 };
 
@@ -41,6 +41,12 @@ describe("TrailPost", () => {
   });
 
   describe("functional", () => {
+    it("does not throw when onClick is not provided", async () => {
+      render(<TrailPost trailInfo={mockTrailInfo} />);
+      const trailPostDiv = screen.getByText(mockTrailInfo.trail_name);
+      await userEvent.click(trailPostDiv);
+    });
+    
     it("calls onClick when the div is clicked", async () => {
       const mockOnClick = jest.fn();
       render(<TrailPost trailInfo={mockTrailInfo} onClick={mockOnClick} />);
@@ -55,12 +61,6 @@ describe("TrailPost", () => {
       const link = screen.getByRole("link", { name: /AllTrails Link/i });
       await userEvent.click(link);
       expect(mockOnClick).not.toHaveBeenCalled();
-    });
-
-    it("does not throw when onClick is not provided", async () => {
-      render(<TrailPost trailInfo={mockTrailInfo} />);
-      const trailPostDiv = screen.getByText(mockTrailInfo.trail_name);
-      await userEvent.click(trailPostDiv);
     });
   });
 });

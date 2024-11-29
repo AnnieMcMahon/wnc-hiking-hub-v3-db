@@ -12,7 +12,6 @@ export default function ChosenTrail({ trailSelected }) {
           <a
             href={trailSelected.trail_link}
             target="_blank"
-            onClick={(e) => e.stopPropagation()}
           >
             AllTrails Link
           </a>

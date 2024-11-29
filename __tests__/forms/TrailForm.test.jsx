@@ -25,6 +25,18 @@ describe("TrailForm", () => {
       render(<TrailForm />);
       expect(screen.getByText(/trail name/i)).toBeInTheDocument();
     });
+
+    it("renders dropdowns with default values", () => {
+      render(<TrailForm />);
+      const areaDropdown = screen.getByRole("combobox", { name: /area name/i });
+      const difficultyDropdown = screen.getByRole("combobox", {
+        name: /difficulty rating/i,
+      });
+      const lengthDropdown = screen.getByRole("combobox", { name: /route type/i });
+      expect(areaDropdown).toHaveValue("");
+      expect(difficultyDropdown).toHaveValue("easy");
+      expect(lengthDropdown).toHaveValue("loop");
+    });
   });
 
   describe("functional", () => {
@@ -61,18 +73,6 @@ describe("TrailForm", () => {
       await user.type(trailLinkField, "www.abc.com");
       await user.click(button);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
-    });
-
-    it("renders dropdowns with default values", () => {
-      render(<TrailForm />);
-      const areaDropdown = screen.getByRole("combobox", { name: /area name/i });
-      const difficultyDropdown = screen.getByRole("combobox", {
-        name: /difficulty rating/i,
-      });
-      const lengthDropdown = screen.getByRole("combobox", { name: /route type/i });
-      expect(areaDropdown).toHaveValue("");
-      expect(difficultyDropdown).toHaveValue("easy");
-      expect(lengthDropdown).toHaveValue("loop");
     });
   });
 });

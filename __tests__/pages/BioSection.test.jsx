@@ -67,7 +67,7 @@ describe("BioSection", () => {
   });
 
   describe("functional", () => {
-    it("does not throw when no onClick is provided", async () => {
+    it("does not throw when onClick is not provided", async () => {
       render(<BioSection user={DEFAULT_USER} />);
       const button = screen.getByRole("button", { name: /edit bio/i });
       await userEvent.click(button);
