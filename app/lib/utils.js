@@ -40,7 +40,21 @@ const validatePassword = (password) => {
   return null;
 }
 
-export { convertDate, convertTime, validatePassword };
+const fetchButtonMessage = (status, type) => {
+  let message = "";
+  if (status !== "cancelled") {
+    if (type === "joined") {
+      message = "Opt Out";
+    } else if (type === "created") {
+      message = "Edit Hike";
+    } else if (type === "available") {
+      message = "Join Hike";
+    }
+  }
+  return message;
+};
+
+export { convertDate, convertTime, validatePassword, fetchButtonMessage };
 
 
 
