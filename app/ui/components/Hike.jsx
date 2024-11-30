@@ -23,43 +23,35 @@ export default function Hike({ hikeType, hikeInfo }) {
     const trailInfo = info[0];
     if (trailInfo) {
       setTrail(trailInfo);
+    }
   };
-};
 
   const fetchCreatorName = async () => {
     const info = await fetchUserById(hikeInfo.creator_id);
     const creatorInfo = info[0];
-    if (creatorInfo) {
-      setHikeDisplay((prevState) => ({
-        ...prevState,
-        creator: creatorInfo.user_name,
-      }));
+    setHikeDisplay((prevState) => ({
+      ...prevState,
+      creator: creatorInfo ? creatorInfo.user_name : "unknown",
+    }));
   };
-};
 
   useEffect(() => {
     if (hikeInfo) {
+      const buttonMessage = fetchButtonMessage(hikeInfo.status, hikeType);
+      const hikingDate = convertDate(hikeInfo.date);
+      const hikingTime = convertTime(hikeInfo.time);
       setHikeDisplay({
         id: hikeInfo.id,
         title: hikeInfo.title,
+        date: hikingDate,
+        time: hikingTime,
         location: hikeInfo.location,
         comments: hikeInfo.comments,
+        buttonMessage: buttonMessage,
       });
-    };
-
-    fetchTrailInfo();
-    fetchCreatorName();
-
-    const buttonMessage = fetchButtonMessage(hikeInfo.status, hikeType);
-    const hikingDate = convertDate(hikeInfo.date);
-    const hikingTime = convertTime(hikeInfo.time);
-
-    setHikeDisplay((prevState) => ({
-      ...prevState,
-      buttonMessage: buttonMessage,
-      date: hikingDate,
-      time: hikingTime,
-    }));
+      fetchTrailInfo();
+      fetchCreatorName();
+    }
   }, []);
 
   function handleClick(buttonMessage, hikeId) {
@@ -81,5 +73,7 @@ export default function Hike({ hikeType, hikeInfo }) {
     }
   }
 
-  return <HikePost hikeInfo={hikeDisplay} trail={trail} onClick={handleClick} />;
+  return (
+    <HikePost hikeInfo={hikeDisplay} trail={trail} onClick={handleClick} />
+  );
 }

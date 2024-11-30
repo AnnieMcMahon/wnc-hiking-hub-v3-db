@@ -1,7 +1,7 @@
 import { BLANK_BIO } from "@/app/lib/constants";
 
 export default function EditBioForm({
-  bioInfo = {BLANK_BIO},
+  bioInfo = { BLANK_BIO },
   onSubmit = () => {},
   onClick = () => {},
   onChange = () => {},
