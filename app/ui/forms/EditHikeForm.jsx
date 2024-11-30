@@ -15,6 +15,7 @@ export default function EditHikeForm({
 }) {
 
   const { showModal } = useModal();
+  const today = new Date().toISOString().split('T')[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,6 +45,7 @@ export default function EditHikeForm({
         type="date"
         name="date"
         id="newDate"
+        min={today}
         value={hikeInfo.date}
         onChange={onChange}
       />

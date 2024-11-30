@@ -70,7 +70,7 @@ describe("EditHikeForm", () => {
       const onChangeMock = jest.fn();
       const hikeInfo = {
         title: "Sunset Hike",
-        date: "2024-12-01",
+        date: "2025-12-01",
         time: "18:00",
         location: "Blue Ridge Parkway",
         comments: "Bring water and snacks.",
@@ -83,11 +83,26 @@ describe("EditHikeForm", () => {
       expect(onChangeMock).toHaveBeenCalledWith(expect.any(Object));
     });
 
+    it("does not call onSubmit when the date is earlier than today", async () => {
+      const onSubmitMock = jest.fn();
+      const hikeInfo = {
+        title: "Sunset Hike",
+        date: "2020-12-01",
+        time: "18:00",
+        location: "Blue Ridge Parkway",
+        comments: "Bring water and snacks.",
+      };
+      render(<EditHikeForm onSubmit={onSubmitMock} hikeInfo={hikeInfo} />);
+      const button = screen.getByRole("button", { name: /save changes/i });
+      await userEvent.click(button);
+      expect(onSubmitMock).not.toHaveBeenCalled();
+    });
+
     it("calls onSubmit when the form is submitted and data is present", async () => {
       const onSubmitMock = jest.fn();
       const hikeInfo = {
         title: "Sunset Hike",
-        date: "2024-12-01",
+        date: "2025-12-01",
         time: "18:00",
         location: "Blue Ridge Parkway",
         comments: "Bring water and snacks.",

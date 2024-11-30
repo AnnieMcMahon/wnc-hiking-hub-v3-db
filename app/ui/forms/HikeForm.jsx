@@ -2,6 +2,7 @@ import { useModal } from "@/app/context/ModalContext";
 
 export default function HikeForm({ onSubmit = () => {} }) {
   const { showModal } = useModal();
+  const today = new Date().toISOString().split('T')[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ export default function HikeForm({ onSubmit = () => {} }) {
       <input type="text" name="hikeTitle" id="hikeTitle" />
       <br />
       <label htmlFor="date">Date: </label>
-      <input type="date" name="date" id="date" />
+      <input type="date" name="date" id="date" min={today} />
       <label htmlFor="time"> Time: </label>
       <input type="time" name="time" id="time" />
       <br />
