@@ -47,11 +47,11 @@ export const DEFAULT_USER = {
 };
 
 export const BLANK_USER = {
-  id: null,
+  id: 0,
   email: "",
-  user_name: "",
-  avatar: "",
-  bio: ""
+  user_name: "New User",
+  avatar: "/newUser.png",
+  bio: "Tell us about yourself"
 };
 
 export const BLANK_BIO = {
@@ -62,21 +62,23 @@ export const BLANK_BIO = {
 export const BLANK_HIKE = {
   id: 0,
   title: "",
-  date: null,
-  time: null,
+  date: "",
+  time: "",
   location: "",
   comments: "",
+  creator_id: 0,
   status: ""
 };
 
 export const BLANK_HIKE_INFO = {
   id: 0,
   title: "",
-  date: null,
-  time: null,
+  date: "",
+  time: "",
   location: "",
   comments: "",
   status: "",
+  creator_id: 0,
   creator: "",
   buttonMessage: ""
 };
@@ -93,7 +95,7 @@ export const BLANK_TRAIL = {
 };
 
 export const MOCK_TRAIL_INFO = {
-  id: 555,
+  id: 5,
   trail_name: "Blue Ridge Trail",
   area_name: "Blue Ridge Mountains",
   difficulty_rating: "moderate",
@@ -104,20 +106,40 @@ export const MOCK_TRAIL_INFO = {
 };
 
 export const MOCK_HIKE_INFO = {
-  id: 555,
+  id: 5,
+  title: "Sunset Hike",
+  date: "Wed, 12/01/2024",
+  time: "6:00 PM",
+  location: "Blue Ridge Parkway",
+  comments: "Bring water and snacks.",
+  status: "new",
+  creator_id: 1,
+  creator: "Annie McMahon",
+  buttonMessage: "Join Hike"
+};
+
+export const MOCK_HIKE = {
+  id: 5,
   title: "Sunset Hike",
   date: "2024-12-01",
   time: "18:00",
   location: "Blue Ridge Parkway",
   comments: "Bring water and snacks.",
   status: "new",
-  creator: "Annie McMahon",
-  buttonMessage: "Join Hike"
+  creator_id: 1
 };
 
 export const MOCK_BIO_INFO = {
   user_name: "Hiker 123",
   bio: "Hello World",
+};
+
+export const MOCK_USER = {
+  id: 1,
+  email: "casualhiker@gmail.com",
+  user_name: "Test User",
+  avatar: "/newUser.png",
+  bio: "Hello everyone!"
 };
 
 

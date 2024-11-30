@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EditHikeForm from "@/app/ui/forms/EditHikeForm";
-import { MOCK_HIKE_INFO } from "@/app/lib/constants";
+import { MOCK_HIKE } from "@/app/lib/constants";
 import { useModal } from "@/app/context/ModalContext";
 
 jest.mock("@/app/context/ModalContext", () => ({
@@ -22,16 +22,16 @@ let showModalMock;
 
 describe("EditHikeForm", () => {
   describe("rendering", () => {
-    it("renders form fields with initial MOCK_HIKE_INFO values", () => {
-      render(<EditHikeForm hikeInfo={MOCK_HIKE_INFO} />);
-      expect(screen.getByLabelText(/title/i)).toHaveValue(MOCK_HIKE_INFO.title);
-      expect(screen.getByLabelText(/date/i)).toHaveValue(MOCK_HIKE_INFO.date);
-      expect(screen.getByLabelText(/time/i)).toHaveValue(MOCK_HIKE_INFO.time);
-      expect(screen.getByLabelText(/location/i)).toHaveValue(MOCK_HIKE_INFO.location);
-      expect(screen.getByLabelText(/comments/i)).toHaveValue(MOCK_HIKE_INFO.comments);
+    it("renders form fields with initial MOCK_HIKE values", () => {
+      render(<EditHikeForm hikeInfo={MOCK_HIKE} />);
+      expect(screen.getByLabelText(/title/i)).toHaveValue(MOCK_HIKE.title);
+      expect(screen.getByLabelText(/date/i)).toHaveValue(MOCK_HIKE.date);
+      expect(screen.getByLabelText(/time/i)).toHaveValue(MOCK_HIKE.time);
+      expect(screen.getByLabelText(/location/i)).toHaveValue(MOCK_HIKE.location);
+      expect(screen.getByLabelText(/comments/i)).toHaveValue(MOCK_HIKE.comments);
     });
 
-    it("handles empty MOCK_HIKE_INFO gracefully", () => {
+    it("handles empty MOCK_HIKE gracefully", () => {
       render(<EditHikeForm hikeInfo={{}} />);
       expect(screen.getByLabelText(/title/i)).toHaveValue("");
       expect(screen.getByLabelText(/date/i)).toHaveValue("");
@@ -62,14 +62,14 @@ describe("EditHikeForm", () => {
 
     it("calls onChange when form fields are updated", async () => {
       const onChangeMock = jest.fn();
-      const MOCK_HIKE_INFO = {
+      const MOCK_HIKE = {
         title: "Sunset Hike",
         date: "2025-12-01",
         time: "18:00",
         location: "Blue Ridge Parkway",
         comments: "Bring water and snacks.",
       };
-      render(<EditHikeForm hikeInfo={MOCK_HIKE_INFO} onChange={onChangeMock} />);
+      render(<EditHikeForm hikeInfo={MOCK_HIKE} onChange={onChangeMock} />);
       const titleField = screen.getByLabelText(/title/i);
       await userEvent.clear(titleField);
       await userEvent.type(titleField, "Waterfall Hike");
@@ -79,14 +79,14 @@ describe("EditHikeForm", () => {
 
     it("does not call onSubmit when the date is earlier than today", async () => {
       const onSubmitMock = jest.fn();
-      const MOCK_HIKE_INFO = {
+      const MOCK_HIKE = {
         title: "Sunset Hike",
         date: "2020-12-01",
         time: "18:00",
         location: "Blue Ridge Parkway",
         comments: "Bring water and snacks.",
       };
-      render(<EditHikeForm onSubmit={onSubmitMock} hikeInfo={MOCK_HIKE_INFO} />);
+      render(<EditHikeForm onSubmit={onSubmitMock} hikeInfo={MOCK_HIKE} />);
       const button = screen.getByRole("button", { name: /save changes/i });
       await userEvent.click(button);
       expect(onSubmitMock).not.toHaveBeenCalled();
@@ -94,14 +94,14 @@ describe("EditHikeForm", () => {
 
     it("calls onSubmit when the form is submitted and data is present", async () => {
       const onSubmitMock = jest.fn();
-      const MOCK_HIKE_INFO = {
+      const MOCK_HIKE = {
         title: "Sunset Hike",
         date: "2025-12-01",
         time: "18:00",
         location: "Blue Ridge Parkway",
         comments: "Bring water and snacks.",
       };
-      render(<EditHikeForm onSubmit={onSubmitMock} hikeInfo={MOCK_HIKE_INFO} />);
+      render(<EditHikeForm onSubmit={onSubmitMock} hikeInfo={MOCK_HIKE} />);
       const button = screen.getByRole("button", { name: /save changes/i });
       await userEvent.click(button);
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
@@ -124,20 +124,20 @@ describe("EditHikeForm", () => {
     });
 
     it("resets form fields to their initial values when reset button is clicked", async () => {
-      const MOCK_HIKE_INFO = {
+      const MOCK_HIKE = {
         title: "Sunset Hike",
         date: "2024-12-01",
         time: "18:00",
         location: "Blue Ridge Parkway",
         comments: "Bring water and snacks.",
       };
-      render(<EditHikeForm hikeInfo={MOCK_HIKE_INFO} />);
+      render(<EditHikeForm hikeInfo={MOCK_HIKE} />);
       const titleField = screen.getByLabelText(/title/i);
       await userEvent.clear(titleField);
       await userEvent.type(titleField, "Changed Title");
       const button = screen.getByRole("button", { name: /discard changes/i });
       await userEvent.click(button);
-      expect(titleField).toHaveValue(MOCK_HIKE_INFO.title);
+      expect(titleField).toHaveValue(MOCK_HIKE.title);
     });
 
     it("does not call onSubmit if required fields are empty", async () => {

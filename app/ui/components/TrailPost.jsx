@@ -1,7 +1,7 @@
 import { BLANK_TRAIL } from "@/app/lib/constants";
 
 export default function TrailPost({
-  trailInfo = { BLANK_TRAIL },
+  trailInfo = BLANK_TRAIL,
   onClick = () => {},
 }) {
   const handleClick = () => {

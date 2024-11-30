@@ -1,4 +1,4 @@
-import Hike from "@/app/ui/components/Hike";
+import HikeComponent from "@/app/ui/components/HikeComponent";
 
 export default function HikeSection({
   upcomingHikes,
@@ -10,7 +10,7 @@ export default function HikeSection({
       <h2>My Hikes - Coming Up</h2>
       <div>
         {upcomingHikes.map((hike) => (
-          <Hike
+          <HikeComponent
             hikeType={createdHikes.includes(hike.id) ? "created" : "joined"}
             hikeInfo={hike}
             key={hike.id}
@@ -20,7 +20,7 @@ export default function HikeSection({
       <h2>My Hikes - History</h2>
       <div>
         {pastHikes.map((hike) => (
-          <Hike
+          <HikeComponent
             hikeType="history"
             hikeInfo={hike}
             key={hike.id}

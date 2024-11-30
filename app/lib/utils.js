@@ -6,22 +6,22 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const convertDate = (origDate) => {
-  const date = dayjs(origDate).tz("America/New_York");
-  const yyyy = date.year();
-  const dddd = date.format("ddd");
-  const mm = date.format("MM"); 
-  const dd = date.format("DD");
-  return `${dddd}, ${mm}/${dd}/${yyyy}`;
+    const date = dayjs(origDate).tz("America/New_York");
+    const yyyy = date.year();
+    const dddd = date.format("ddd");
+    const mm = date.format("MM"); 
+    const dd = date.format("DD");
+    return `${dddd}, ${mm}/${dd}/${yyyy}`;
 };
 
 const convertTime = (time) => {
-  let hh = parseInt(time.slice(0, 2));
-  let mm = time.slice(3, 5);
-  let ampm = hh >= 12 ? 'PM' : 'AM';
-  hh = hh % 12;
-  hh = hh ? hh : 12;
-  const formattedTime = hh + ":" + mm + " " + ampm;
-  return formattedTime;
+    let hh = parseInt(time.slice(0, 2));
+    let mm = time.slice(3, 5);
+    let ampm = hh >= 12 ? 'PM' : 'AM';
+    hh = hh % 12;
+    hh = hh ? hh : 12;
+    const formattedTime = hh + ":" + mm + " " + ampm;
+    return formattedTime;
 };
 
 const validatePassword = (password) => {
@@ -40,21 +40,7 @@ const validatePassword = (password) => {
   return null;
 }
 
-const fetchButtonMessage = (status, type) => {
-  let message = "";
-  if (status !== "cancelled") {
-    if (type === "joined") {
-      message = "Opt Out";
-    } else if (type === "created") {
-      message = "Edit Hike";
-    } else if (type === "available") {
-      message = "Join Hike";
-    }
-  }
-  return message;
-};
-
-export { convertDate, convertTime, validatePassword, fetchButtonMessage };
+export { convertDate, convertTime, validatePassword };
 
 
 

@@ -4,6 +4,7 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { updateHike, fetchHikeById, fetchUserHikes } from "@/app/api/data/data";
+import { BLANK_HIKE } from "@/app/lib/constants";
 import EditHikeForm from "@/app/ui/forms/EditHikeForm";
 import "./edit-hike.css";
 
@@ -11,14 +12,7 @@ export default function EditHike() {
   const { hike, currentUser } = useGlobal();
   const { showModal, closeModal } = useModal();
   const router = useRouter();
-  const [hikeInfo, setHikeInfo] = useState({
-    title: "",
-    date: "",
-    time: "",
-    location: "",
-    comments: "",
-    status: "new"
-  });
+  const [hikeInfo, setHikeInfo] = useState(BLANK_HIKE);
   const [currentHikeInfo, setCurrentHikeInfo] = useState(hikeInfo);
 
   useEffect(() => {

@@ -2,8 +2,8 @@ import { BLANK_HIKE_INFO } from "@/app/lib/constants";
 import { BLANK_TRAIL } from "@/app/lib/constants";
 
 export default function hikePost({
-  hikeInfo = { BLANK_HIKE_INFO },
-  trail = { BLANK_TRAIL },
+  hikeInfo = BLANK_HIKE_INFO,
+  trail = BLANK_TRAIL,
   onClick = () => {},
 }) {
 

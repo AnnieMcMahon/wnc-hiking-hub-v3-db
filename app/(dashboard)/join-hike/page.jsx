@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { fetchHikesToJoin } from "@/app/api/data/data";
 import { useState, useEffect } from "react";
-import Hike from "@/app/ui/components/Hike";
+import HikeComponent from "@/app/ui/components/HikeComponent";
 import "./join-hike.css";
 
 function JoinHike() {
@@ -22,7 +22,7 @@ function JoinHike() {
       <h3>Select a hike you would like to join:</h3>
       <div className="hike-section">
         {hikeList?.map((hike) => (
-          <Hike hikeType="available" hikeInfo={hike} key={hike.id} />
+          <HikeComponent hikeType="available" hikeInfo={hike} key={hike.id} />
         ))}
       </div>
     </div>
