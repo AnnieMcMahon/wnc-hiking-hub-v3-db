@@ -62,18 +62,18 @@ export default function Hike({ hikeType, hikeInfo }) {
     }));
   }, []);
 
-  function handleClick(e) {
-    switch (e.target.value) {
+  function handleClick(buttonMessage, hikeId) {
+    switch (buttonMessage) {
       case "Join Hike":
-        addParticipant(currentUser.id, e.target.name);
+        addParticipant(currentUser.id, hikeId);
         router.push("/bio");
         break;
       case "Opt Out":
-        removeParticipant(currentUser.id, e.target.name);
+        removeParticipant(currentUser.id, hikeId);
         router.push("/join-hike");
         break;
       case "Edit Hike":
-        setHike(e.target.name);
+        setHike(hikeId);
         router.push("/edit-hike");
         break;
       default:

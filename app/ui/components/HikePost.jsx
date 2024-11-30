@@ -7,8 +7,8 @@ export default function HikePost({
   onClick = () => {},
 }) {
 
-  const handleClick = () => {
-    onClick();
+  const handleClick = (e) => {
+    onClick(e.target.value, e.target.name);
   };
 
   return (
