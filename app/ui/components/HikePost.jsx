@@ -1,8 +1,8 @@
 import { BLANK_HIKE_INFO } from "@/app/lib/constants";
 import { BLANK_TRAIL } from "@/app/lib/constants";
 
-export default function HikePost({
-  hike = { BLANK_HIKE_INFO },
+export default function hikePost({
+  hikeInfo = { BLANK_HIKE_INFO },
   trail = { BLANK_TRAIL },
   onClick = () => {},
 }) {
@@ -14,28 +14,28 @@ export default function HikePost({
   return (
     <div className="hike">
       <h4>
-        {hike.title}, with {hike.creator}
+        {hikeInfo.title}, with {hikeInfo.creator}
       </h4>
       <h5>{trail.area_name}</h5>
       <h5>
-        {hike.date}, {hike.time}, {hike.location}
+        {hikeInfo.date}, {hikeInfo.time}, {hikeInfo.location}
       </h5>
       <p>
         {trail.difficulty_rating} * {trail.length} mi * {trail.elevation_gain}{" "}
         ft * {trail.route_type}
       </p>
-      <p>{hike.comments}</p>
+      <p>{hikeInfo.comments}</p>
       <a href={trail.trail_link} target="_blank">
         AllTrails Link
       </a>
-      {hike.buttonMessage?.length > 0 && (
+      {hikeInfo.buttonMessage?.length > 0 && (
         <button
           className="hike-button"
-          name={hike.id}
-          value={hike.buttonMessage}
+          name={hikeInfo.id}
+          value={hikeInfo.buttonMessage}
           onClick={handleClick}
         >
-          {hike.buttonMessage}
+          {hikeInfo.buttonMessage}
         </button>
       )}
     </div>

@@ -88,11 +88,12 @@ export const BLANK_TRAIL = {
   difficulty_rating: "",
   length: 0,
   elevation_gain: 0,
-  route_type: "l",
+  route_type: "",
   trail_link: ""
 };
 
 export const MOCK_TRAIL_INFO = {
+  id: 555,
   trail_name: "Blue Ridge Trail",
   area_name: "Blue Ridge Mountains",
   difficulty_rating: "moderate",
@@ -103,11 +104,15 @@ export const MOCK_TRAIL_INFO = {
 };
 
 export const MOCK_HIKE_INFO = {
+  id: 555,
   title: "Sunset Hike",
   date: "2024-12-01",
   time: "18:00",
   location: "Blue Ridge Parkway",
   comments: "Bring water and snacks.",
+  status: "new",
+  creator: "Annie McMahon",
+  buttonMessage: "Join Hike"
 };
 
 export const MOCK_BIO_INFO = {

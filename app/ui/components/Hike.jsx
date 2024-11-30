@@ -81,5 +81,5 @@ export default function Hike({ hikeType, hikeInfo }) {
     }
   }
 
-  return <HikePost hike={hikeDisplay} trail={trail} onClick={handleClick} />;
+  return <HikePost hikeInfo={hikeDisplay} trail={trail} onClick={handleClick} />;
 }
