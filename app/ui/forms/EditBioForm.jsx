@@ -1,8 +1,7 @@
+import { BLANK_BIO } from "@/app/lib/constants";
+
 export default function EditBioForm({
-  bioInfo = {
-    user_name: "",
-    bio: "",
-  },
+  bioInfo = {BLANK_BIO},
   onSubmit = () => {},
   onClick = () => {},
   onChange = () => {},

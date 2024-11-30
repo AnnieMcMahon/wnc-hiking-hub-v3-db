@@ -9,30 +9,14 @@ import {
   addParticipant,
   removeParticipant,
 } from "@/app/api/data/data";
+import { BLANK_HIKE_INFO, BLANK_TRAIL } from "@/app/lib/constants";
 import HikePost from "@/app/ui/components/HikePost";
 export default function Hike({ hikeType, hikeInfo }) {
   const { currentUser, setHike } = useGlobal();
   const router = useRouter();
-  const [hikeDisplay, setHikeDisplay] = useState({
-    id: null,
-    title: "",
-    location: "",
-    comments: "",
-    creator: "",
-    buttonMessage: "",
-    time: null,
-    date: null
-  });
+  const [hikeDisplay, setHikeDisplay] = useState(BLANK_HIKE_INFO);
 
-  const [trail, setTrail] = useState({
-    trail_name: "",
-    area_name: "",
-    difficulty_rating: "",
-    length: null,
-    elevation: null,
-    route_type: "",
-    trail_link: "",
-  });
+  const [trail, setTrail] = useState(BLANK_TRAIL);
 
   const fetchTrailInfo = async () => {
     const info = await fetchTrailById(hikeInfo.trail_id);

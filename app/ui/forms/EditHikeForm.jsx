@@ -1,13 +1,8 @@
 import { useModal } from "@/app/context/ModalContext";
+import { BLANK_HIKE } from "@/app/lib/constants";
 
 export default function EditHikeForm({
-  hikeInfo = {
-    title: "",
-    date: "",
-    time: "",
-    location: "",
-    comments: ""
-  },
+  hikeInfo = { BLANK_HIKE },
   onSubmit = () => {},
   onChange = () => {},
   handleCancel = () => {},

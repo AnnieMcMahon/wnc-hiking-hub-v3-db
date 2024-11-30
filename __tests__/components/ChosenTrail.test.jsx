@@ -1,16 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import { MOCK_TRAIL_INFO } from "@/app/lib/constants";
 import ChosenTrail from "@/app/ui/components/ChosenTrail";
-
-const mockTrailInfo = {
-  trail_name: "Blue Ridge Trail",
-  area_name: "Blue Ridge Mountains",
-  difficulty_rating: "moderate",
-  length: 5.4,
-  elevation_gain: 1200,
-  route_type: "loop",
-  trail_link: "https://www.alltrails.com/trail/blue-ridge-trail",
-};
 
 describe("ChosenTrail", () => {
   describe("rendering", () => {
@@ -20,21 +11,21 @@ describe("ChosenTrail", () => {
     });
 
     it("renders the trail info correctly", () => {
-      render(<ChosenTrail trailSelected={mockTrailInfo} />);
-      expect(screen.getByText(mockTrailInfo.trail_name)).toBeInTheDocument();
-      expect(screen.getByText(mockTrailInfo.area_name)).toBeInTheDocument();
+      render(<ChosenTrail trailSelected={MOCK_TRAIL_INFO} />);
+      expect(screen.getByText(MOCK_TRAIL_INFO.trail_name)).toBeInTheDocument();
+      expect(screen.getByText(MOCK_TRAIL_INFO.area_name)).toBeInTheDocument();
       expect(
         screen.getByText(
-          `${mockTrailInfo.difficulty_rating} * ${mockTrailInfo.length} mi * ${mockTrailInfo.elevation_gain} ft * ${mockTrailInfo.route_type}`
+          `${MOCK_TRAIL_INFO.difficulty_rating} * ${MOCK_TRAIL_INFO.length} mi * ${MOCK_TRAIL_INFO.elevation_gain} ft * ${MOCK_TRAIL_INFO.route_type}`
         )
       ).toBeInTheDocument();
     });
 
     it("renders the AllTrails link with the correct href", () => {
-      render(<ChosenTrail trailSelected={mockTrailInfo} />);
+      render(<ChosenTrail trailSelected={MOCK_TRAIL_INFO} />);
       const link = screen.getByRole("link", { name: /AllTrails Link/i });
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute("href", mockTrailInfo.trail_link);
+      expect(link).toHaveAttribute("href", MOCK_TRAIL_INFO.trail_link);
     });
   });
 });
