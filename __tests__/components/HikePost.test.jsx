@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MOCK_HIKE_INFO, MOCK_TRAIL_INFO, BLANK_HIKE_INFO, BLANK_TRAIL } from "@/app/lib/constants";
+import { MOCK_HIKE_INFO, MOCK_TRAIL_INFO } from "@/app/lib/constants";
 import HikePost from "@/app/ui/components/HikePost";
 
 describe("HikePost", () => {
