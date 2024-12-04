@@ -46,7 +46,6 @@ export async function resetPassword(email, link) {
     redirectTo: link,
   })  
   if (error) {
-    console.error("Database Error:", error);
     throw new Error("Failed to reset password.");
   }
   return data; 
@@ -58,7 +57,6 @@ export async function updatePassword(password) {
     password: password
   })   
   if (error) {
-    console.error("Database Error:", error);
     throw new Error("Failed to update password.");
   }
   return data; 

@@ -1,6 +1,6 @@
 "use client";
-import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/app/context/ModalContext";
 import { updatePassword } from "@/app/api/authentication/auth";
 import { validatePassword } from "@/app/lib/utils";
 import "./reset-password.css";
@@ -9,19 +9,22 @@ function ResetPassword() {
   const { showModal, closeModal } = useModal();
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     const password = e.target.password.value;
     const errorMsg = validatePassword(password);
     if (errorMsg) {
       showModal("Error", errorMsg);
     } else {
-      const updatePwResult = await updatePassword(password);
-      console.log("UpdatePwResult: ", updatePwResult);
-      showModal("Success", "Your password has been updated.", null, () => {
-        closeModal();
-      });
-      router.push("/login");
+      try {
+        await updatePassword(password);
+        showModal("Success", "Your password has been updated.", null, () => {
+          closeModal();
+          router.push("/login");
+        });
+      } catch (error) {
+        showModal("Error", error.message || "An error has occurred.");
+      }
     }
   }
 
@@ -50,5 +53,5 @@ function ResetPassword() {
       </div>
     </div>
   );
-};
+}
 export default ResetPassword;
