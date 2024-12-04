@@ -31,12 +31,7 @@ function EditBio() {
         } catch (error) {
           showModal(
             "Error",
-            error.message || "Error uploading the avatar. Please try again.",
-            null,
-            () => {
-              closeModal();
-            }
-          );
+            error.message || "Error uploading the avatar. Please try again.");
         }
       };
       if (newName) newInfo.user_name = newName;
@@ -46,16 +41,12 @@ function EditBio() {
         setCurrentUser(newInfo);
         showModal("Save Changes", "Changes have been saved successfully!", null, () => {
           closeModal();
-          router.push("/bio");
         });
+        router.push("/bio");
       } catch (error) {
         showModal(
           "Error",
-          error.message || "Error updating the bio. Please try again.",
-          null,
-          () => {
-            closeModal();
-          }
+          error.message || "Error updating the bio. Please try again."
         );
       }
     } 

@@ -15,8 +15,8 @@ export default function AddTrail() {
         await addTrail(newTrail);
         showModal("Save Changes", "Changes have been saved successfully!", null, () => {
           closeModal();
-          router.push("/post-hike");
         });
+        router.push("/post-hike");
       } catch (error) {
         showModal(
           "Error",

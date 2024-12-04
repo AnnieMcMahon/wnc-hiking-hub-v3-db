@@ -13,35 +13,22 @@ import timezone from "dayjs/plugin/timezone";
 
 //Trail functions
 export async function fetchAllTrails() {
-  try {
-    const { data, error } = await supabase.from("trails").select("*");
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch trail data.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
+  const { data, error } = await supabase.from("trails").select("*");
+  if (error) {
     throw new Error("Failed to fetch trail data.");
   }
+  return data;
 }
 
 export async function fetchTrailById(id) {
-  try {
-    const { data, error } = await supabase
-      .from("trails")
-      .select("*")
-      .eq("id", id);
-
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch trail data.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
+  const { data, error } = await supabase
+    .from("trails")
+    .select("*")
+    .eq("id", id);
+  if (error) {
     throw new Error("Failed to fetch trail data.");
   }
+  return data;
 }
 
 export async function addTrail(trailInfo) {
@@ -96,21 +83,11 @@ export async function fetchUserByEmail(email) {
 }
 
 export async function fetchUserById(id) {
-  try {
-    const { data, error } = await supabase
-      .from("users")
-      .select("*")
-      .eq("id", id);
-
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch user data.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
+  const { data, error } = await supabase.from("users").select("*").eq("id", id);
+  if (error) {
     throw new Error("Failed to fetch user data.");
   }
+  return data;
 }
 
 export async function addUser(email) {
@@ -158,46 +135,31 @@ export async function uploadAvatar(file, userId) {
 
 //Hike functions
 export async function addHike(hikeInfo) {
-  try {
-    const { data, error } = await supabase
-      .from("hikes")
-      .insert({
-        creator_id: hikeInfo.creator_id,
-        trail_id: hikeInfo.trail_id,
-        title: hikeInfo.hikeTitle,
-        date: hikeInfo.date,
-        time: hikeInfo.time,
-        location: hikeInfo.location,
-        comments: hikeInfo.comments,
-        status: hikeInfo.status,
-      })
-      .select();
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to add new hike.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
-    throw new Error("Failed to fetch new hike data.");
+  const { data, error } = await supabase
+    .from("hikes")
+    .insert({
+      creator_id: hikeInfo.creator_id,
+      trail_id: hikeInfo.trail_id,
+      title: hikeInfo.hikeTitle,
+      date: hikeInfo.date,
+      time: hikeInfo.time,
+      location: hikeInfo.location,
+      comments: hikeInfo.comments,
+      status: hikeInfo.status,
+    })
+    .select();
+  if (error) {
+    throw new Error("Failed to add new hike.");
   }
+  return data;
 }
 
 export async function fetchHikeById(id) {
-  try {
-    const { data, error } = await supabase
-      .from("hikes")
-      .select("*")
-      .eq("id", id);
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch hike data.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
+  const { data, error } = await supabase.from("hikes").select("*").eq("id", id);
+  if (error) {
     throw new Error("Failed to fetch hike data.");
   }
+  return data;
 }
 
 export async function updateHike(hikeInfo) {
@@ -213,27 +175,20 @@ export async function updateHike(hikeInfo) {
     })
     .eq("id", hikeInfo.id);
   if (error) {
-    console.error("Database Error:", error);
     throw new Error("Failed to update hike.");
   }
 }
 
 //Participants functions
 export async function fetchParticipantsByHike(hikeId) {
-  try {
-    const { data, error } = await supabase
-      .from("participants")
-      .select("*")
-      .eq("hike_id", hikeId);
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch participants by hike.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
+  const { data, error } = await supabase
+    .from("participants")
+    .select("*")
+    .eq("hike_id", hikeId);
+  if (error) {
     throw new Error("Failed to fetch participants by hike.");
   }
+  return data;
 }
 
 export async function fetchHikesByParticipant(userId) {
@@ -253,7 +208,6 @@ export async function addParticipant(userId, hikeId) {
     hike_id: hikeId,
   });
   if (error) {
-    console.error("Database Error:", error);
     throw new Error("Failed to add participant.");
   }
 }
@@ -265,7 +219,6 @@ export async function removeParticipant(userId, hikeId) {
     .eq("user_id", userId)
     .eq("hike_id", hikeId);
   if (error) {
-    console.error("Database Error:", error);
     throw new Error("Failed to remove participant.");
   }
 }
@@ -327,24 +280,18 @@ export async function fetchHikesToJoin(userId) {
   } else {
     hikeIds = "()";
   }
-  try {
-    const { data, error } = await supabase
-      .from("hikes")
-      .select("*")
-      .neq("creator_id", userId)
-      .neq("status", "cancelled")
-      .gte("date", currentDate)
-      .not("id", "in", hikeIds)
-      .order("date", { ascending: true });
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch hikes to join.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
+  const { data, error } = await supabase
+    .from("hikes")
+    .select("*")
+    .neq("creator_id", userId)
+    .neq("status", "cancelled")
+    .gte("date", currentDate)
+    .not("id", "in", hikeIds)
+    .order("date", { ascending: true });
+  if (error) {
     throw new Error("Failed to fetch hikes to join.");
   }
+  return data;
 }
 
 export async function handleAddHike(hikeInfo) {

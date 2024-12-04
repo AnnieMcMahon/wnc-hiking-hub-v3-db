@@ -197,15 +197,9 @@ describe("EditBio", () => {
       await waitFor(() => {
         expect(showModalMock).toHaveBeenCalledWith(
           "Error",
-          errorMessage,
-          null,
-          expect.any(Function)
+          errorMessage
         );
       });
-      const modalCallback = showModalMock.mock.calls[0][3];
-      modalCallback();
-      const { closeModal } = useModal();
-      expect(closeModal).toHaveBeenCalled();
     });
 
     it("shows an error modal if uploadAvatar fails", async () => {
@@ -222,15 +216,9 @@ describe("EditBio", () => {
       await waitFor(() => {
         expect(showModalMock).toHaveBeenCalledWith(
           "Error",
-          errorMessage,
-          null,
-          expect.any(Function)
+          errorMessage
         );
       });
-      const modalCallback = showModalMock.mock.calls[0][3];
-      modalCallback();
-      const { closeModal } = useModal();
-      expect(closeModal).toHaveBeenCalled();
     });
     
   });

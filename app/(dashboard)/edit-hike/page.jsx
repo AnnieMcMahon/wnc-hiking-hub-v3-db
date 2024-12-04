@@ -17,37 +17,37 @@ export default function EditHike() {
 
   useEffect(() => {
     const fetchHike = async () => {
-      const fetchedHikeInfo = await fetchHikeById(hike);
-      setHikeInfo(fetchedHikeInfo[0]);
-      setCurrentHikeInfo(fetchedHikeInfo[0]);
-      };
+      try {
+        const fetchedHikeInfo = await fetchHikeById(hike);
+        setHikeInfo(fetchedHikeInfo[0]);
+        setCurrentHikeInfo(fetchedHikeInfo[0]);
+      } catch (error) {
+        showModal("Error", error.message || "Error fetching hike information.");
+      }
+    };
     fetchHike();
 }, []);
 
-useEffect(() => {
-  const updateHikeWithNewInfo = async () => {
-    if (currentHikeInfo.status == "cancelled" || currentHikeInfo.status == "updated") {
-      await updateHike(currentHikeInfo);
-      await fetchUserHikes(currentUser.id);
-    }
-  }
-  updateHikeWithNewInfo();
-}, [currentHikeInfo]);
-
-  function handleSubmit(newHikeInfo) {  
+  async function handleSubmit(newHikeInfo) {  
       let updatedHike = newHikeInfo;
       updatedHike.id = currentHikeInfo.id;
       updatedHike.status = "updated";
-      setHikeInfo(updatedHike);
-      setCurrentHikeInfo(updatedHike);
-      showModal(
-        "Save Changes",
-        "Changes have been saved",
-        null,
-        () => {
-          closeModal();
-        });
-        router.push("/bio");
+      try {
+        await updateHike(updatedHike);
+        await fetchUserHikes(currentUser.id);
+        setHikeInfo(updatedHike);
+        setCurrentHikeInfo(updatedHike);
+        showModal(
+          "Save Changes",
+          "Changes have been saved",
+          null,
+          () => {
+            closeModal();
+          });
+          router.push("/bio");
+      } catch (error) {
+        showModal("Error", error.message || "Error updating hike.");
+      }
   }
 
   function handleDiscard() {
@@ -70,22 +70,26 @@ useEffect(() => {
     );
   }
 
-  function handleNewCancellation() {
-    const newTitle = `CANCELLED - ${hikeInfo.title}`
-    setCurrentHikeInfo((prevState) => ({
-      ...prevState,
-      title: newTitle,
-      status: "cancelled",
-    }));
-    setHikeInfo(currentHikeInfo);
-    showModal(
-      "Cancel Hike",
-      "Hike has been cancelled",
-      null,
-      () => {
-        closeModal();
-      });
-      router.push("/bio");
+  async function handleNewCancellation() {
+    let updatedHike = hikeInfo;
+    updatedHike.title = `CANCELLED - ${hikeInfo.title}`;
+    updatedHike.status = "cancelled";
+    try {
+      await updateHike(updatedHike);
+      await fetchUserHikes(currentUser.id);
+      setHikeInfo(updatedHike);
+      setCurrentHikeInfo(updatedHike);
+      showModal(
+        "Cancel Hike",
+        "Hike has been cancelled",
+        null,
+        () => {
+          closeModal();
+        });
+        router.push("/bio");
+    } catch (error) {
+      showModal("Error", error.message || "Error updating hike.");
+    }
   }
 
   function handleChange(e) {

@@ -20,8 +20,8 @@ function ResetPassword() {
         await updatePassword(password);
         showModal("Success", "Your password has been updated.", null, () => {
           closeModal();
-          router.push("/login");
         });
+        router.push("/login");
       } catch (error) {
         showModal("Error", error.message || "An error has occurred.");
       }
