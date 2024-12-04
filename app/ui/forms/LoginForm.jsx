@@ -23,6 +23,8 @@ export default function LoginForm({ onSubmit = () => {}, onClick = () => {}  }) 
     e.preventDefault();
     if (email.length > 0) {
       onClick(email);
+    } else {
+      showModal("Error", "Please enter your e-mail.");
     }
   }
 

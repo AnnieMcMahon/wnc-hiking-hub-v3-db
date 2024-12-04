@@ -8,9 +8,8 @@ export async function login(newLogin) {
   const data = newLogin;
   const { error } = await supabase.auth.signInWithPassword(data);
   if (error) {
-    console.error("Auth Error:", error);
+    throw new Error("Invalid password.");
   }
-  return error;
 }
 
 export async function signup(loginInfo) {
