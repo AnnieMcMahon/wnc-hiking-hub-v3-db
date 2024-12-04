@@ -64,6 +64,7 @@ export async function updatePassword(password) {
   return data; 
 };
 
+// Sample Code from Supabase docs
 export async function checkStatus() {
   const supabase = await createClient();
   const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -85,11 +86,6 @@ export async function checkStatus() {
   data.subscription.unsubscribe()
 };
 
-// Sample Code from Supabase docs
-
-
-
-
 export async function signInWithProvider(provider) {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider
@@ -100,8 +96,6 @@ export async function signInWithProvider(provider) {
   }
   return data; 
 };
-
-
 
 export async function updateEmail(email) {
   const { data, error } = await supabase.auth.updateUser({

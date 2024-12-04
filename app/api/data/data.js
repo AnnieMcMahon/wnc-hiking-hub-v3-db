@@ -85,21 +85,14 @@ export async function filterTrailList(area_name, difficulty_rating, length) {
 
 //User functions
 export async function fetchUserByEmail(email) {
-  try {
-    const { data, error } = await supabase
-      .from("users")
-      .select("*")
-      .eq("email", email);
-
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to fetch user data.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", email);
+  if (error) {
     throw new Error("Failed to fetch user data.");
   }
+  return data;
 }
 
 export async function fetchUserById(id) {
@@ -121,22 +114,16 @@ export async function fetchUserById(id) {
 }
 
 export async function addUser(email) {
-  try {
-    const { data, error } = await supabase
-      .from("users")
-      .insert({
-        email: email,
-      })
-      .select();
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to add user.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
-    throw new Error("Failed to fetch new user.");
+  const { data, error } = await supabase
+    .from("users")
+    .insert({
+      email: email,
+    })
+    .select();
+  if (error) {
+    throw new Error("Failed to add user.");
   }
+  return data;
 }
 
 export async function updateUser(userInfo) {
