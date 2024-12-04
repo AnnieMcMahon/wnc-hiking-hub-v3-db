@@ -1,7 +1,6 @@
 "use client";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 import { addTrail } from "@/app/api/data/data";
 import TrailForm from "@/app/ui/forms/TrailForm";
 import "./add-trail.css";
@@ -9,26 +8,26 @@ import "./add-trail.css";
 export default function AddTrail() {
   const router = useRouter();
   const { showModal, closeModal } = useModal();
-  const [addedTrail, setAddedTrail] = useState(null);
 
-  useEffect(() => {
-    const addNewTrail = async () => {
-      if (addedTrail && Object.keys(addedTrail).length > 0) {
-        const newTrail = await addTrail(addedTrail);
-        return newTrail;
+  async function handleSubmit(newTrail) {
+    if (newTrail) {
+      try {
+        await addTrail(newTrail);
+        showModal("Save Changes", "Changes have been saved successfully!", null, () => {
+          closeModal();
+          router.push("/post-hike");
+        });
+      } catch (error) {
+        showModal(
+          "Error",
+          error.message || "An unexpected error occurred while adding the trail.",
+          null,
+          () => {
+            closeModal();
+          }
+        );
       }
-    };
-    if (addedTrail && Object.keys(addedTrail).length > 0) {
-      addNewTrail();
     }
-  }, [addedTrail]);
-
-  function handleSubmit(newTrailToAdd) {
-    setAddedTrail(newTrailToAdd);
-    showModal("Save Changes", "Changes have been saved", null, () => {
-      closeModal();
-    });
-    router.push("/post-hike");
   }
 
   function handleCancel() {

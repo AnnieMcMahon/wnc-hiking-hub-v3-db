@@ -1,5 +1,12 @@
 import { supabase } from "@/app/api/data/initSupabase";
-import { ANY_AREA, ANY_DIFFICULTY, ANY_LENGTH, SHORT, MEDIUM, LONG } from "@/app/lib/constants";
+import {
+  ANY_AREA,
+  ANY_DIFFICULTY,
+  ANY_LENGTH,
+  SHORT,
+  MEDIUM,
+  LONG,
+} from "@/app/lib/constants";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -38,29 +45,19 @@ export async function fetchTrailById(id) {
 }
 
 export async function addTrail(trailInfo) {
-  try {
-    const { data, error } = await supabase
-      .from("trails")
-      .insert({
-        trail_name: trailInfo.trail_name,
-        area_name: trailInfo.area_name,
-        difficulty_rating: trailInfo.difficulty_rating,
-        length: trailInfo.length,
-        elevation_gain: trailInfo.elevation_gain,
-        route_type: trailInfo.route_type,
-        trail_link: trailInfo.trail_link,
-      })
-      .select();
-
-    if (error) {
-      console.error("Database Error:", error);
-      throw new Error("Failed to add new trail.");
-    }
-    return data;
-  } catch (error) {
-    console.error("Fetch Error:", error);
-    throw new Error("Failed to fetch new trail data.");
+  const { data, error } = await supabase.from("trails").insert({
+    trail_name: trailInfo.trail_name,
+    area_name: trailInfo.area_name,
+    difficulty_rating: trailInfo.difficulty_rating,
+    length: trailInfo.length,
+    elevation_gain: trailInfo.elevation_gain,
+    route_type: trailInfo.route_type,
+    trail_link: trailInfo.trail_link,
+  });
+  if (error) {
+    throw new Error("Failed to add new trail.");
   }
+  return data;
 }
 
 export async function filterTrailList(area_name, difficulty_rating, length) {

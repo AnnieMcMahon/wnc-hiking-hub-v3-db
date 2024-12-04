@@ -57,7 +57,10 @@ describe("AddTrail", () => {
 
     showModalMock = jest.fn();
     closeModalMock = jest.fn();
-    useModal.mockReturnValue({ showModal: showModalMock, closeModal: closeModalMock });
+    useModal.mockReturnValue({
+      showModal: showModalMock,
+      closeModal: closeModalMock,
+    });
 
     addTrail.mockResolvedValue({
       id: 5,
@@ -85,15 +88,6 @@ describe("AddTrail", () => {
   });
 
   describe("functionality", () => {
-    it("navigates to /post-hike after submitting the form", async () => {
-      render(<AddTrail />);
-      await waitFor(() => {
-        const submitButton = screen.getByTestId("submit-button");
-        submitButton.click();
-      });
-      expect(mockRouterPush).toHaveBeenCalledWith("/post-hike");
-    });
-
     it("navigates to /post-hike after clicking the Cancel button", async () => {
       render(<AddTrail />);
       await waitFor(() => {
@@ -111,13 +105,13 @@ describe("AddTrail", () => {
       });
       expect(showModalMock).toHaveBeenCalledWith(
         "Save Changes",
-        "Changes have been saved",
+        "Changes have been saved successfully!",
         null,
         expect.any(Function)
       );
     });
 
-    it("calls closeModal when the modal's callback is executed", async () => {
+    it("calls closeModal and redirects to /post-hike when the modal's callback is executed", async () => {
       render(<AddTrail />);
       await waitFor(() => {
         const submitButton = screen.getByTestId("submit-button");
@@ -125,7 +119,7 @@ describe("AddTrail", () => {
       });
       expect(showModalMock).toHaveBeenCalledWith(
         "Save Changes",
-        "Changes have been saved",
+        "Changes have been saved successfully!",
         null,
         expect.any(Function)
       );
@@ -133,6 +127,7 @@ describe("AddTrail", () => {
       modalCallback();
       const { closeModal } = useModal();
       expect(closeModal).toHaveBeenCalled();
+      expect(mockRouterPush).toHaveBeenCalledWith("/post-hike");
     });
 
     it("calls addTrail API with the correct data when a trail is submitted", async () => {
@@ -153,6 +148,22 @@ describe("AddTrail", () => {
       await waitFor(() => {
         expect(addTrail).toHaveBeenCalledWith(newTrail);
       });
+    });
+
+    it("shows an error modal if addTrail fails", async () => {
+      const errorMessage = "Failed to add new trail.";
+      addTrail.mockRejectedValue(new Error(errorMessage));
+      render(<AddTrail />);
+      await waitFor(() => {
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+      });
+      expect(showModalMock).toHaveBeenCalledWith(
+        "Error",
+        errorMessage,
+        null,
+        expect.any(Function)
+      );
     });
   });
 });
