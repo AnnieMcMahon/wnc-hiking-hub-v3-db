@@ -1,6 +1,5 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
-import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateUser, uploadAvatar } from "@/app/api/data/data";
@@ -11,7 +10,6 @@ import "./edit-bio.css";
 function EditBio() {
   const router = useRouter();
   const { currentUser, setCurrentUser } = useGlobal();
-  const { showModal } = useModal();
   const [bioInfo, setBioInfo] = useState({
     user_name: currentUser.user_name,
     bio: currentUser.bio
@@ -26,23 +24,13 @@ function EditBio() {
     const newInfo = currentUser;
     if (newName || newBio || avatarFile) {
       if (avatarFile) {
-        try {
-          newInfo.avatar = await uploadAvatar(avatarFile, currentUser.id);
-        } catch (error) {
-          console.error("Error updating avatar:", error);
-          showModal("Error", "An error occurred while updating an avatar.");
-        }
-      }
+        newInfo.avatar = await uploadAvatar(avatarFile, currentUser.id);
+      };
       if (newName) newInfo.user_name = newName;
       if (newBio) newInfo.bio = newBio;
-      try {
-        await updateUser(newInfo);
-        setCurrentUser(newInfo);
-        router.push("/bio");
-      } catch (error) {
-        console.error("Error updating user:", error);
-        showModal("Error", "An error occurred while updating a user.");
-      }
+      await updateUser(newInfo);
+      setCurrentUser(newInfo);
+      router.push("/bio");
     } 
   };
 

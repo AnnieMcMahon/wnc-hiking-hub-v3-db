@@ -44,7 +44,6 @@ describe("HikeForm", () => {
 
     it("does not call onSubmit if date is earlier than today", async () => {
       const mockOnSubmit = jest.fn();
-      const user = userEvent.setup();
       render(<HikeForm onSubmit={mockOnSubmit} />);
       const button = screen.getByRole("button", { name: /submit form/i });
       const titleField = screen.getByLabelText(/title/i);
@@ -52,18 +51,17 @@ describe("HikeForm", () => {
       const timeField = screen.getByLabelText(/time/i);
       const locationField = screen.getByLabelText(/location/i);
       const commentsField = screen.getByLabelText(/comments/i);
-      await user.type(titleField, "abc");
-      await user.type(dateField, "2020-01-01");
-      await user.type(timeField, "10:30");
-      await user.type(locationField, "here");
-      await user.type(commentsField, "hello");
-      await user.click(button);
+      await userEvent.type(titleField, "abc");
+      await userEvent.type(dateField, "2020-01-01");
+      await userEvent.type(timeField, "10:30");
+      await userEvent.type(locationField, "here");
+      await userEvent.type(commentsField, "hello");
+      await userEvent.click(button);
       expect(mockOnSubmit).not.toHaveBeenCalled();
     });
 
     it("calls onSubmit when button is clicked and data is present", async () => {
       const mockOnSubmit = jest.fn();
-      const user = userEvent.setup();
       render(<HikeForm onSubmit={mockOnSubmit} />);
       const button = screen.getByRole("button", { name: /submit form/i });
       const titleField = screen.getByLabelText(/title/i);
@@ -71,12 +69,12 @@ describe("HikeForm", () => {
       const timeField = screen.getByLabelText(/time/i);
       const locationField = screen.getByLabelText(/location/i);
       const commentsField = screen.getByLabelText(/comments/i);
-      await user.type(titleField, "abc");
-      await user.type(dateField, "2026-01-01");
-      await user.type(timeField, "10:30");
-      await user.type(locationField, "here");
-      await user.type(commentsField, "hello");
-      await user.click(button);
+      await userEvent.type(titleField, "abc");
+      await userEvent.type(dateField, "2026-01-01");
+      await userEvent.type(timeField, "10:30");
+      await userEvent.type(locationField, "here");
+      await userEvent.type(commentsField, "hello");
+      await userEvent.click(button);
       expect(mockOnSubmit).toHaveBeenCalledTimes(1);
       expect(mockOnSubmit).toHaveBeenCalledWith({
         hikeTitle: "abc",

@@ -3,7 +3,7 @@ import { render, waitFor } from "@testing-library/react";
 import HikeSection from "@/app/(dashboard)/bio/HikeSection";
 import { useRouter } from "next/navigation";
 import { useGlobal } from "@/app/context/GlobalContext";
-import { MOCK_HIKE, MOCK_USER } from "@/app/lib/constants";
+import { MOCK_USER } from "@/app/lib/constants";
 import HikeComponent from "@/app/ui/components/HikeComponent";
 
 jest.mock("@/app/ui/components/HikeComponent", () => jest.fn(() => <div data-testid="hike-component"></div>));
