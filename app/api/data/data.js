@@ -136,7 +136,6 @@ export async function updateUser(userInfo) {
     })
     .eq("id", userInfo.id);
   if (error) {
-    console.error("Database Error:", error);
     throw new Error("Failed to update user.");
   }
 }
@@ -150,7 +149,6 @@ export async function uploadAvatar(file, userId) {
       upsert: true,
     });
   if (error) {
-    console.error("Upload Error:", error);
     throw new Error("Failed to upload avatar.");
   }
   const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);

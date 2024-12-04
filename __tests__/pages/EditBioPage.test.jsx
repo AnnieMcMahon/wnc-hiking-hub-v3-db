@@ -2,6 +2,7 @@ import "@testing-library/jest-dom";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/app/context/ModalContext";
 import { updateUser, uploadAvatar } from "@/app/api/data/data";
 import EditBio from "@/app/(dashboard)/edit-bio/page";
 
@@ -17,6 +18,13 @@ jest.mock("@/app/api/data/data", () => ({
   updateUser: jest.fn(),
   uploadAvatar: jest.fn(),
 }));
+
+jest.mock("@/app/context/ModalContext", () => ({
+  useModal: jest.fn(),
+}));
+
+let showModalMock;
+let closeModalMock;
 
 jest.mock("@/app/ui/forms/EditBioForm", () => {
   return (props) => {
@@ -76,11 +84,20 @@ describe("EditBio", () => {
   beforeEach(() => {
     mockRouterPush = jest.fn();
     useRouter.mockReturnValue({ push: mockRouterPush });
+
     mockCurrentUser = { id: 1, user_name: "Test User", bio: "Test Bio", avatar: "" };
     mockSetCurrentUser = jest.fn();
+
     useGlobal.mockReturnValue({
       currentUser: mockCurrentUser,
       setCurrentUser: mockSetCurrentUser,
+    });
+
+    showModalMock = jest.fn();
+    closeModalMock = jest.fn();
+    useModal.mockReturnValue({
+      showModal: showModalMock,
+      closeModal: closeModalMock,
     });
   });
 
@@ -123,6 +140,16 @@ describe("EditBio", () => {
           bio: "New Bio",
         })
       );
+      expect(showModalMock).toHaveBeenCalledWith(
+        "Save Changes",
+        "Changes have been saved successfully!",
+        null,
+        expect.any(Function)
+      );
+      const modalCallback = showModalMock.mock.calls[0][3];
+      modalCallback();
+      const { closeModal } = useModal();
+      expect(closeModal).toHaveBeenCalled();
       expect(mockRouterPush).toHaveBeenCalledWith("/bio");
     });
 
@@ -154,5 +181,57 @@ describe("EditBio", () => {
         })
       );
     });
+
+    it("shows an error modal if updateUser fails", async () => {
+      const errorMessage = "Failed to update user.";
+      updateUser.mockRejectedValue(new Error(errorMessage));
+      render(<EditBio />);
+      await waitFor(() => {
+        const nameInput = screen.getByTestId("name-input");
+        const bioTextarea = screen.getByTestId("bio-textarea");
+        const saveButton = screen.getByTestId("save-button");
+        fireEvent.change(nameInput, { target: { value: "New Name" } });
+        fireEvent.change(bioTextarea, { target: { value: "New Bio" } });
+        fireEvent.click(saveButton);
+      });
+      await waitFor(() => {
+        expect(showModalMock).toHaveBeenCalledWith(
+          "Error",
+          errorMessage,
+          null,
+          expect.any(Function)
+        );
+      });
+      const modalCallback = showModalMock.mock.calls[0][3];
+      modalCallback();
+      const { closeModal } = useModal();
+      expect(closeModal).toHaveBeenCalled();
+    });
+
+    it("shows an error modal if uploadAvatar fails", async () => {
+      const errorMessage = "Failed to upload avatar.";
+      const file = new File(["avatar"], "avatar.png", { type: "image/png" });
+      uploadAvatar.mockRejectedValue(new Error(errorMessage));
+      render(<EditBio />);
+      await waitFor(() => {
+        const avatarInput = screen.getByTestId("avatar-input");
+        const saveButton = screen.getByTestId("save-button");
+        fireEvent.change(avatarInput, { target: { files: [file] } });
+        fireEvent.click(saveButton);
+      });
+      await waitFor(() => {
+        expect(showModalMock).toHaveBeenCalledWith(
+          "Error",
+          errorMessage,
+          null,
+          expect.any(Function)
+        );
+      });
+      const modalCallback = showModalMock.mock.calls[0][3];
+      modalCallback();
+      const { closeModal } = useModal();
+      expect(closeModal).toHaveBeenCalled();
+    });
+    
   });
 });

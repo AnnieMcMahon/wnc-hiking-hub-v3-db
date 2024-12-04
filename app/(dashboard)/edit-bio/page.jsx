@@ -1,6 +1,7 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/app/context/ModalContext";
 import { useState } from "react";
 import { updateUser, uploadAvatar } from "@/app/api/data/data";
 
@@ -9,6 +10,7 @@ import "./edit-bio.css";
 
 function EditBio() {
   const router = useRouter();
+  const { showModal, closeModal } = useModal();
   const { currentUser, setCurrentUser } = useGlobal();
   const [bioInfo, setBioInfo] = useState({
     user_name: currentUser.user_name,
@@ -24,13 +26,38 @@ function EditBio() {
     const newInfo = currentUser;
     if (newName || newBio || avatarFile) {
       if (avatarFile) {
-        newInfo.avatar = await uploadAvatar(avatarFile, currentUser.id);
+        try {
+          newInfo.avatar = await uploadAvatar(avatarFile, currentUser.id);
+        } catch (error) {
+          showModal(
+            "Error",
+            error.message || "Error uploading the avatar. Please try again.",
+            null,
+            () => {
+              closeModal();
+            }
+          );
+        }
       };
       if (newName) newInfo.user_name = newName;
       if (newBio) newInfo.bio = newBio;
-      await updateUser(newInfo);
-      setCurrentUser(newInfo);
-      router.push("/bio");
+      try {
+        await updateUser(newInfo);
+        setCurrentUser(newInfo);
+        showModal("Save Changes", "Changes have been saved successfully!", null, () => {
+          closeModal();
+          router.push("/bio");
+        });
+      } catch (error) {
+        showModal(
+          "Error",
+          error.message || "Error updating the bio. Please try again.",
+          null,
+          () => {
+            closeModal();
+          }
+        );
+      }
     } 
   };
 
