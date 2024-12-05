@@ -30,7 +30,13 @@ describe("BioPage", () => {
     useRouter.mockReturnValue({ push: mockRouterPush });
 
     mockCurrentUser = { id: 1, name: "Test User" };
-    useGlobal.mockReturnValue({ currentUser: mockCurrentUser });
+    mockSetTriggerRefresh = jest.fn();
+
+    useGlobal.mockReturnValue({ 
+      currentUser: mockCurrentUser,
+      triggerRefresh: false, 
+      setTriggerRefresh: mockSetTriggerRefresh,
+    });
 
     fetchUserHikes.mockResolvedValue({
       upcomingHikes: [{ id: 1, title: "Upcoming Hike" }],
@@ -53,7 +59,10 @@ describe("BioPage", () => {
     });
 
     it("renders correctly when there is no current user", async () => {
-      useGlobal.mockReturnValueOnce({ currentUser: null });
+      useGlobal.mockReturnValueOnce({ 
+        currentUser: null, triggerRefresh: false, 
+        setTriggerRefresh: mockSetTriggerRefresh,
+      });
       render(<Bio />);
       await waitFor(() => {
         expect(screen.queryByTestId("bio-section")).toBeInTheDocument();

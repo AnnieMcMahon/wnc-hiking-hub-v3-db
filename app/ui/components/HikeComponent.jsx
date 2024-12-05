@@ -16,7 +16,7 @@ export default function HikeComponent({
   hikeType = "",
   hikeInfo = BLANK_HIKE
 }) {
-  const { currentUser, setHike, triggerRefresh, setTriggerRefresh } = useGlobal();
+  const { currentUser, setHike, setTriggerRefresh } = useGlobal();
   const router = useRouter();
   const [hikeDisplay, setHikeDisplay] = useState(BLANK_HIKE);
   const [trail, setTrail] = useState(BLANK_TRAIL);

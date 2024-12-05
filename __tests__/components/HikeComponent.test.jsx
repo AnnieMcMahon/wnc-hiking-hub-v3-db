@@ -41,10 +41,12 @@ describe("HikeComponent", () => {
     useRouter.mockReturnValue({ push: mockRouterPush });
 
     mockSetHike = jest.fn();
+    mockSetTriggerRefresh = jest.fn();
 
     useGlobal.mockReturnValue({
       currentUser: MOCK_USER,
       setHike: mockSetHike,
+      setTriggerRefresh: mockSetTriggerRefresh,
     });
 
     convertDate.mockReturnValue("12/01/2024");
@@ -80,7 +82,7 @@ describe("HikeComponent", () => {
       });
     });
 
-    it("adds participant and redirects to bio when 'Join Hike' is clicked", async () => {
+    it("adds participant when 'Join Hike' is clicked", async () => {
       render(<HikeComponent hikeType="available" hikeInfo={MOCK_HIKE} />);
       await waitFor(() => {
         const button = screen.getByRole("button", { name: /join hike/i });
@@ -89,10 +91,9 @@ describe("HikeComponent", () => {
       const button = screen.getByRole("button", { name: /join hike/i });
       await userEvent.click(button);
       expect(addParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
-      expect(mockRouterPush).toHaveBeenCalledWith("/bio");
     });
 
-    it("removes participant and redirects to join-hike when 'Opt Out' is clicked", async () => {
+    it("removes participant when 'Opt Out' is clicked", async () => {
       render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
       await waitFor(() => {
         const button = screen.getByRole("button", { name: /opt out/i });
@@ -101,7 +102,6 @@ describe("HikeComponent", () => {
       const button = screen.getByRole("button", { name: /opt out/i });
       await userEvent.click(button);
       expect(removeParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
-      expect(mockRouterPush).toHaveBeenCalledWith("/join-hike");
     });
     
     it("redirects to edit-hike when 'Edit Hike' is clicked", async () => {

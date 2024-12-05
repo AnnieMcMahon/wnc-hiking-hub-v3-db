@@ -79,7 +79,7 @@ jest.mock("@/app/ui/forms/EditBioForm", () => {
 });
 
 describe("EditBio", () => {
-  let mockRouterPush, mockCurrentUser, mockSetCurrentUser;
+  let mockRouterPush, mockCurrentUser, mockSetCurrentUser, mockSetTriggerRefresh;
 
   beforeEach(() => {
     mockRouterPush = jest.fn();
@@ -87,10 +87,12 @@ describe("EditBio", () => {
 
     mockCurrentUser = { id: 1, user_name: "Test User", bio: "Test Bio", avatar: "" };
     mockSetCurrentUser = jest.fn();
+    mockSetTriggerRefresh = jest.fn();
 
     useGlobal.mockReturnValue({
       currentUser: mockCurrentUser,
       setCurrentUser: mockSetCurrentUser,
+      setTriggerRefresh: mockSetTriggerRefresh,
     });
 
     showModalMock = jest.fn();
