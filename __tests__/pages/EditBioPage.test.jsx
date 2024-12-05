@@ -79,13 +79,21 @@ jest.mock("@/app/ui/forms/EditBioForm", () => {
 });
 
 describe("EditBio", () => {
-  let mockRouterPush, mockCurrentUser, mockSetCurrentUser, mockSetTriggerRefresh;
+  let mockRouterPush,
+    mockCurrentUser,
+    mockSetCurrentUser,
+    mockSetTriggerRefresh;
 
   beforeEach(() => {
     mockRouterPush = jest.fn();
     useRouter.mockReturnValue({ push: mockRouterPush });
 
-    mockCurrentUser = { id: 1, user_name: "Test User", bio: "Test Bio", avatar: "" };
+    mockCurrentUser = {
+      id: 1,
+      user_name: "Test User",
+      bio: "Test Bio",
+      avatar: "",
+    };
     mockSetCurrentUser = jest.fn();
     mockSetTriggerRefresh = jest.fn();
 
@@ -197,10 +205,7 @@ describe("EditBio", () => {
         fireEvent.click(saveButton);
       });
       await waitFor(() => {
-        expect(showModalMock).toHaveBeenCalledWith(
-          "Error",
-          errorMessage
-        );
+        expect(showModalMock).toHaveBeenCalledWith("Error", errorMessage);
       });
     });
 
@@ -216,12 +221,8 @@ describe("EditBio", () => {
         fireEvent.click(saveButton);
       });
       await waitFor(() => {
-        expect(showModalMock).toHaveBeenCalledWith(
-          "Error",
-          errorMessage
-        );
+        expect(showModalMock).toHaveBeenCalledWith("Error", errorMessage);
       });
     });
-    
   });
 });

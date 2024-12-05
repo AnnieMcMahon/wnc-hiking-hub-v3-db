@@ -19,8 +19,12 @@ jest.mock("@/app/api/data/data", () => ({
   fetchUserHikes: jest.fn(),
 }));
 
-jest.mock("@/app/(dashboard)/bio/BioSection", () => jest.fn(() => <div data-testid="bio-section"></div>));
-jest.mock("@/app/(dashboard)/bio/HikeSection", () => jest.fn(() => <div data-testid="hike-section"></div>));
+jest.mock("@/app/(dashboard)/bio/BioSection", () =>
+  jest.fn(() => <div data-testid="bio-section"></div>)
+);
+jest.mock("@/app/(dashboard)/bio/HikeSection", () =>
+  jest.fn(() => <div data-testid="hike-section"></div>)
+);
 
 describe("BioPage", () => {
   let mockRouterPush, mockCurrentUser;
@@ -32,9 +36,9 @@ describe("BioPage", () => {
     mockCurrentUser = { id: 1, name: "Test User" };
     mockSetTriggerRefresh = jest.fn();
 
-    useGlobal.mockReturnValue({ 
+    useGlobal.mockReturnValue({
       currentUser: mockCurrentUser,
-      triggerRefresh: false, 
+      triggerRefresh: false,
       setTriggerRefresh: mockSetTriggerRefresh,
     });
 
@@ -59,8 +63,9 @@ describe("BioPage", () => {
     });
 
     it("renders correctly when there is no current user", async () => {
-      useGlobal.mockReturnValueOnce({ 
-        currentUser: null, triggerRefresh: false, 
+      useGlobal.mockReturnValueOnce({
+        currentUser: null,
+        triggerRefresh: false,
         setTriggerRefresh: mockSetTriggerRefresh,
       });
       render(<Bio />);
@@ -104,6 +109,5 @@ describe("BioPage", () => {
         );
       });
     });
-
   });
 });

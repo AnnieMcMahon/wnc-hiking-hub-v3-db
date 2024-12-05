@@ -39,12 +39,12 @@ export default function EditHike() {
         setCurrentHikeInfo(updatedHike);
         showModal(
           "Save Changes",
-          "Changes have been saved",
+          "Changes have been saved successfully!",
           null,
           () => {
             closeModal();
           });
-          router.push("/bio");
+        router.push("/bio");
       } catch (error) {
         showModal("Error", error.message || "Error updating hike.");
       }
