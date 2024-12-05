@@ -6,7 +6,7 @@ import HikeComponent from "@/app/ui/components/HikeComponent";
 import "./join-hike.css";
 
 function JoinHike() {
-  const { currentUser } = useGlobal();
+  const { currentUser, triggerRefresh, setTriggerRefresh } = useGlobal();
   const [hikeList, setHikeList] = useState();
 
   useEffect(() => {
@@ -15,7 +15,8 @@ function JoinHike() {
       setHikeList(availableHikes);
     };
     fetchHikes();
-}, []);
+    setTriggerRefresh(false);
+  }, [triggerRefresh]);
 
   return (
     <div id="join-hike">

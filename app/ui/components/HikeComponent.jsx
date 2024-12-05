@@ -16,10 +16,9 @@ export default function HikeComponent({
   hikeType = "",
   hikeInfo = BLANK_HIKE
 }) {
-  const { currentUser, setHike } = useGlobal();
+  const { currentUser, setHike, triggerRefresh, setTriggerRefresh } = useGlobal();
   const router = useRouter();
   const [hikeDisplay, setHikeDisplay] = useState(BLANK_HIKE);
-
   const [trail, setTrail] = useState(BLANK_TRAIL);
 
   const fetchTrailInfo = async () => {
@@ -75,11 +74,11 @@ export default function HikeComponent({
     switch (buttonMessage) {
       case "Join Hike":
         addParticipant(currentUser.id, hikeId);
-        router.push("/bio");
+        setTriggerRefresh(true);
         break;
       case "Opt Out":
         removeParticipant(currentUser.id, hikeId);
-        router.push("/join-hike");
+        setTriggerRefresh(true);
         break;
       case "Edit Hike":
         setHike(hikeId);

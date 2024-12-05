@@ -9,6 +9,7 @@ const GlobalContext = createContext();
 export function GlobalProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
   const [hike, setHike] = useState();
+  const [triggerRefresh, setTriggerRefresh] = useState(false);
   
 useEffect(() => {
   const fetchUser = async () => {
@@ -30,6 +31,8 @@ useEffect(() => {
         setCurrentUser,
         hike,
         setHike,
+        triggerRefresh,
+        setTriggerRefresh
       }}
     >
       {children}

@@ -8,7 +8,7 @@ import HikeSection from "./HikeSection";
 import "./bio.css";
 
 export default function Bio() {
-  const { currentUser } = useGlobal();
+  const { currentUser, triggerRefresh, setTriggerRefresh } = useGlobal();
   const router = useRouter();
   const [upcomingHikes, setUpcomingHikes] = useState([]);
   const [pastHikes, setPastHikes] = useState([]);
@@ -26,7 +26,8 @@ export default function Bio() {
       }
     };
     fetchHikes();
-  }, []);
+    setTriggerRefresh(false);
+  }, [triggerRefresh]);
 
   function handleClick() {
     router.push("/edit-bio");
