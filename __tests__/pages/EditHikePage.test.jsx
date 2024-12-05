@@ -234,12 +234,12 @@ describe("EditHike", () => {
       expect(showModalMock).toHaveBeenCalledWith(
         "Cancel Hike",
         "Press OK to cancel this hike (cannot be reversed)",
-        null,
         expect.any(Function)
       );
-      const modalCallback = showModalMock.mock.calls[0][3];
+      const modalCallback = showModalMock.mock.calls[0][2];
       modalCallback();
-      expect(handleNewCancellation).toHaveBeenCalled();
+      expect(updateHike).toHaveBeenCalled();
+
     });
   });
 });
