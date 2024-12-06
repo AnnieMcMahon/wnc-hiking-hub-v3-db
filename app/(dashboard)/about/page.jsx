@@ -43,6 +43,7 @@ export default function About() {
         <li>Comment on hikes posted or joined</li>
         <li>Access other users' profiles</li>
         <li>Display a disclosure agreement upon registration</li>
+        <li>Optimize the app for mobile and tablet screens</li>
       </ul>
 
       <h2>Long-Term Features</h2>

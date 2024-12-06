@@ -167,7 +167,7 @@ button .add-trail-button {
 
 /* About page */
 #about {
-  width: 80%;
+  width: 60%;
   height: 25rem;
   margin: 1rem auto;
   padding: 1rem 2rem;
@@ -180,6 +180,10 @@ button .add-trail-button {
 
 #about a {
   font-size: inherit;
+}
+
+#about li {
+  font-size: 0.9rem;
 }
 
 /* Hikes */

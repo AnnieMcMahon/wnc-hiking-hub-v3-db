@@ -26,6 +26,7 @@ Developed with React and JavaScript, the app is designed to be **intuitive and e
 * Comment on hikes posted or joined
 * Access other users' profiles
 * Display a disclosure agreement upon registration
+* Optimize the app for mobile and tablet screens
 
 ## Long-Term Features
 * **Premium Membership**: Introduce a paid membership option and reserve some of the features below for premium users.
