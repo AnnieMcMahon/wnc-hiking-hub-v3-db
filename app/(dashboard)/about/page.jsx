@@ -3,7 +3,7 @@ export default function About() {
     <div id="about" className="text-box">
       <h1>About WNC Hiking Hub</h1>
       <p>
-        WNC Hiking Hub's mission is to
+        WNC Hiking Hub&apos;s mission is to
         <strong> connect outdoor enthusiasts</strong> in Western North Carolina
         who want to explore the beauty of the region while enjoying the company
         of like-minded adventurers.
