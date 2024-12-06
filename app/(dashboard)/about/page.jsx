@@ -20,7 +20,7 @@ export default function About() {
         <li>View a list of participants for each posted hike</li>
         <li>Set a maximum participant limit for posted hikes</li>
         <li>Comment on hikes posted or joined</li>
-        <li>Access other users' profiles</li>
+        <li>Access other users&apos; profiles</li>
         <li>Display a disclosure agreement upon registration</li>
         <li>Optimize the app for mobile and tablet screens</li>
       </ul>
