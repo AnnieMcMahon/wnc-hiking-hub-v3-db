@@ -20,18 +20,6 @@ export default function About() {
         </li>
       </ul>
 
-      <h2>Web Page</h2>
-      <p>
-        Visit the app at{" "}
-        <a
-          href="https://wnc-hiking-hub-v3-db.vercel.app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          wnc-hiking-hub-v3-db.vercel.app
-        </a>
-      </p>
-
       <h2>Inspiration</h2>
       <p>
         The idea for this app arose when Meetup drastically increased its fees,
