@@ -46,9 +46,6 @@ exports[`Home matches the snapshot 1`] = `
       <p>
         Happy hiking!
       </p>
-      <p>
-        (Work in progress - not functional yet)
-      </p>
     </ul>
   </div>
 </div>

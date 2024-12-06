@@ -142,7 +142,7 @@ describe("EditHike", () => {
       creator_id: 1
     }
     mockCurrentUser = {
-      id: 1,
+      id: 2,
       user_name: "Test User",
       bio: "Test Bio",
       avatar: "",

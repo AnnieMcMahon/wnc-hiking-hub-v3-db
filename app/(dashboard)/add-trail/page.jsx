@@ -1,4 +1,5 @@
 "use client";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { addTrail } from "@/app/api/data/data";
@@ -7,9 +8,15 @@ import "./add-trail.css";
 
 export default function AddTrail() {
   const router = useRouter();
+  const { currentUser } = useGlobal();
   const { showModal, closeModal } = useModal();
 
   async function handleSubmit(newTrail) {
+    if (currentUser.id == 1) {
+      showModal("Demo", "Demo Mode - new trail cannot be saved.");
+      router.push("/post-hike");
+      return;
+    }
     if (newTrail) {
       try {
         await addTrail(newTrail);

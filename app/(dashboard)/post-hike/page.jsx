@@ -25,6 +25,11 @@ export default function PostHike() {
     if (!chosenTrail) {
       showModal("Error", "Please choose a trail");
     } else {
+      if (currentUser.id == 1) {
+        showModal("Demo", "Demo Mode - new hike cannot be posted.");
+        router.push("/bio");
+        return;
+      }
       let newHike = newHikeInfo;
       newHike.creator_id = currentUser.id;
       newHike.trail_id = chosenTrail.id;

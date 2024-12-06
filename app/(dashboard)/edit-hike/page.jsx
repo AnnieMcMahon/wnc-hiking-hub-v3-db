@@ -28,7 +28,12 @@ export default function EditHike() {
     fetchHike();
 }, []);
 
-  async function handleSubmit(newHikeInfo) {  
+  async function handleSubmit(newHikeInfo) {
+    if (currentUser.id == 1) {
+      showModal("Demo", "Demo Mode - hike cannot be edited.");
+      router.push("/bio");
+      return;
+    }  
       let updatedHike = newHikeInfo;
       updatedHike.id = currentHikeInfo.id;
       updatedHike.status = "updated";

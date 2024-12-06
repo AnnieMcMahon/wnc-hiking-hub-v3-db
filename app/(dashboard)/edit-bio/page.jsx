@@ -19,6 +19,11 @@ function EditBio() {
   const [avatarFile, setAvatarFile] = useState();
 
   async function handleSubmit(newBioInfo) {
+    if (currentUser.id == 1) {
+      showModal("Demo", "Demo Mode - new bio cannot be saved.");
+      router.push("/bio");
+      return;
+    }
     let newName = currentUser.user_name == newBioInfo.user_name ? null : newBioInfo.user_name;
     let newBio = currentUser.bio == newBioInfo.bio ? null : newBioInfo.bio;
 

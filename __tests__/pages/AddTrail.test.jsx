@@ -1,12 +1,18 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { addTrail } from "@/app/api/data/data";
+import { MOCK_USER } from "@/app/lib/constants";
 import AddTrail from "@/app/(dashboard)/add-trail/page";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
+}));
+
+jest.mock("@/app/context/GlobalContext", () => ({
+  useGlobal: jest.fn(),
 }));
 
 jest.mock("@/app/api/data/data", () => ({
@@ -54,6 +60,10 @@ describe("AddTrail", () => {
   beforeEach(() => {
     mockRouterPush = jest.fn();
     useRouter.mockReturnValue({ push: mockRouterPush });
+
+    useGlobal.mockReturnValue({
+      currentUser: MOCK_USER,
+    });
 
     showModalMock = jest.fn();
     closeModalMock = jest.fn();

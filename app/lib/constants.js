@@ -135,7 +135,7 @@ export const MOCK_BIO_INFO = {
 };
 
 export const MOCK_USER = {
-  id: 1,
+  id: 2,
   email: "casualhiker@gmail.com",
   user_name: "Test User",
   avatar: "/newUser.png",
