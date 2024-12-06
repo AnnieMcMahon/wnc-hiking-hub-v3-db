@@ -76,6 +76,11 @@ export default function EditHike() {
   }
 
   async function handleNewCancellation() {
+    if (currentUser.id == 1) {
+      showModal("Demo", "Demo Mode - hike cannot be cancelled.");
+      router.push("/bio");
+      return;
+    }  
     let updatedHike = hikeInfo;
     updatedHike.title = `CANCELLED - ${hikeInfo.title}`;
     updatedHike.status = "cancelled";
