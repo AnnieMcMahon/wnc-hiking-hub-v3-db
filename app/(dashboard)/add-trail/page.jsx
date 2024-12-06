@@ -26,8 +26,8 @@ export default function AddTrail() {
         router.push("/post-hike");
       } catch (error) {
         showModal(
-          "Error",
-          error.message || "An unexpected error occurred while adding the trail.",
+          "Error adding the trail",
+          "Make sure the trail is not already on the list.",
           null,
           () => {
             closeModal();
