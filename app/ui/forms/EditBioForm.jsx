@@ -51,7 +51,7 @@ export default function EditBioForm({
           <button type="submit" className="form-button">
             Save
           </button>
-          <button onClick={onClick} className="form-button">
+          <button type="button" onClick={onClick} className="form-button">
             Discard
           </button>
         </form>
