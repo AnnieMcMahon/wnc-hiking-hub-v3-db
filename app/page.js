@@ -9,7 +9,6 @@ export default function Home() {
           <li><b>Join a hike</b> someone else posted</li>
           <li>Go to your <b>Bio</b> page to view or edit your hikes</li>
           <p>Happy hiking!</p>
-          <p>(Work in progress - not functional yet)</p>
         </ul>
     </div>
   );

@@ -58,6 +58,12 @@ export default function Navbar() {
         >
           Join a Hike
         </Link>
+        <Link
+          className={`${pathname === "/about" ? "active" : "inactive"}`}
+          href="/about"
+        >
+          About
+        </Link>
       </div>
       <button onClick={handleClick}>{buttonMessage}</button>
     </div>
