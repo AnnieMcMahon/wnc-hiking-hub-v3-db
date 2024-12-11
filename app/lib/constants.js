@@ -8,10 +8,13 @@ export const MEDIUM = "From 3 to 6 miles";
 export const LONG = "Longer than 6 miles";
 
 export const AREAS = [
+  "Bent Creek Experimental Forest",
+  "Blue Ridge Parkway",
   "DuPont State Recreational Forest",
-  "Pisgah National Forest",
+  "Gorges State Park",
   "North Carolina Arboretum",
-  "Nantahala Forest",
+  "Pisgah National Forest",
+  "Other (not listed)"
 ];
 
 export const DIFFICULTIES = [
