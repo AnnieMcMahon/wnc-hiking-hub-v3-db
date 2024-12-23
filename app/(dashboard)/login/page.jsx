@@ -14,9 +14,9 @@ function Login() {
 
   async function handleLogin(newLogin) {
     if (newLogin) {
-      try {
-        const userInfoArray = await fetchUserByEmail(newLogin.email);
-        const userInfo = userInfoArray[0];
+      const userInfoArray = await fetchUserByEmail(newLogin.email);
+      const userInfo = userInfoArray[0];
+      if (userInfo) {
         try {
           await login(newLogin);
           setCurrentUser(userInfo);
@@ -24,11 +24,12 @@ function Login() {
         } catch (error) {
           showModal("Error", "Invalid password. Please try again.");
         }
-      } catch (error) {
+      } else {
         showModal(
           "Create Account",
           "No account found. Would you like to create one?",
-          () => handleSignup(newLogin))
+          () => handleSignup(newLogin)
+        );
       }
     }
   }
@@ -50,14 +51,17 @@ function Login() {
       await fetchUserByEmail(email);
       try {
         await resetPassword(email, `${window.location.origin}/reset-password`);
-        showModal("Success", "Please follow the link in your e-mail to reset your password.");
+        showModal(
+          "Success",
+          "Please follow the link in your e-mail to reset your password."
+        );
       } catch (error) {
         showModal("Error", "Error sending reset e-mail.");
       }
     } catch (error) {
       showModal("Error", "Please enter a valid e-mail address.");
     }
-  };
+  }
 
   return (
     <div id="login">
