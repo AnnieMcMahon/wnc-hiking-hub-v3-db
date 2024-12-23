@@ -38,10 +38,13 @@ describe("SearchForm", () => {
       );
       expect(options).toEqual([
         "Anywhere in WNC",
+        "Bent Creek Experimental Forest",
+        "Blue Ridge Parkway",
         "DuPont State Recreational Forest",
-        "Pisgah National Forest",
+        "Gorges State Park",
         "North Carolina Arboretum",
-        "Nantahala Forest",
+        "Pisgah National Forest",
+        "Other (not listed)"
       ]);
     });
   });

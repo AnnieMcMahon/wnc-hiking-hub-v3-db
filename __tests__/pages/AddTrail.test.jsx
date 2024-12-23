@@ -169,8 +169,8 @@ describe("AddTrail", () => {
         submitButton.click();
       });
       expect(showModalMock).toHaveBeenCalledWith(
-        "Error",
-        errorMessage,
+        "Error adding the trail",
+        "Make sure the trail is not already on the list.",
         null,
         expect.any(Function)
       );
