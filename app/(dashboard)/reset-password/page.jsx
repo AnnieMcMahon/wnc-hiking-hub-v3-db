@@ -11,7 +11,8 @@ function ResetPassword() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const password = e.target.password.value;
+    const formData = new FormData(e.target);
+    const password = formData.get("password");
     const errorMsg = validatePassword(password);
     if (errorMsg) {
       showModal("Error", errorMsg);
@@ -32,7 +33,7 @@ function ResetPassword() {
     <div id="reset-pw">
       <h1>Reset Password</h1>
       <div id="login-info" className="text-box">
-        <form onSubmit={handleSubmit}>
+        <form role="form" onSubmit={handleSubmit}>
           <label htmlFor="password">New Password: </label>
           <input
             type="password"
