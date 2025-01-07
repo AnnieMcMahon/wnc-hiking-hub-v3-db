@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { filterTrailList } from "@/app/api/data/data";
+import { filterTrailList } from "./filterTrailList";
 import { ANY_AREA, ANY_LENGTH, ANY_DIFFICULTY } from "@/app/lib/constants";
 
 export function useTrailSearch() {
