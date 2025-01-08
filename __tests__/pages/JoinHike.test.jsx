@@ -1,16 +1,14 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react"; 
-//Add waitFor, fireEvent if needed
-import userEvent from "@testing-library/user-event";
 import JoinHike from "@/app/(dashboard)/join-hike/page";
 import { useGlobal } from "@/app/context/GlobalContext";
-import { fetchHikesToJoin } from "@/app/api/data/data";
+import { fetchHikesToJoin } from "@/app/hooks/fetchHikesToJoin";
 
 jest.mock("@/app/context/GlobalContext", () => ({
   useGlobal: jest.fn(),
 }));
 
-jest.mock("@/app/api/data/data", () => ({
+jest.mock("@/app/hooks/fetchHikesToJoin", () => ({
   fetchHikesToJoin: jest.fn(),
 }));
 
