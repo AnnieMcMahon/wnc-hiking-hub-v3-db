@@ -1,5 +1,5 @@
 "use client"
-import { fetchHikesByParticipant, fetchAvailableHikes } from "../api/data/data";
+import { fetchHikesByParticipant, fetchAvailableHikes } from "@/app/api/data/data";
 
 export async function fetchHikesToJoin(userId) {
   const currentDate = new Date().toISOString();

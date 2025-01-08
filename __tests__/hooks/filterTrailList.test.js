@@ -4,8 +4,7 @@ import {
   ANY_LENGTH,
   SHORT,
   MEDIUM,
-  LONG,
-  MOCK_TRAIL_INFO
+  LONG
 } from "@/app/lib/constants";
 import { filterTrailList } from "@/app/hooks/filterTrailList";
 import { fetchAllTrails } from "@/app/api/data/data";
