@@ -23,6 +23,9 @@ export function ModalProvider({ children }) {
   };
 
   function closeModal() {
+    if (modal.onClose) {
+      modal.onClose();
+    }
     setModal({ isOpen: false, title: "", message: "", onConfirm: null, onClose: null });
   };
 
