@@ -1,12 +1,11 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import PostHike from "@/app/(dashboard)/post-hike/page";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/app/context/ModalContext";
 import { useTrailSearch } from "@/app/hooks/useTrailSearch";
-import { handleAddHike } from "@/app/api/data/data";
+import { handleAddHike } from "@/app/hooks/handleAddHike";
 
 let hikeInfo = {
   id: 5,
@@ -39,7 +38,7 @@ jest.mock("@/app/hooks/useTrailSearch", () => ({
   useTrailSearch: jest.fn(),
 }));
 
-jest.mock("@/app/api/data/data", () => ({
+jest.mock("@/app/hooks/handleAddHike", () => ({
   handleAddHike: jest.fn(),
 }));
 

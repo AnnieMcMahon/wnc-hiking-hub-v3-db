@@ -4,7 +4,7 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTrailSearch } from "@/app/hooks/useTrailSearch";
-import { handleAddHike } from "@/app/api/data/data";
+import { handleAddHike } from "@/app/hooks/handleAddHike";
 import ChosenTrail from "@/app/ui/components/ChosenTrail";
 import SearchForm from "@/app/ui/forms/SearchForm";
 import HikeForm from "@/app/ui/forms/HikeForm";
