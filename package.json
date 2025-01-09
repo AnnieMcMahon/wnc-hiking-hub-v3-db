@@ -30,6 +30,7 @@
     "eslint-config-next": "15.0.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "mockdate": "^3.0.5",
     "whatwg-fetch": "^3.6.20"
   }
 }
