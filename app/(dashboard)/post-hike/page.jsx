@@ -4,7 +4,7 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTrailSearch } from "@/app/hooks/useTrailSearch";
-import { handleAddHike } from "@/app/hooks/handleAddHike";
+import { addHike, addParticipant } from "@/app/api/data/data";
 import ChosenTrail from "@/app/ui/components/ChosenTrail";
 import SearchForm from "@/app/ui/forms/SearchForm";
 import HikeForm from "@/app/ui/forms/HikeForm";
@@ -34,7 +34,11 @@ export default function PostHike() {
       newHike.creator_id = currentUser.id;
       newHike.trail_id = chosenTrail.id;
       newHike.status = "new";
-      await handleAddHike(newHike);
+      const newHikeAdded = await addHike(newHike);
+      if (newHikeAdded) {
+        const newHikeId = newHikeAdded[0].id;
+        await addParticipant(newHike.creator_id, newHikeId);
+      }
       router.push("/bio");
     }
   };

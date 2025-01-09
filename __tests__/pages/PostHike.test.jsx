@@ -5,7 +5,8 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/app/context/ModalContext";
 import { useTrailSearch } from "@/app/hooks/useTrailSearch";
-import { handleAddHike } from "@/app/hooks/handleAddHike";
+import { addHike, addParticipant } from "@/app/api/data/data";
+
 
 let hikeInfo = {
   id: 5,
@@ -38,8 +39,9 @@ jest.mock("@/app/hooks/useTrailSearch", () => ({
   useTrailSearch: jest.fn(),
 }));
 
-jest.mock("@/app/hooks/handleAddHike", () => ({
-  handleAddHike: jest.fn(),
+jest.mock("@/app/api/data/data", () => ({
+  addHike: jest.fn(),
+  addParticipant: jest.fn(),
 }));
 
 jest.mock("@/app/ui/components/ChosenTrail", () => {
@@ -56,7 +58,7 @@ jest.mock("@/app/ui/forms/SearchForm", () => {
   return ({ onSearch }) => {
     const handleChange = (e) => {
       const { name, value } = e.target;
-      onSearch(name, value); // Call the passed `onSearch` prop
+      onSearch(name, value);
     };
 
     return (
@@ -132,6 +134,8 @@ describe("PostHike", () => {
       ],
       updateSearchCriteria: jest.fn(),
     });
+
+    addHike.mockReturnValue([hikeInfo]);
   });
 
   afterEach(() => {
@@ -195,7 +199,7 @@ describe("PostHike", () => {
       });
     });    
 
-    it("calls handleAddHike and redirects when a valid hike is submitted", async () => {
+    it("adds the hike and redirects when a valid hike is submitted", async () => {
       render(<PostHike />);
       const filteredList = useTrailSearch.mock.results[0].value.filteredList;
 
@@ -205,12 +209,13 @@ describe("PostHike", () => {
       fireEvent.submit(hikeForm);
   
       await waitFor(() => {
-        expect(handleAddHike).toHaveBeenCalledWith({
+        expect(addHike).toHaveBeenCalledWith({
           ...hikeInfo,
           creator_id: 2,
           trail_id: filteredList[0].id,
           status: "new",
         });
+        expect(addParticipant).toHaveBeenCalledWith(2, 5);
         expect(mockRouterPush).toHaveBeenCalledWith("/bio");
       });
     });
