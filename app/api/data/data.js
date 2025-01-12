@@ -1,15 +1,4 @@
 import { supabase } from "@/app/api/data/initSupabase";
-import {
-  ANY_AREA,
-  ANY_DIFFICULTY,
-  ANY_LENGTH,
-  SHORT,
-  MEDIUM,
-  LONG,
-} from "@/app/lib/constants";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 
 //Trail functions
 export async function fetchAllTrails() {
@@ -45,29 +34,6 @@ export async function addTrail(trailInfo) {
     throw new Error("Failed to add new trail.");
   }
   return data;
-}
-
-export async function filterTrailList(area_name, difficulty_rating, length) {
-  let newList = await fetchAllTrails();
-  if (area_name !== ANY_AREA) {
-    newList = newList.filter((trail) => trail.area_name == area_name);
-  }
-  if (difficulty_rating !== ANY_DIFFICULTY) {
-    newList = newList.filter(
-      (trail) => trail.difficulty_rating == difficulty_rating
-    );
-  }
-  if (length !== ANY_LENGTH) {
-    newList = newList.filter(
-      (trail) =>
-        (length == SHORT && Number(trail.length) < 3) ||
-        (length == LONG && Number(trail.length > 6)) ||
-        (length == MEDIUM &&
-          Number(trail.length) >= 3 &&
-          Number(trail.length) <= 6)
-    );
-  }
-  return newList;
 }
 
 //User functions
@@ -179,6 +145,21 @@ export async function updateHike(hikeInfo) {
   }
 }
 
+export async function fetchAvailableHikes(userId, currentDate, hikeIds) {
+  const { data, error } = await supabase
+    .from("hikes")
+    .select("*")
+    .neq("creator_id", userId)
+    .neq("status", "cancelled")
+    .gte("date", currentDate)
+    .not("id", "in", hikeIds)
+    .order("date", { ascending: true });
+  if (error) {
+    throw new Error("Failed to fetch hikes to join.");
+  }
+  return data;
+}
+
 //Participants functions
 export async function fetchParticipantsByHike(hikeId) {
   const { data, error } = await supabase
@@ -223,81 +204,4 @@ export async function removeParticipant(userId, hikeId) {
   }
 }
 
-//Functions using multiple tables
-export async function fetchUserHikes(userId) {
-  const upcomingHikes = [];
-  const pastHikes = [];
-  const createdHikes = [];
-  const currentDate = dayjs().tz("America/New_York").startOf("day");
-  const hikeList = await fetchHikesByParticipant(userId);
-  const hikeIdList = [];
-  if (hikeList) hikeList.map((item) => hikeIdList.push(item.hike_id));
-  dayjs.extend(utc);
-  dayjs.extend(timezone);
-  if (hikeIdList) {
-    const hikesData = await Promise.all(
-      hikeIdList.map(async (hikeId) => {
-        const hikeArray = await fetchHikeById(hikeId);
-        return hikeArray[0];
-      })
-    );
-    hikesData.forEach((hike) => {
-      if (hike) {
-        const hikeDate = dayjs(hike.date).tz("America/New_York").startOf("day");
-        if (hikeDate.isBefore(currentDate)) {
-          pastHikes.push(hike);
-        } else {
-          upcomingHikes.push(hike);
-        }
-        if (hike.creator_id == userId) {
-          createdHikes.push(hike.id);
-        }
-      } else {
-        console.log("Hike not found in hikesData");
-      }
-    });
-  }
-  if (pastHikes.length > 1)
-    pastHikes.sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
-  if (upcomingHikes.length > 1)
-    upcomingHikes.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
-  return { upcomingHikes, pastHikes, createdHikes };
-}
 
-export async function fetchHikesToJoin(userId) {
-  const currentDate = new Date().toISOString();
-  const hikes = await fetchHikesByParticipant(userId);
-  let hikeIds = "";
-  if (hikes) {
-    hikeIds = "(";
-    hikes.map((item) => {
-      hikeIds = hikeIds + item.hike_id;
-      if (hikes.indexOf(item) < hikes.length - 1) {
-        hikeIds = hikeIds + ", ";
-      }
-    });
-    hikeIds = hikeIds + ")";
-  } else {
-    hikeIds = "()";
-  }
-  const { data, error } = await supabase
-    .from("hikes")
-    .select("*")
-    .neq("creator_id", userId)
-    .neq("status", "cancelled")
-    .gte("date", currentDate)
-    .not("id", "in", hikeIds)
-    .order("date", { ascending: true });
-  if (error) {
-    throw new Error("Failed to fetch hikes to join.");
-  }
-  return data;
-}
-
-export async function handleAddHike(hikeInfo) {
-  const newHike = await addHike(hikeInfo);
-  if (newHike) {
-    const newHikeId = newHike[0].id;
-    await addParticipant(hikeInfo.creator_id, newHikeId);
-  }
-}

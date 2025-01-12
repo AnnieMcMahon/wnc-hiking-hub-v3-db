@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import { useGlobal } from "@/app/context/GlobalContext";
-import { fetchUserHikes } from "@/app/api/data/data";
+import { fetchUserHikes } from "@/app/hooks/fetchUserHikes";
 import Bio from "@/app/(dashboard)/bio/page";
 import BioSection from "@/app/(dashboard)/bio/BioSection";
 import HikeSection from "@/app/(dashboard)/bio/HikeSection";
@@ -15,7 +15,7 @@ jest.mock("@/app/context/GlobalContext", () => ({
   useGlobal: jest.fn(),
 }));
 
-jest.mock("@/app/api/data/data", () => ({
+jest.mock("@/app/hooks/fetchUserHikes", () => ({
   fetchUserHikes: jest.fn(),
 }));
 

@@ -3,7 +3,8 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/app/context/ModalContext";
-import { updateHike, fetchHikeById, fetchUserHikes } from "@/app/api/data/data";
+import { updateHike, fetchHikeById } from "@/app/api/data/data";
+import { fetchUserHikes } from "@/app/hooks/fetchUserHikes";
 import EditHike from "@/app/(dashboard)/edit-hike/page";
 
 jest.mock("@/app/context/GlobalContext", () => ({
@@ -24,6 +25,9 @@ let closeModalMock;
 jest.mock("@/app/api/data/data", () => ({
   updateHike: jest.fn(),
   fetchHikeById: jest.fn(),
+}));
+
+jest.mock("@/app/hooks/fetchUserHikes", () => ({
   fetchUserHikes: jest.fn(),
 }));
 

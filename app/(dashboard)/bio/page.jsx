@@ -2,7 +2,7 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { fetchUserHikes } from "@/app/api/data/data";
+import { fetchUserHikes } from "@/app/hooks/fetchUserHikes";
 import BioSection from "./BioSection";
 import HikeSection from "./HikeSection";
 import "./bio.css";
