@@ -2,18 +2,23 @@
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { login, signup, resetPassword } from "@/app/api/authentication/auth";
 import { fetchUserByEmail, addUser } from "@/app/api/data/data";
 import LoginForm from "@/app/ui/forms/LoginForm";
+import Disclosure from "@/app/ui/components/Disclosure";
 import "./login.css";
 
 function Login() {
   const router = useRouter();
   const { setCurrentUser } = useGlobal();
   const { showModal, closeModal } = useModal();
+  const [showDisclosure, setShowDisclosure] = useState(false);
+  const [loginInfo, setLoginInfo] = useState({});
 
   async function handleLogin(newLogin) {
     if (newLogin) {
+      setLoginInfo(newLogin);
       const userInfoArray = await fetchUserByEmail(newLogin.email);
       const userInfo = userInfoArray[0];
       if (userInfo) {
@@ -28,13 +33,16 @@ function Login() {
         showModal(
           "Create Account",
           "No account found. Would you like to create one?",
-          () => handleSignup(newLogin)
+          () => { 
+            setShowDisclosure(true);
+            closeModal();
+          }
         );
       }
     }
   }
 
-  async function handleSignup(loginInfo) {
+  async function handleSignup() {
     try {
       await signup(loginInfo);
       const user = await addUser(loginInfo.email);
@@ -68,6 +76,12 @@ function Login() {
       <h1>Log In</h1>
       <div id="login-info" className="text-box">
         <LoginForm onSubmit={handleLogin} onClick={handlePasswordReset} />
+        {showDisclosure && (
+        <>
+          <Disclosure />
+          <button onClick={handleSignup}>I agree</button>
+        </>
+      )}
       </div>
     </div>
   );

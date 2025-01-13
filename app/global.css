@@ -186,6 +186,16 @@ button .add-trail-button {
   font-size: 0.9rem;
 }
 
+/* Disclosure component */
+#disclosure {
+  padding: 0 1rem;
+}
+
+#disclosure li {
+  font-size: 0.9rem;
+  list-style-type: square; 
+}
+
 /* Hikes */
 .hike {
   text-align: left;
