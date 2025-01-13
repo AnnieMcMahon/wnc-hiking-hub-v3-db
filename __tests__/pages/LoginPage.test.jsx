@@ -210,8 +210,6 @@ describe("Login", () => {
       await waitFor(() => {
         const loginButton = screen.getByTestId("login-button");
         fireEvent.click(loginButton);
-        const loginButton = screen.getByTestId("login-button");
-        fireEvent.click(loginButton);
         expect(showModalMock).toHaveBeenCalledWith(
           "Create Account",
           "No account found. Would you like to create one?",
@@ -228,6 +226,5 @@ describe("Login", () => {
         );
       });
     });
-    */
   });
 });
