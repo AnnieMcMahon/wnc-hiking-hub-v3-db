@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import Login from "@/app/(dashboard)/Login/page";
+import Login from "@/app/(dashboard)/login/page";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/app/context/ModalContext";
