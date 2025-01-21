@@ -70,6 +70,7 @@ export default function PostHike() {
               onClick={() => setChosenTrail(trail)}
             />
           ))}
+          {/* Update this portion of the file to add a limit to the hikes */}
         </div>
       </div>
     </div>
