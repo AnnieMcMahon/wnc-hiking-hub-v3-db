@@ -12,3 +12,28 @@
     height: auto;
   }
 }
+
+.loading-message,
+.error-message,
+.no-hikes-message {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.loading-message {
+  background-color: #e0f7fa;
+  color: #00796b;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.no-hikes-message {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
