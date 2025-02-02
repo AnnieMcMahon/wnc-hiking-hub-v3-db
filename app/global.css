@@ -112,6 +112,38 @@ button .add-trail-button {
   float: right;
 }
 
+/* Participant list buttons */
+.party-list {
+  background: none;
+  color: black;
+  margin: 0;
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.5rem 0.2rem;
+  border: none;
+  border-radius: 0;
+}
+
+/* Arrangement of data on participation modal.
+ * Height limit and scroll style applied here
+ * rather than to parent modal so that modal
+ * title can't be scrolled out of view and users
+ * need not scroll down to find close button.
+ */
+.party-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height: 10rem;
+  overflow: scroll;
+}
+.party-grid img {
+  width: 3rem;
+  padding-top: 1rem;
+}
+.party-grid p {
+  padding-top: 1rem;
+}
+
 
 
 /*Hike section buttons */
