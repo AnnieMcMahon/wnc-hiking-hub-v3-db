@@ -145,5 +145,28 @@ export const MOCK_USER = {
   bio: "Hello everyone!"
 };
 
+export const MOCK_PARTY_MBR = {
+  id: 3,
+  email: "someone@example.com",
+  user_name: "Nick",
+  avatar: "/newUser.png",
+  bio: "Hi everybody"
+};
 
+export const MOCK_PARTY_TBL = [
+  {
+    hike_id: 5,
+    user_id: 2,
+    id: 1
+  },
+  {
+    hike_id: 5,
+    user_id: 3,
+    id: 2
+  }
+];
 
+export const MOCK_NAMES_AVATARS = {
+  names: [ "Test User", "Nick" ],
+  paths: [ "/newUser.png", "/newUser.png" ]
+};
