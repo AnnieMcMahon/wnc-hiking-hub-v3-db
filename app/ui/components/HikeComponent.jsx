@@ -1,11 +1,13 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
+import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
 import {
   fetchTrailById,
   fetchUserById,
+  fetchParticipantsByHike,
   addParticipant,
   removeParticipant,
 } from "@/app/api/data/data";
@@ -17,6 +19,7 @@ export default function HikeComponent({
   hikeInfo = BLANK_HIKE
 }) {
   const { currentUser, setHike, setTriggerRefresh } = useGlobal();
+  const { showModal, closeModal } = useModal();
   const router = useRouter();
   const [hikeDisplay, setHikeDisplay] = useState(BLANK_HIKE);
   const [trail, setTrail] = useState(BLANK_TRAIL);
@@ -52,6 +55,21 @@ export default function HikeComponent({
     return message;
   };
 
+  const fetchParticipantsData = async () => {
+    const participantsTable = await fetchParticipantsByHike(hikeInfo.id) ?? [];
+    const listOfIds = participantsTable.map(o => o.user_id);
+    const users = await Promise.all(listOfIds.map(fetchUserById)) ?? [];
+    setHikeDisplay((prevState) => ({
+      ...prevState,
+      participantsMessage: (listOfIds.length + " " + "participant" +
+          (listOfIds.length !== 1 ? 's' : '')),
+      listOfParticipants: {
+        names: users.map(arr => arr[0].user_name),
+        paths: users.map(arr => arr[0].avatar)
+      },
+    }));
+  };
+
   useEffect(() => {
     const buttonMessage = fetchButtonMessage(hikeInfo.status, hikeType);
     const hikingDate = convertDate(hikeInfo.date);
@@ -63,13 +81,15 @@ export default function HikeComponent({
       time: hikingTime,
       location: hikeInfo.location,
       comments: hikeInfo.comments,
-      buttonMessage: buttonMessage,
+      buttonMessage: buttonMessage, /* Edit, Opt Out, and Join buttons */
     });
     fetchTrailInfo();
     fetchCreatorName();
+    fetchParticipantsData(); /* Participant list buttons */
   }, []);
 
   function handleClick(buttonMessage, hikeId) {
+    let data;
     hikeId = Number(hikeId);
     switch (buttonMessage) {
       case "Join Hike":
@@ -83,6 +103,14 @@ export default function HikeComponent({
       case "Edit Hike":
         setHike(hikeId);
         router.push("/edit-hike");
+        break;
+      case "participant":
+        showModal(...[
+          hikeInfo.title,
+          hikeDisplay.listOfParticipants,
+          null,
+          closeModal
+        ]);
         break;
     }
   }

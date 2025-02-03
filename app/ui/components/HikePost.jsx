@@ -24,6 +24,14 @@ export default function hikePost({
         {trail.difficulty_rating} * {trail.length} mi * {trail.elevation_gain}{" "}
         ft * {trail.route_type}
       </p>
+      <button
+        className="party-list"
+        name={hikeInfo.id}
+        value="participant"
+        onClick={handleClick}
+      >
+        {hikeInfo.participantsMessage}
+      </button>
       <p>{hikeInfo.comments}</p>
       <a href={trail.trail_link} target="_blank">
         AllTrails Link
