@@ -33,7 +33,7 @@ export default function hikePost({
         {hikeInfo.participantsMessage}
       </button>
       <p>{hikeInfo.comments}</p>
-      <a href={trail.trail_link} target="_blank">
+      <a href={trail.trail_link} target="_blank" className="text-green-800">
         AllTrails Link
       </a>
       {hikeInfo.buttonMessage?.length > 0 && (
