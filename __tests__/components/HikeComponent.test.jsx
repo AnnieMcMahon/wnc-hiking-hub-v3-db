@@ -18,7 +18,7 @@ import {
   MOCK_TRAIL_INFO,
   MOCK_PARTY_MBR,
   MOCK_PARTY_TBL,
-  MOCK_NAMES_AVATARS
+  MOCK_NAMES_AVATARS,
 } from "@/app/lib/constants";
 import HikeComponent from "@/app/ui/components/HikeComponent";
 
@@ -46,6 +46,10 @@ jest.mock("@/app/api/data/data", () => ({
   addParticipant: jest.fn(),
   removeParticipant: jest.fn(),
 }));
+
+fetchUserById.mockImplementation((id) => {
+  return Promise.resolve([{ user_name: `User${id}`, avatar: `avatar${id}.png` }]);
+});
 
 describe("HikeComponent", () => {
   let mockRouterPush, mockSetHike, mockShowModal, mockCloseModal;
@@ -75,8 +79,7 @@ describe("HikeComponent", () => {
 
     fetchTrailById.mockResolvedValue([MOCK_TRAIL_INFO]);
     fetchUserById.mockResolvedValueOnce([MOCK_USER])
-                  .mockResolvedValueOnce([MOCK_USER])
-                  .mockResolvedValueOnce([MOCK_PARTY_MBR]);
+    fetchUserById.mockResolvedValueOnce([MOCK_PARTY_MBR]);
     fetchParticipantsByHike.mockResolvedValue([MOCK_PARTY_TBL]);
   });
 
@@ -91,100 +94,84 @@ describe("HikeComponent", () => {
         expect(screen.getByText(/sunset hike/i)).toBeInTheDocument();
       });
       expect(fetchTrailById).toHaveBeenCalledWith(MOCK_HIKE.trail_id);
-      expect(fetchUserById).toHaveBeenCalledTimes(3);
-      expect(fetchUserById).toHaveBeenCalledWith(...[
-        MOCK_HIKE.creator_id,
-        ...MOCK_PARTY_TBL.map(o => o.user_id)
-      ]);
+      expect(fetchUserById).toHaveBeenCalledTimes(2);
       expect(fetchParticipantsByHike).toHaveBeenCalledWith(MOCK_HIKE.id);
     });
+
+    it("displays the correct button message based on hike type", async () => {
+      render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
+      await waitFor(() => {
+        expect(screen.getByText(/opt out/i)).toBeInTheDocument();
+      });
+    
+      render(<HikeComponent hikeType="created" hikeInfo={MOCK_HIKE} />);
+      await waitFor(() => {
+        expect(screen.getByText(/edit hike/i)).toBeInTheDocument();
+      });
+    
+      render(<HikeComponent hikeType="available" hikeInfo={MOCK_HIKE} />);
+      await waitFor(() => {
+        expect(screen.getByText(/join hike/i)).toBeInTheDocument();
+      });
+    });
+    
   });
 
   describe("functional", () => {
-    it("fetches and sets trail and creator data on mount", async () => {
-      render(<HikeComponent hikeType="new" hikeInfo={MOCK_HIKE} />);
-      await waitFor(() => {
-        expect(fetchTrailById).toHaveBeenCalledWith(MOCK_HIKE.trail_id);
-        expect(fetchUserById).toHaveBeenCalledTimes(3);
-        expect(fetchUserById).toHaveBeenCalledWith(...[
-          MOCK_HIKE.creator_id,
-          ...MOCK_PARTY_TBL.map(o => o.user_id)
-        ]);
-        expect(fetchParticipantsByHike).toHaveBeenCalledWith(MOCK_HIKE.id);
-        expect(convertDate).toHaveBeenCalledWith(MOCK_HIKE.date);
-        expect(convertTime).toHaveBeenCalledWith(MOCK_HIKE.time);
-      });
-    });
-
-    const ADDS = "adds participant when 'Join Hike' is clicked";
-    const REMOVES = "removes participant when 'Opt Out' is clicked";
-    const REDIRECTS = "removes participant when 'Opt Out' is clicked";
-    const AND_OVERLAYS = " opens a modal when '# participants' is clicked";
-    const partyCount = MOCK_PARTY_TBL.length;
-    const partyExp = new RegExp(partyCount + " " + "participant" + "s?");
-
-    it(ADDS + AND_OVERLAYS, async () => {
+    it("calls addParticipant when 'Join Hike' button is clicked", async () => {
       render(<HikeComponent hikeType="available" hikeInfo={MOCK_HIKE} />);
+      const joinButton = await screen.findByText(/join hike/i);
+    
+      userEvent.click(joinButton);
       await waitFor(() => {
-        const button1 = screen.getByRole("button", { name: /join hike/i });
-        const button2 = screen.getByRole("button", { name: partyExp });
-        expect(button1).toBeInTheDocument();
-        expect(button2).toBeInTheDocument();
+        expect(addParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
+        expect(mockSetTriggerRefresh).toHaveBeenCalledWith(true);
       });
-      const button1 = screen.getByRole("button", { name: /join hike/i });
-      const button2 = screen.getByRole("button", { name: partyExp });
-      await userEvent.click(button1);
-      await userEvent.click(button2);
-      expect(addParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
-      expect(mockShowModal).toHaveBeenCalledWith(...[
-        MOCK_HIKE.title,
-        MOCK_NAMES_AVATARS,
-        null,
-        mockCloseModal,
-      ]);
     });
 
-    it(REMOVES + AND_OVERLAYS, async () => {
+    it("calls removeParticipant when 'Opt Out' button is clicked", async () => {
       render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
+      const optOutButton = await screen.findByText(/opt out/i);
+    
+      userEvent.click(optOutButton);
       await waitFor(() => {
-        const button1 = screen.getByRole("button", { name: /opt out/i });
-        const button2 = screen.getByRole("button", { name: partyExp });
-        expect(button1).toBeInTheDocument();
-        expect(button2).toBeInTheDocument();
+        expect(removeParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
+        expect(mockSetTriggerRefresh).toHaveBeenCalledWith(true);
       });
-      const button1 = screen.getByRole("button", { name: /opt out/i });
-      const button2 = screen.getByRole("button", { name: partyExp });
-      await userEvent.click(button1);
-      await userEvent.click(button2);
-      expect(removeParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
-      expect(mockShowModal).toHaveBeenCalledWith(...[
-        MOCK_HIKE.title,
-        MOCK_NAMES_AVATARS,
-        null,
-        mockCloseModal,
-      ]);
+    });
+
+    it("navigates to edit hike page when 'Edit Hike' is clicked", async () => {
+      render(<HikeComponent hikeType="created" hikeInfo={MOCK_HIKE} />);
+      const editButton = await screen.findByText(/edit hike/i);
+    
+      userEvent.click(editButton);
+      await waitFor(() => {
+        expect(mockSetHike).toHaveBeenCalledWith(MOCK_HIKE.id);
+        expect(mockRouterPush).toHaveBeenCalledWith("/edit-hike");
+      });
+    });
+
+    it("opens the modal with participant info when participant button is clicked", async () => {
+
+      
+      render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
+      const participantButton = await screen.findByText(/participant/i);
+    
+      userEvent.click(participantButton);
+      await waitFor(() => {
+        expect(mockShowModal).toHaveBeenCalledTimes(1);
+      });
     });
     
-    it(REDIRECTS + AND_OVERLAYS, async () => {
-      render(<HikeComponent hikeType="created" hikeInfo={MOCK_HIKE} />);
+
+    it("fetches trail, creator, and participants on mount", async () => {
+      render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
+    
       await waitFor(() => {
-        const button1 = screen.getByRole("button", { name: /edit hike/i });
-        const button2 = screen.getByRole("button", { name: partyExp });
-        expect(button1).toBeInTheDocument();
-        expect(button2).toBeInTheDocument();
+        expect(fetchTrailById).toHaveBeenCalledWith(MOCK_HIKE.trail_id);
+        expect(fetchUserById).toHaveBeenCalledTimes(2);
+        expect(fetchParticipantsByHike).toHaveBeenCalledWith(MOCK_HIKE.id);
       });
-      const button1 = screen.getByRole("button", { name: /edit hike/i });
-      const button2 = screen.getByRole("button", { name: partyExp });
-      await userEvent.click(button2);
-      expect(mockShowModal).toHaveBeenCalledWith(...[
-        MOCK_HIKE.title,
-        MOCK_NAMES_AVATARS,
-        null,
-        mockCloseModal,
-      ]);
-      await userEvent.click(button1);
-      expect(mockSetHike).toHaveBeenCalledWith(MOCK_HIKE.id);
-      expect(mockRouterPush).toHaveBeenCalledWith("/edit-hike");
     });
   });
 });

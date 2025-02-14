@@ -133,7 +133,7 @@ button .add-trail-button {
 .party-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  max-height: 10rem;
+  max-height: 15rem;
   overflow: scroll;
 }
 .party-grid img {

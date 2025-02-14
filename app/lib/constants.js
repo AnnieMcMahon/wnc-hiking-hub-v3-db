@@ -108,7 +108,7 @@ export const MOCK_TRAIL_INFO = {
   trail_link: "https://www.alltrails.com/trail/blue-ridge-trail",
 };
 
-export const MOCK_HIKE_INFO = {
+export const MOCK_HIKE_DISPLAY = {
   id: 5,
   title: "Sunset Hike",
   date: "Wed, 12/01/2024",
@@ -118,7 +118,12 @@ export const MOCK_HIKE_INFO = {
   status: "new",
   creator_id: 1,
   creator: "Annie McMahon",
-  buttonMessage: "Join Hike"
+  buttonMessage: "Join Hike",
+  participantsMessage: "2 participants",
+  listOfParticipants: {
+    names: [ "Test User", "Nick" ],
+    paths: [ "/newUser.png", "/newUser.png" ]
+  }
 };
 
 export const MOCK_HIKE = {
@@ -155,14 +160,14 @@ export const MOCK_PARTY_MBR = {
 
 export const MOCK_PARTY_TBL = [
   {
+    id: 1,
     hike_id: 5,
     user_id: 2,
-    id: 1
   },
   {
+    id: 2,
     hike_id: 5,
     user_id: 3,
-    id: 2
   }
 ];
 

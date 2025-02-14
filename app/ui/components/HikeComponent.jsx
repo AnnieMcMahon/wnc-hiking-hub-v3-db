@@ -64,32 +64,36 @@ export default function HikeComponent({
       participantsMessage: (listOfIds.length + " " + "participant" +
           (listOfIds.length !== 1 ? 's' : '')),
       listOfParticipants: {
-        names: users.map(arr => arr[0].user_name),
-        paths: users.map(arr => arr[0].avatar)
+        names: users.map(arr => (arr[0]?.user_name ?? "Unknown User")),
+        paths: users.map(arr => (arr[0]?.avatar ?? "/newUser.png"))
       },
     }));
   };
 
   useEffect(() => {
-    const buttonMessage = fetchButtonMessage(hikeInfo.status, hikeType);
-    const hikingDate = convertDate(hikeInfo.date);
-    const hikingTime = convertTime(hikeInfo.time);
-    setHikeDisplay({
-      id: hikeInfo.id,
-      title: hikeInfo.title,
-      date: hikingDate,
-      time: hikingTime,
-      location: hikeInfo.location,
-      comments: hikeInfo.comments,
-      buttonMessage: buttonMessage, /* Edit, Opt Out, and Join buttons */
-    });
-    fetchTrailInfo();
-    fetchCreatorName();
-    fetchParticipantsData(); /* Participant list buttons */
-  }, []);
+    const fetchData = async () => {
+      const buttonMessage = fetchButtonMessage(hikeInfo.status, hikeType);
+      const hikingDate = convertDate(hikeInfo.date);
+      const hikingTime = convertTime(hikeInfo.time);
+  
+      setHikeDisplay(prev => ({
+        ...prev,
+        id: hikeInfo.id,
+        title: hikeInfo.title,
+        date: hikingDate,
+        time: hikingTime,
+        location: hikeInfo.location,
+        comments: hikeInfo.comments,
+        buttonMessage: buttonMessage,
+      }));
+  
+      await Promise.all([fetchTrailInfo(), fetchCreatorName(), fetchParticipantsData()]);
+    };
+    fetchData();
+  }, [hikeInfo, hikeType]);
+  
 
   function handleClick(buttonMessage, hikeId) {
-    let data;
     hikeId = Number(hikeId);
     switch (buttonMessage) {
       case "Join Hike":
