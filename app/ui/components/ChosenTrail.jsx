@@ -7,7 +7,7 @@ export default function ChosenTrail({ trailSelected }) {
           <p>{trailSelected.area_name}</p>
           <p>
             {trailSelected.difficulty_rating} * {trailSelected.length} mi *{" "}
-            {trailSelected.elevation_gain} ft * {trailSelected.route_type}
+            {trailSelected.elevation_gain} ft elev gain * {trailSelected.route_type}
           </p>
           <a
             href={trailSelected.trail_link}

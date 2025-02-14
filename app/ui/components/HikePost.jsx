@@ -22,7 +22,7 @@ export default function hikePost({
       </h5>
       <p>
         {trail.difficulty_rating} * {trail.length} mi * {trail.elevation_gain}{" "}
-        ft * {trail.route_type}
+        ft elev gain * {trail.route_type}
       </p>
       <button
         className="party-list"
