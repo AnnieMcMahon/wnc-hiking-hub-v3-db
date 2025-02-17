@@ -8,25 +8,21 @@ import "./join-hike.css";
 function JoinHike() {
   const { currentUser, triggerRefresh, setTriggerRefresh } = useGlobal();
   const [hikeList, setHikeList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState("Loading hikes...");
 
   useEffect(() => {
     const fetchHikes = async () => {
-      setLoading(true);
-      setError(null);
       try {
         const availableHikes = await fetchHikesToJoin(currentUser.id);
         if (availableHikes && availableHikes.length > 0) {
           setHikeList(availableHikes);
+          setMessage("");
         } else {
           setHikeList([]);
+          setMessage("No hikes are available to join.");
         }
       } catch (err) {
-        setError("Failed to fetch hikes. Please try again later.");
-        console.error(err);
-      } finally {
-        setLoading(false);
+        setMessage("Failed to fetch hikes. Please try again later.");
       }
     };
     fetchHikes();
@@ -37,19 +33,13 @@ function JoinHike() {
     <div id="join-hike">
       <h3>Select a hike you would like to join:</h3>
       <div className="hike-section">
-        {loading ? (
-          <div className="loading-message">Loading hikes...</div>
-        ) : error ? (
-          <div className="error-message">{error}</div>
-        ) : hikeList.length === 0  ? (
-          <div className="no-hikes-message">No hikes are available to join.</div>
-        ) : (
-          hikeList.map((hike) => (
+      {message && <div className="message">{message}</div>}
+      {hikeList?.map((hike) => (
             <HikeComponent hikeType="available" hikeInfo={hike} key={hike.id} />
-          ))
-        )}
+          ))}
       </div>
     </div>
   );
 }
 export default JoinHike;
+
