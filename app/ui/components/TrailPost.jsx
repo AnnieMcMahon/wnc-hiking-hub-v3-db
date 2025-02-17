@@ -14,12 +14,13 @@ export default function TrailPost({
       <p>{trailInfo.area_name}</p>
       <p>
         {trailInfo.difficulty_rating} * {trailInfo.length} mi *{" "}
-        {trailInfo.elevation_gain} ft * {trailInfo.route_type}
+        {trailInfo.elevation_gain} ft elev gain * {trailInfo.route_type}
       </p>
       <a
         href={trailInfo.trail_link}
         target="_blank"
         onClick={(e) => e.stopPropagation()}
+        className="text-green-800"
       >
         AllTrails Link
       </a>
