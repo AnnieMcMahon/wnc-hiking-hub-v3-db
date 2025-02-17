@@ -34,8 +34,64 @@ const participantsGrid = (namesAndPathsObj) => {
   return <div className="party-grid">{partyList}</div>;
 };
 
+const commentsGrid = (params) => {
+  const { names, paths, createdAt, commentText } = params;
+  const d = (dividend, divisor) => (dividend - dividend % divisor) / divisor;
+  const pathCol = (x) => {
+    return (
+      <div key={x+1000}>
+        <img src={paths[d(x, 4)]} alt={names[d(x, 4)]} />
+      </div>
+    );
+  };
+  const nameCol = (x) => {
+    return (
+      <div key={x+2000}>
+        <p>{names[d(x, 4)]}</p>
+      </div>
+    );
+  };
+
+  const createdAtCol = (x) => {
+    return (
+      <div key={x+3000}>
+        <p>{createdAt[d(x, 4)]}</p>
+      </div>
+    );
+  };
+
+  const commentTextCol = (x) => {
+    return (
+      <div key={x+4000}>
+        <p>{commentText[d(x, 4)]}</p>
+      </div>
+    );
+  };
+
+  const commentList = Array.from({ length: 4 * names.length }, (value, index) => {
+    const colIndex = index % 4;
+    const rowIndex = Math.floor(index / 4); 
+  
+    switch (colIndex) {
+      case 0:
+        return pathCol(rowIndex); 
+      case 1:
+        return nameCol(rowIndex); 
+      case 2:
+        return createdAtCol(rowIndex); 
+      case 3:
+        return commentTextCol(rowIndex); 
+      default:
+        return null;
+    }
+  });
+  
+  return <div className="comment-grid">{commentList}</div>;  
+};
+
 export default function Modal() {
   const { modal, closeModal } = useModal();
+  let modalType = "modal-content";
 
   if (!modal.isOpen) return null;
 
@@ -49,13 +105,17 @@ export default function Modal() {
     message = <p>{modal.message}</p>;
   } else if (Object.keys(modal.message ?? {}).join() === "names,paths") {
     message = participantsGrid(modal.message);
-  } else {
+  } else if (Object.keys(modal.message ?? {}).join() === "names,paths,createdAt,commentText") {
+    message = commentsGrid(modal.message);
+    modalType = "comment-modal"
+  }
+  else {
     message = (<></>);
   }
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className={modalType}>
         <h2>{modal.title}</h2>
         {message}
         {modal.onConfirm && (

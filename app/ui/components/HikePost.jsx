@@ -27,10 +27,18 @@ export default function hikePost({
       <button
         className="party-list"
         name={hikeInfo.id}
-        value="participant"
+        value="participants"
         onClick={handleClick}
       >
         {hikeInfo.participantsMessage}
+      </button>
+      <button
+        className="comments"
+        name={hikeInfo.id}
+        value="comments"
+        onClick={handleClick}
+      >
+        {hikeInfo.commentsMessage}
       </button>
       <p>{hikeInfo.comments}</p>
       <a href={trail.trail_link} target="_blank" className="text-green-800">
