@@ -7,12 +7,23 @@ import "./join-hike.css";
 
 function JoinHike() {
   const { currentUser, triggerRefresh, setTriggerRefresh } = useGlobal();
-  const [hikeList, setHikeList] = useState();
+  const [hikeList, setHikeList] = useState([]);
+  const [message, setMessage] = useState("Loading hikes...");
 
   useEffect(() => {
     const fetchHikes = async () => {
-      const availableHikes = await fetchHikesToJoin(currentUser.id);
-      setHikeList(availableHikes);
+      try {
+        const availableHikes = await fetchHikesToJoin(currentUser.id);
+        if (availableHikes && availableHikes.length > 0) {
+          setHikeList(availableHikes);
+          setMessage("");
+        } else {
+          setHikeList([]);
+          setMessage("No hikes are available to join.");
+        }
+      } catch (err) {
+        setMessage("Failed to fetch hikes. Please try again later.");
+      }
     };
     fetchHikes();
     setTriggerRefresh(false);
@@ -22,11 +33,13 @@ function JoinHike() {
     <div id="join-hike">
       <h3>Select a hike you would like to join:</h3>
       <div className="hike-section">
-        {hikeList?.map((hike) => (
-          <HikeComponent hikeType="available" hikeInfo={hike} key={hike.id} />
-        ))}
+      {message && <div className="message">{message}</div>}
+      {hikeList?.map((hike) => (
+            <HikeComponent hikeType="available" hikeInfo={hike} key={hike.id} />
+          ))}
       </div>
     </div>
   );
 }
 export default JoinHike;
+

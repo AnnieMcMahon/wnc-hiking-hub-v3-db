@@ -1,8 +1,15 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MOCK_HIKE_INFO, MOCK_TRAIL_INFO } from "@/app/lib/constants";
+import {
+  MOCK_HIKE_DISPLAY,
+  MOCK_TRAIL_INFO,
+  MOCK_PARTY_TBL
+} from "@/app/lib/constants";
 import HikePost from "@/app/ui/components/HikePost";
+
+const partyCount = MOCK_PARTY_TBL.length;
+const partyExp = new RegExp(partyCount + " " + "participant" + "s?");
 
 describe("HikePost", () => {
   describe("rendering", () => {
@@ -13,9 +20,10 @@ describe("HikePost", () => {
   });
 
   it("renders the hike info correctly", () => {
-    render(<HikePost hikeInfo={MOCK_HIKE_INFO} />);
+    render(<HikePost hikeInfo={MOCK_HIKE_DISPLAY} />);
     expect(screen.getByText("Sunset Hike, with Annie McMahon")).toBeInTheDocument();
     expect(screen.getByText("Bring water and snacks.")).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: partyExp })).toBeInTheDocument();
   });
 
   it("renders the AllTrails link with the correct href", () => {
@@ -27,17 +35,21 @@ describe("HikePost", () => {
 
   describe("functional", () => {
     it("does not throw when onClick is not provided", async () => {
-      render(<HikePost hikeInfo={MOCK_HIKE_INFO}/>);
-      const button = screen.getByRole("button", { name: /join hike/i });
-      await userEvent.click(button);
+      render(<HikePost hikeInfo={MOCK_HIKE_DISPLAY}/>);
+      const button1 = screen.getByRole("button", { name: /join hike/i });
+      const button2 = screen.getByRole("button", { name: partyExp });
+      await userEvent.click(button1);
+      await userEvent.click(button2);
     });
 
     it("calls onClick when the button is clicked", async () => {
       const onClickMock = jest.fn();
-      render(<HikePost hikeInfo={MOCK_HIKE_INFO} onClick={onClickMock} />);
-      const button = screen.getByRole("button", { name: /join hike/i });
-      await userEvent.click(button);
-      expect(onClickMock).toHaveBeenCalledTimes(1);
+      render(<HikePost hikeInfo={MOCK_HIKE_DISPLAY} onClick={onClickMock} />);
+      const button1 = screen.getByRole("button", { name: /join hike/i });
+      const button2 = screen.getByRole("button", { name: partyExp });
+      await userEvent.click(button1);
+      await userEvent.click(button2);
+      expect(onClickMock).toHaveBeenCalledTimes(2);
     });
   });
 });

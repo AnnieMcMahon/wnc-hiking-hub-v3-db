@@ -17,11 +17,9 @@ export default function About() {
 
       <h2>Upcoming Features</h2>
       <ul>
-        <li>View a list of participants for each posted hike</li>
         <li>Set a maximum participant limit for posted hikes</li>
         <li>Comment on hikes posted or joined</li>
         <li>Access other users&apos; profiles</li>
-        <li>Display a disclosure agreement upon registration</li>
         <li>Optimize the app for mobile and tablet screens</li>
       </ul>
 
@@ -80,7 +78,7 @@ export default function About() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            anniemcmahon20
+            www.linkedin.com/in/anniemcmahon20
           </a>
         </li>
         <li>
@@ -90,11 +88,11 @@ export default function About() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            AnnieMcMahon
+            github.com/AnnieMcMahon
           </a>
         </li>
         <li>
-          <strong>E-mail:</strong> anniemcmahon20@gmail.com
+          <strong>E-mail:</strong> <a href="mailto:anniemcmahon20@gmail.com">anniemcmahon20@gmail.com</a>
         </li>
       </ul>
     </div>
