@@ -145,6 +145,14 @@ button .add-trail-button {
   float: right;
 }
 
+.add-comment-button {
+    margin: 0.1rem;
+    font-size: 0.6rem;
+    padding: 0.2rem;
+    width: 5rem;
+    height: 1.3rem;
+  }
+
 /* Used by PostHike and EditBio pages */
 .form-button {
   margin: 0.1rem;

@@ -97,6 +97,10 @@ export default function HikeComponent({
     }));
   };
 
+  const handleAddComment = (hikeId) => {
+
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const buttonMessage = fetchButtonMessage(hikeInfo.status, hikeType);
@@ -148,7 +152,7 @@ export default function HikeComponent({
         showModal(
           ...[hikeInfo.title, hikeDisplay.listOfComments, null, closeModal]
         );
-        break;
+        break;      
     }
   }
 
