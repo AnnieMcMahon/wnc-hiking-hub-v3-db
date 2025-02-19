@@ -41,7 +41,7 @@ describe("Comment", () => {
       render(<Comment comment={mockComment} />);
       await waitFor(() => {
       expect(screen.getByText(/looking forward to it/i)).toBeInTheDocument();
-    });
+      });
     });
 
     it("fetches user data and updates state", async () => {
