@@ -9,7 +9,9 @@ exports[`Home matches the snapshot 1`] = `
     <h1>
       How to Use This Site
     </h1>
-    <ul>
+    <ul
+      class="ml-6 md:ml-2"
+    >
       <li>
         Create a free account using the 
         <b>
