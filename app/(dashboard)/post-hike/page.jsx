@@ -9,6 +9,7 @@ import ChosenTrail from "@/app/ui/components/ChosenTrail";
 import SearchForm from "@/app/ui/forms/SearchForm";
 import HikeForm from "@/app/ui/forms/HikeForm";
 import TrailPost from "@/app/ui/components/TrailPost";
+import { Button } from "@/components/ui/button";
 import "./post-hike.css";
 
 export default function PostHike() {
@@ -59,9 +60,9 @@ export default function PostHike() {
         <div className="hike-section">
           <div className="section-header">
             <h2>Trail Search Results</h2>
-            <button className="add-trail-button" onClick={handleAddTrail}>
+            <Button className="add-trail-button" onClick={handleAddTrail}>
               Add New Trail
-            </button>
+            </Button>
           </div>
           {filteredList.map((trail) => (
             <TrailPost

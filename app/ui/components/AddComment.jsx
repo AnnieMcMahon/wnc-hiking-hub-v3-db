@@ -2,7 +2,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -56,20 +55,16 @@ export function AddComment({ hikeId }) {
       <DialogContent className="bg-white sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Comment</DialogTitle>
-          <DialogDescription>
-            Add your comment here. Click Submit Comment when you're done.
-          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="items-center">
             <Textarea
               id="comment"
               name="comment"
-              className="col-span-3"
               placeholder="Type your comment here."
             />
           </div>
-          <DialogFooter>
+          <DialogFooter className="mx-auto">
             <Button type="submit">Submit Comment</Button>
           </DialogFooter>
         </form>

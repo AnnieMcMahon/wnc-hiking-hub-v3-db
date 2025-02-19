@@ -24,6 +24,7 @@ export default function HikeComponent({
   const router = useRouter();
   const [hikeDisplay, setHikeDisplay] = useState(BLANK_HIKE);
   const [trail, setTrail] = useState(BLANK_TRAIL);
+  const [comments, setComments] = useState([]);
 
   const fetchTrailInfo = async () => {
     const info = await fetchTrailById(hikeInfo.trail_id);
@@ -75,31 +76,12 @@ export default function HikeComponent({
     }));
   };
 
-  const fetchCommentsData = async () => {
-    const commentsTable =
-      (await fetchCommentsByHike(hikeInfo.id)) ?? [];
-    const listOfIds = commentsTable.map((o) => o.user_id);
-    const users = (await Promise.all(listOfIds.map(fetchUserById))) ?? [];
-
-    setHikeDisplay((prevState) => ({
-      ...prevState,
-      commentsMessage:
-        listOfIds.length +
-        " " +
-        "comment" +
-        (listOfIds.length !== 1 ? "s" : ""),
-      listOfComments: {
-        names: users.map((arr) => arr[0]?.user_name ?? "Unknown User"),
-        paths: users.map((arr) => arr[0]?.avatar ?? "/newUser.png"),
-        createdAt: commentsTable.map((comment) => convertDate(comment.created_at)),
-        commentText: commentsTable.map((comment) => comment.comment_text)
-      },
-    }));
+  const fetchCommentsInfo = async () => {
+    const commentsInfo = await fetchCommentsByHike(hikeInfo.id);
+    if (commentsInfo) {
+      setComments(commentsInfo);
+    }
   };
-
-  const handleAddComment = (hikeId) => {
-
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,7 +104,7 @@ export default function HikeComponent({
         fetchTrailInfo(),
         fetchCreatorName(),
         fetchParticipantsData(),
-        fetchCommentsData(),
+        fetchCommentsInfo(),
       ]);
     };
     fetchData();
@@ -147,16 +129,11 @@ export default function HikeComponent({
         showModal(
           ...[hikeInfo.title, hikeDisplay.listOfParticipants, null, closeModal]
         );
-        break;
-      case "comments":
-        showModal(
-          ...[hikeInfo.title, hikeDisplay.listOfComments, null, closeModal]
-        );
-        break;      
+        break;    
     }
   }
 
   return (
-    <HikePost hikeInfo={hikeDisplay} trail={trail} onClick={handleClick} />
+    <HikePost hikeInfo={hikeDisplay} comments={comments} trail={trail} onClick={handleClick} />
   );
 }

@@ -103,10 +103,7 @@ a {
 button {
   background-color: #5e9852;
   color: white;
-  margin: 1rem;
-  font-size: 0.8rem;
-  padding: 0.5rem 1.2rem;
-  border-radius: 5%;
+  border: 1px solid #32512b;
 }
 
 button:hover {

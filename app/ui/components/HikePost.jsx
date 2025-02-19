@@ -1,10 +1,15 @@
 import { BLANK_HIKE_INFO } from "@/app/lib/constants";
 import { BLANK_TRAIL } from "@/app/lib/constants";
-import { AddComment } from "./AddComment";
+import { AddComment } from "@/app/ui/components/AddComment";
+import { Comments } from "@/app/ui/components/Comments";
 
 export default function hikePost({
   hikeInfo = BLANK_HIKE_INFO,
   trail = BLANK_TRAIL,
+  comments = {
+    commentsMessage: "0 comments",
+    commentsTable: []
+  },
   onClick = () => {},
 }) {
 
@@ -34,14 +39,7 @@ export default function hikePost({
       >
         {hikeInfo.participantsMessage}
       </button>
-      <button
-        className="comments"
-        name={hikeInfo.id}
-        value="comments"
-        onClick={handleClick}
-      >
-        {hikeInfo.commentsMessage}
-      </button>
+      <Comments comments={comments}/>
       <AddComment hikeId={hikeInfo.id}/>
       <br/>
       <a href={trail.trail_link} target="_blank" className="text-green-800">
