@@ -7,14 +7,14 @@ import {
   DialogTrigger,
   DialogFooter
 } from "@/components/ui/dialog";
+import { useGlobal } from "@/app/context/GlobalContext";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { addComment } from "@/app/api/data/data";
-import { useGlobal } from "@/app/context/GlobalContext";
 import { useState } from "react";
 
 export function AddComment({ hikeId }) {
-  const { currentUser } = useGlobal();
+  const { currentUser, setTriggerRefresh } = useGlobal();
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -40,6 +40,7 @@ export function AddComment({ hikeId }) {
     try {
       await addComment(commentInfo);
       setErrorMessage("Comment successfully added!");
+      setTriggerRefresh(true);
     } catch (error) {
       setErrorMessage("Error adding comment.")
     }
@@ -52,7 +53,7 @@ export function AddComment({ hikeId }) {
           Add Comment
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-white sm:max-w-[425px]">
+      <DialogContent className="bg-white sm:max-w-[425px]" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Add Comment</DialogTitle>
         </DialogHeader>
