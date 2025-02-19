@@ -6,7 +6,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import Comment from "@/app/ui/components/Comment";
 
 
@@ -19,9 +18,9 @@ export function Comments({comments}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="comments">
+        <button className="comments">
           {message}
-        </Button>
+        </button>
       </DialogTrigger>
       <DialogContent className="bg-white sm:max-w-[425px] overflow-scroll" aria-describedby={undefined}>
         <DialogHeader>

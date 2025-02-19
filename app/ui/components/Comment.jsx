@@ -30,8 +30,10 @@ export default function Comment({comment}) {
           <AvatarImage src={commentData.avatar} />
           <AvatarFallback>Avatar</AvatarFallback>
         </Avatar>
-        <div className="text-xs">{commentData.user_name}</div>
-        <div className="text-xs">{commentData.date}</div>
+        <div className="flex justify-between w-full text-xs">
+          <div>{commentData.user_name}</div>
+          <div className="text-gray-500">{commentData.date}</div>
+        </div>
       </div>
       <div className="text-sm text-left">{commentData.message}</div>
     </div>

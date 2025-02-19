@@ -11,10 +11,6 @@ jest.mock("@/components/ui/dialog", () => ({
     asChild ? children : <div {...props}>{children}</div>,
 }));
 
-jest.mock("@/components/ui/button", () => ({
-  Button: ({ children, ...props }) => <button {...props}>{children}</button>,
-}));
-
 jest.mock("@/app/ui/components/Comment", () => ({
   __esModule: true,
   default: () => <div data-testid="mock-comment">Mock Comment</div>,

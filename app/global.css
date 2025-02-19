@@ -125,7 +125,7 @@ button .add-trail-button {
 .comments {
   background: none;
   color: black;
-  margin: 0;
+  margin: 0 0.5rem;
   font: inherit;
   font-size: 0.8rem;
   padding: 0.5rem 0.2rem;
@@ -143,7 +143,7 @@ button .add-trail-button {
 }
 
 .add-comment-button {
-    margin: 0.1rem;
+    margin: 0.1rem 0.5rem;
     font-size: 0.6rem;
     padding: 0.2rem;
     width: 5rem;
