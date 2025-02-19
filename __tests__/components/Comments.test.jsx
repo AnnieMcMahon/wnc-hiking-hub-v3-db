@@ -1,7 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react"; 
 import { Comments } from "@/app/ui/components/Comments";
-import Comment from "@/app/ui/components/Comment";
 
 jest.mock("@/components/ui/dialog", () => ({
   Dialog: ({ children, ...props }) => <div {...props}>{children}</div>,

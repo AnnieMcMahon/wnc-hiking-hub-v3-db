@@ -10,6 +10,7 @@ import {
   fetchParticipantsByHike,
   addParticipant,
   removeParticipant,
+  fetchCommentsByHike,
 } from "@/app/api/data/data";
 import { convertDate, convertTime } from "@/app/lib/utils";
 import {
@@ -18,7 +19,6 @@ import {
   MOCK_TRAIL_INFO,
   MOCK_PARTY_MBR,
   MOCK_PARTY_TBL,
-  MOCK_NAMES_AVATARS,
 } from "@/app/lib/constants";
 import HikeComponent from "@/app/ui/components/HikeComponent";
 
@@ -45,6 +45,17 @@ jest.mock("@/app/api/data/data", () => ({
   fetchParticipantsByHike: jest.fn(),
   addParticipant: jest.fn(),
   removeParticipant: jest.fn(),
+  fetchCommentsByHike: jest.fn(),
+}));
+
+jest.mock("@/app/ui/components/AddComment", () => ({
+  __esModule: true,
+  AddComment: () => <div data-testid="mock-add-comment">Mock Add Comment</div>,
+}));
+
+jest.mock("@/app/ui/components/Comments", () => ({
+  __esModule: true,
+  Comments: () => <div data-testid="mock-comments">Mock Comments</div>,
 }));
 
 fetchUserById.mockImplementation((id) => {
@@ -52,7 +63,7 @@ fetchUserById.mockImplementation((id) => {
 });
 
 describe("HikeComponent", () => {
-  let mockRouterPush, mockSetHike, mockShowModal, mockCloseModal;
+  let mockSetTriggerRefresh, mockRouterPush, mockSetHike, mockShowModal, mockCloseModal;
 
   beforeEach(() => {
     mockRouterPush = jest.fn();
@@ -78,9 +89,15 @@ describe("HikeComponent", () => {
     convertTime.mockReturnValue("10:00 AM");
 
     fetchTrailById.mockResolvedValue([MOCK_TRAIL_INFO]);
-    fetchUserById.mockResolvedValueOnce([MOCK_USER])
-    fetchUserById.mockResolvedValueOnce([MOCK_PARTY_MBR]);
+    // fetchUserById.mockResolvedValueOnce([MOCK_USER])
+    // fetchUserById.mockResolvedValueOnce([MOCK_PARTY_MBR]);
+    fetchUserById.mockImplementation((id) => {
+      if (id === MOCK_HIKE.creator_id) return Promise.resolve([MOCK_USER]);
+      return Promise.resolve([MOCK_PARTY_MBR]);
+    });
+    
     fetchParticipantsByHike.mockResolvedValue([MOCK_PARTY_TBL]);
+    fetchCommentsByHike.mockResolvedValue([]);
   });
 
   afterEach(() => {
@@ -114,32 +131,29 @@ describe("HikeComponent", () => {
         expect(screen.getByText(/join hike/i)).toBeInTheDocument();
       });
     });
-    
   });
 
   describe("functional", () => {
     it("calls addParticipant when 'Join Hike' button is clicked", async () => {
       render(<HikeComponent hikeType="available" hikeInfo={MOCK_HIKE} />);
       const joinButton = await screen.findByText(/join hike/i);
-    
       userEvent.click(joinButton);
       await waitFor(() => {
         expect(addParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
         expect(mockSetTriggerRefresh).toHaveBeenCalledWith(true);
       });
     });
-
+    
     it("calls removeParticipant when 'Opt Out' button is clicked", async () => {
       render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
       const optOutButton = await screen.findByText(/opt out/i);
-    
       userEvent.click(optOutButton);
       await waitFor(() => {
         expect(removeParticipant).toHaveBeenCalledWith(MOCK_USER.id, MOCK_HIKE.id);
         expect(mockSetTriggerRefresh).toHaveBeenCalledWith(true);
       });
     });
-
+    
     it("navigates to edit hike page when 'Edit Hike' is clicked", async () => {
       render(<HikeComponent hikeType="created" hikeInfo={MOCK_HIKE} />);
       const editButton = await screen.findByText(/edit hike/i);
@@ -152,9 +166,10 @@ describe("HikeComponent", () => {
     });
 
     it("opens the modal with participant info when participant button is clicked", async () => {
-
-      
       render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
+      await waitFor(() => {
+        expect(fetchParticipantsByHike).toHaveBeenCalledWith(MOCK_HIKE.id);
+      });
       const participantButton = await screen.findByText(/participant/i);
     
       userEvent.click(participantButton);
@@ -163,10 +178,8 @@ describe("HikeComponent", () => {
       });
     });
     
-
     it("fetches trail, creator, and participants on mount", async () => {
       render(<HikeComponent hikeType="joined" hikeInfo={MOCK_HIKE} />);
-    
       await waitFor(() => {
         expect(fetchTrailById).toHaveBeenCalledWith(MOCK_HIKE.trail_id);
         expect(fetchUserById).toHaveBeenCalledTimes(2);

@@ -3,7 +3,7 @@ import { BLANK_TRAIL } from "@/app/lib/constants";
 import { AddComment } from "@/app/ui/components/AddComment";
 import { Comments } from "@/app/ui/components/Comments";
 
-export default function hikePost({
+export default function HikePost({
   hikeInfo = BLANK_HIKE_INFO,
   trail = BLANK_TRAIL,
   comments = {
