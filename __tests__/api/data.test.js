@@ -16,7 +16,9 @@ import {
   fetchParticipantsByHike,
   fetchHikesByParticipant,
   addParticipant,
-  removeParticipant
+  removeParticipant,
+  fetchCommentsByHike,
+  addComment,
 } from "@/app/api/data/data";
 
 jest.mock("@/app/api/data/initSupabase", () => ({
@@ -39,6 +41,7 @@ jest.mock("@/app/api/data/initSupabase", () => ({
   },
 }));
 
+//Trail functions
 describe("Trail functions", () => {
   const mockTrails = [
     {
@@ -136,6 +139,7 @@ describe("Trail functions", () => {
   });
 });
 
+//User functions
 describe("User functions", () => {
   describe("fetchUserByEmail", () => {
     it("returns user data for the given e-mail", async () => {
@@ -251,7 +255,9 @@ describe("User functions", () => {
       supabase.storage = {
         from: jest.fn().mockReturnValue({
           upload: jest.fn().mockResolvedValue({ data: {}, error: null }),
-          getPublicUrl: jest.fn().mockReturnValue({ data: { publicUrl: mockPublicUrl } }),
+          getPublicUrl: jest
+            .fn()
+            .mockReturnValue({ data: { publicUrl: mockPublicUrl } }),
         }),
       };
 
@@ -272,7 +278,9 @@ describe("User functions", () => {
       });
       supabase.storage = {
         from: jest.fn().mockReturnValue({
-          upload: jest.fn().mockResolvedValue({ data: null, error: "Upload failed" }),
+          upload: jest
+            .fn()
+            .mockResolvedValue({ data: null, error: "Upload failed" }),
         }),
       };
       await expect(uploadAvatar(mockFile, 2)).rejects.toThrow(
@@ -282,6 +290,7 @@ describe("User functions", () => {
   });
 });
 
+//Hike functions
 describe("Hike functions", () => {
   describe("addHike", () => {
     it("adds a new hike successfully", async () => {
@@ -307,7 +316,9 @@ describe("Hike functions", () => {
           }),
         }),
       });
-      await expect(addHike(MOCK_HIKE)).rejects.toThrow("Failed to add new hike.");
+      await expect(addHike(MOCK_HIKE)).rejects.toThrow(
+        "Failed to add new hike."
+      );
     });
   });
 
@@ -373,13 +384,13 @@ describe("Hike functions", () => {
               gte: jest.fn().mockReturnValue({
                 not: jest.fn().mockReturnValue({
                   order: jest.fn().mockResolvedValue({
-                    data: [MOCK_HIKE], 
-                    error: null 
-                  })
-                })
-              })
-            })
-          })
+                    data: [MOCK_HIKE],
+                    error: null,
+                  }),
+                }),
+              }),
+            }),
+          }),
         }),
       });
       const result = await fetchAvailableHikes(2, "01-01-2025", [2, 3, 4]);
@@ -395,29 +406,32 @@ describe("Hike functions", () => {
               gte: jest.fn().mockReturnValue({
                 not: jest.fn().mockReturnValue({
                   order: jest.fn().mockResolvedValue({
-                    data: null, 
-                    error: "Error" 
-                  })
-                })
-              })
-            })
-          })
+                    data: null,
+                    error: "Error",
+                  }),
+                }),
+              }),
+            }),
+          }),
         }),
       });
-      await expect(fetchAvailableHikes(2, "01-01-2025", [2, 3, 4])).rejects.toThrow(
-        "Failed to fetch hikes to join."
-      );
+      await expect(
+        fetchAvailableHikes(2, "01-01-2025", [2, 3, 4])
+      ).rejects.toThrow("Failed to fetch hikes to join.");
     });
   });
 });
 
+//Participant functions
 describe("Participant functions", () => {
   describe("fetchParticipantsByHike", () => {
     const mockParticipants = [2, 3, 5];
     it("returns participants for the given hike ID", async () => {
       supabase.from.mockReturnValue({
         select: jest.fn().mockReturnValue({
-          eq: jest.fn().mockResolvedValue({ data: [mockParticipants], error: null }),
+          eq: jest
+            .fn()
+            .mockResolvedValue({ data: [mockParticipants], error: null }),
         }),
       });
       const result = await fetchParticipantsByHike(5);
@@ -461,17 +475,17 @@ describe("Participant functions", () => {
     });
   });
 
-describe("addParticipant", () => {
-  const mockParticipant = {
-    user_id: 2,
-    hike_id: 5,
-  }
+  describe("addParticipant", () => {
+    const mockParticipant = {
+      user_id: 2,
+      hike_id: 5,
+    };
     it("adds a new participant successfully", async () => {
       supabase.from.mockReturnValue({
         insert: jest.fn().mockResolvedValue({
-            data: [mockParticipant],
-            error: null,
-          }),
+          data: [mockParticipant],
+          error: null,
+        }),
       });
       await expect(addParticipant(2, 5)).resolves.not.toThrow();
       expect(supabase.from).toHaveBeenCalledWith("participants");
@@ -480,47 +494,120 @@ describe("addParticipant", () => {
     it("throws an error when Supabase query fails", async () => {
       supabase.from.mockReturnValue({
         insert: jest.fn().mockResolvedValue({
-            data: null,
-            error: "Error",
-          }),
+          data: null,
+          error: "Error",
+        }),
       });
-      await expect(addParticipant(2, 5)).rejects.toThrow("Failed to add participant.");
+      await expect(addParticipant(2, 5)).rejects.toThrow(
+        "Failed to add participant."
+      );
     });
   });
+
   describe("removeParticipant", () => {
     const mockParticipant = {
       user_id: 2,
       hike_id: 5,
-    }
-      it("removes a new participant successfully", async () => {
-        supabase.from.mockReturnValue({
-          delete: jest.fn().mockReturnValue({
-            eq: jest.fn().mockReturnValue({
-                eq: jest.fn().mockResolvedValue({
-                    data: [mockParticipant],
-                    error: null,
-                  }),
-              })
-          })
-        });
-        await expect(removeParticipant(2, 5)).resolves.not.toThrow();
-        expect(supabase.from).toHaveBeenCalledWith("participants");
+    };
+    it("removes a new participant successfully", async () => {
+      supabase.from.mockReturnValue({
+        delete: jest.fn().mockReturnValue({
+          eq: jest.fn().mockReturnValue({
+            eq: jest.fn().mockResolvedValue({
+              data: [mockParticipant],
+              error: null,
+            }),
+          }),
+        }),
       });
-  
-      it("throws an error when Supabase query fails", async () => {
-        supabase.from.mockReturnValue({
-          delete: jest.fn().mockReturnValue({
-            eq: jest.fn().mockReturnValue({
-              eq: jest.fn().mockResolvedValue({
-                  data: null,
-                  error: "Error",
-                }),
-            })
-          })
-        });
-        await expect(removeParticipant(2, 5)).rejects.toThrow("Failed to remove participant.");
-      });
+      await expect(removeParticipant(2, 5)).resolves.not.toThrow();
+      expect(supabase.from).toHaveBeenCalledWith("participants");
     });
+
+    it("throws an error when Supabase query fails", async () => {
+      supabase.from.mockReturnValue({
+        delete: jest.fn().mockReturnValue({
+          eq: jest.fn().mockReturnValue({
+            eq: jest.fn().mockResolvedValue({
+              data: null,
+              error: "Error",
+            }),
+          }),
+        }),
+      });
+      await expect(removeParticipant(2, 5)).rejects.toThrow(
+        "Failed to remove participant."
+      );
+    });
+  });
 });
 
+//Comment functions
+describe("Participant functions", () => {
+  const mockComments = [
+    {
+      id: 1,
+      created_at: "",
+      user_id: 2,
+      hike_id: 3,
+      comment_text: "Rain on the forecast. Should we postpone?",
+    },
+    {
+      id: 2,
+      created_at: "",
+      user_id: 1,
+      hike_id: 3,
+      comment_text: "Let/'s postpone to Friday.",
+    },
+  ];
+  describe("fetchCommentsByParticipant", () => {
+    it("returns comments for the given hike ID", async () => {
+      supabase.from.mockReturnValue({
+        select: jest.fn().mockReturnValue({
+          eq: jest
+            .fn()
+            .mockResolvedValue({ data: [mockComments], error: null }),
+        }),
+      });
+      const result = await fetchCommentsByHike(3);
+      expect(result).toEqual([mockComments]);
+      expect(supabase.from).toHaveBeenCalledWith("comments");
+    });
 
+    it("throws an error when Supabase query fails", async () => {
+      supabase.from.mockReturnValue({
+        select: jest.fn().mockReturnValue({
+          eq: jest.fn().mockResolvedValue({ data: null, error: "Error" }),
+        }),
+      });
+      await expect(fetchCommentsByHike()).rejects.toThrow(
+        "Failed to fetch comments by hike."
+      );
+    });
+  });
+
+  describe("addComment", () => {
+    it("adds a new comment successfully", async () => {
+      supabase.from.mockReturnValue({
+        insert: jest.fn().mockResolvedValue({
+          data: [mockComments[0]],
+          error: null,
+        }),
+      });
+      await expect(addComment(mockComments[0])).resolves.not.toThrow();
+      expect(supabase.from).toHaveBeenCalledWith("comments");
+    });
+
+    it("throws an error when Supabase query fails", async () => {
+      supabase.from.mockReturnValue({
+        insert: jest.fn().mockResolvedValue({
+          data: null,
+          error: "Error",
+        }),
+      });
+      await expect(addComment(mockComments[0])).rejects.toThrow(
+        "Failed to add comment."
+      );
+    });
+  });
+});

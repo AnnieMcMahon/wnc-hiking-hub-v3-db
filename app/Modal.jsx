@@ -36,6 +36,7 @@ const participantsGrid = (namesAndPathsObj) => {
 
 export default function Modal() {
   const { modal, closeModal } = useModal();
+  let modalType = "modal-content";
 
   if (!modal.isOpen) return null;
 
@@ -55,7 +56,7 @@ export default function Modal() {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className={modalType}>
         <h2>{modal.title}</h2>
         {message}
         {modal.onConfirm && (

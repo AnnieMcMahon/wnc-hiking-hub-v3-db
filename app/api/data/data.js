@@ -204,4 +204,29 @@ export async function removeParticipant(userId, hikeId) {
   }
 }
 
+// Comments functions
+export async function fetchCommentsByHike(hikeId) {
+  const { data, error } = await supabase
+    .from("comments")
+    .select("*")
+    .eq("hike_id", hikeId);
+  if (error) {
+    throw new Error("Failed to fetch comments by hike.");
+  }
+  return data || null;
+}
+
+export async function addComment(commentInfo) {
+  const { data, error } = await supabase
+    .from("comments")
+    .insert({
+      user_id: commentInfo.user_id,
+      hike_id: commentInfo.hike_id,
+      comment_text: commentInfo.comment_text,
+    })
+  if (error) {
+    throw new Error("Failed to add comment.");
+  }
+  return data;
+}
 

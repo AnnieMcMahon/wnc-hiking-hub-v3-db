@@ -18,7 +18,7 @@ describe("TrailPost", () => {
       expect(screen.getByText(MOCK_TRAIL_INFO.area_name)).toBeInTheDocument();
       expect(
         screen.getByText(
-          `${MOCK_TRAIL_INFO.difficulty_rating} * ${MOCK_TRAIL_INFO.length} mi * ${MOCK_TRAIL_INFO.elevation_gain} ft * ${MOCK_TRAIL_INFO.route_type}`
+          `${MOCK_TRAIL_INFO.difficulty_rating} * ${MOCK_TRAIL_INFO.length} mi * ${MOCK_TRAIL_INFO.elevation_gain} ft elev gain * ${MOCK_TRAIL_INFO.route_type}`
         )
       ).toBeInTheDocument();
     });
