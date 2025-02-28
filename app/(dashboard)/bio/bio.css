@@ -3,10 +3,6 @@
   flex-direction: row;
 }
 
-#bio .bio-section {
-  width: 60%;
-}
-
 #bio .bio-header-section {
   display: flex;
   justify-content: space-between;
@@ -28,11 +24,6 @@
 #bio #bio-text {
   padding: 0.5rem 1rem;
   min-height: 10rem;
-}
-
-#bio .hike-section {
-  width: 40%;
-  min-height: 20rem;
 }
 
 @media only screen and (max-width: 768px) {

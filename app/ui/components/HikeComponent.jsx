@@ -20,11 +20,11 @@ export default function HikeComponent({
   hikeInfo = BLANK_HIKE,
 }) {
   const { currentUser, setHike, setTriggerRefresh } = useGlobal();
-  const { showModal, closeModal } = useModal();
   const router = useRouter();
   const [hikeDisplay, setHikeDisplay] = useState(BLANK_HIKE);
   const [trail, setTrail] = useState(BLANK_TRAIL);
   const [comments, setComments] = useState([]);
+  const [participants, setParticipants] = useState([]);
 
   const fetchTrailInfo = async () => {
     const info = await fetchTrailById(hikeInfo.trail_id);
@@ -57,23 +57,11 @@ export default function HikeComponent({
     return message;
   };
 
-  const fetchParticipantsData = async () => {
-    const participantsTable =
-      (await fetchParticipantsByHike(hikeInfo.id)) ?? [];
-    const listOfIds = participantsTable.map((o) => o.user_id);
-    const users = (await Promise.all(listOfIds.map(fetchUserById))) ?? [];
-    setHikeDisplay((prevState) => ({
-      ...prevState,
-      participantsMessage:
-        listOfIds.length +
-        " " +
-        "participant" +
-        (listOfIds.length !== 1 ? "s" : ""),
-      listOfParticipants: {
-        names: users.map((arr) => arr[0]?.user_name ?? "Unknown User"),
-        paths: users.map((arr) => arr[0]?.avatar ?? "/newUser.png"),
-      },
-    }));
+  const fetchParticipantsInfo = async () => {
+    const participantsInfo = await fetchParticipantsByHike(hikeInfo.id);
+    if (participantsInfo) {
+      setParticipants(participantsInfo);
+    }
   };
 
   const fetchCommentsInfo = async () => {
@@ -103,7 +91,7 @@ export default function HikeComponent({
       await Promise.all([
         fetchTrailInfo(),
         fetchCreatorName(),
-        fetchParticipantsData(),
+        fetchParticipantsInfo(),
         fetchCommentsInfo(),
       ]);
     };
@@ -124,16 +112,11 @@ export default function HikeComponent({
       case "Edit Hike":
         setHike(hikeId);
         router.push("/edit-hike");
-        break;
-      case "participants":
-        showModal(
-          ...[hikeInfo.title, hikeDisplay.listOfParticipants, null, closeModal]
-        );
-        break;    
+        break; 
     }
   }
 
   return (
-    <HikePost hikeInfo={hikeDisplay} comments={comments} trail={trail} onClick={handleClick} />
+    <HikePost hikeInfo={hikeDisplay} comments={comments} participants={participants} trail={trail} onClick={handleClick} />
   );
 }

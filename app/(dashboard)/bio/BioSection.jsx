@@ -16,7 +16,7 @@ export default function BioSection({ user = {}, onClick = () => {} }) {
         <div className="bio-text-section">
           <h2>About Me</h2>
           <div id="bio-text" className="text-box">
-            <p>{bio}</p>
+            <p className="text-sm text-left pt-2">{bio}</p>
           </div>
         </div>
       </div>

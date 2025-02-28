@@ -1,14 +1,13 @@
 export default function About() {
   return (
-    <div id="about" className="text-box">
+    <div id="about" className="text-box text-left">
       <h1>About WNC Hiking Hub</h1>
       <p>
         WNC Hiking Hub&apos;s mission is to
         <strong> connect outdoor enthusiasts</strong> in Western North Carolina
         who want to explore the beauty of the region while enjoying the company
         of like-minded adventurers.
-      </p>
-      <p>
+        <br /><br />
         The idea for this app arose when Meetup drastically increased its fees,
         forcing many small hiking groups to shut down. WNC Hiking Hub aims to
         provide a <strong>free and community-focused alternative</strong> to

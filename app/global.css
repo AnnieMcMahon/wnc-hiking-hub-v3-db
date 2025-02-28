@@ -4,10 +4,14 @@
 
 body {
   max-width: 1280px;
+  height: 100vh;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   margin: 0 auto;
   text-align: center;
   background-image: url("/background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /**** Fonts ****/
@@ -35,35 +39,10 @@ h3 {
   margin: 0.5rem;
 }
 
-/* Hike sections */
-h4 {
-  font-size: 0.8rem;
-  font-weight: bold;
-  text-align: left;
-}
-
-h5 {
-  font-size: 0.8rem;
-  font-style: italic;
-  font-weight: bold;
-}
-
-/* Bio text */
-p {
-  font-size: 0.9rem;
-  text-align: left;
-  padding-top: 0.5rem;
-}
-
 /* Home page last sentence */
 #home p {
   text-align: center;
   font-size: 1.2rem;
-}
-
-/* Hike section */
-.hike p {
-  font-size: 0.8rem;
 }
 
 /* Forms */
@@ -104,6 +83,7 @@ button {
   background-color: #5e9852;
   color: white;
   border: 1px solid #32512b;
+  border-radius: 5px;
 }
 
 button:hover {
@@ -121,8 +101,8 @@ button .add-trail-button {
 }
 
 /* Participant list buttons */
-.party-list,
-.comments {
+.comments,
+.participants {
   background: none;
   color: black;
   margin: 0 0.5rem;
@@ -131,15 +111,6 @@ button .add-trail-button {
   padding: 0.5rem 0.2rem;
   border: none;
   border-radius: 0;
-}
-
-/*Hike section buttons */
-.hike-button {
-  margin: 0.1rem;
-  font-size: 0.6rem;
-  padding: 0.2rem;
-  width: 4rem;
-  float: right;
 }
 
 .add-comment-button {
@@ -167,7 +138,7 @@ button .add-trail-button {
 /* Hike Sections on Bio, Join Hike and Post Hike pages */
 .hike-section {
   width: 40%;
-  height: 28rem;
+  height: 100vh;
   background: #82a87b;
   margin: 0.5rem;
   padding: 0 1rem;
@@ -175,6 +146,10 @@ button .add-trail-button {
   border-radius: 5px;
   margin-left: 1rem;
   overflow: scroll;
+}
+
+.bio-section {
+  width: 60%;
 }
 
 /* Home page, Bio, Post Hike */
@@ -211,6 +186,11 @@ button .add-trail-button {
 
 #about li {
   font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+#about p {
+  font-size: 0.9rem;
 }
 
 /* Disclosure component */
@@ -221,103 +201,6 @@ button .add-trail-button {
 #disclosure li {
   font-size: 0.9rem;
   list-style-type: square;
-}
-
-/* Hikes */
-.hike {
-  text-align: left;
-  background-color: #d9d9d9;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-}
-
-.hike p,
-.hike h4,
-.hike h5 {
-  margin: 0;
-  padding: 0;
-  line-height: 1rem;
-}
-
-#TrailPost:hover {
-  background-color: #14af5d;
-  cursor: pointer;
-}
-
-/**** Modal ****/
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: whitesmoke;
-  padding: 2rem;
-  width: 20rem;
-  text-align: center;
-  border: 1px solid green;
-  border-radius: 5px;
-}
-
-.comment-modal {
-  background: whitesmoke;
-  padding: 2rem;
-  width: 40rem;
-  text-align: center;
-  border: 1px solid green;
-  border-radius: 5px;
-}
-
-.modal-confirm,
-.modal-close {
-  width: 5rem;
-}
-
-/* Arrangement of data on participants/comments modal.
- * Height limit and scroll style applied here
- * rather than to parent modal so that modal
- * title can't be scrolled out of view and users
- * need not scroll down to find close button.
- */
- .party-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  overflow: scroll;
-  max-height: 25rem;
-}
-
-.comment-grid {
-  display: grid;
-  grid-template-columns: 0.5fr 1fr 1.5fr 4fr;
-  overflow: scroll;
-  max-height: 30rem;
-  width: 100%;
-}
-
-.party-grid img {
-  width: 2rem;
-  padding-top: 1rem;
-}
-
-.comment-grid img {
-  width: 1.5rem;
-  padding-top: 0.5rem;
-}
-
-.party-grid p {
-  padding-top: 1rem;
-}
-
-.comment-grid p {
-  font-size: 0.8rem;
 }
 
 /*************************/
@@ -348,28 +231,13 @@ button .add-trail-button {
     margin: 0.5rem;
   }
 
-  /* Hike sections */
-  h4 {
+  a {
     font-size: 0.6rem;
-  }
-
-  h5 {
-    font-size: 0.6rem;
-  }
-
-  /* Bio text */
-  p {
-    font-size: 0.8rem;
   }
 
   /* Home page last sentence */
   #home p {
     font-size: 1rem;
-  }
-
-  /* Hike section */
-  .hike p {
-    font-size: 0.6rem;
   }
 
   /* Post a Hike form */
@@ -387,41 +255,26 @@ button .add-trail-button {
     padding: 0.2rem;
   }
 
-  /* Hike section links */
-  a {
-    font-size: 0.6rem;
-  }
-
   /**** Buttons ****/
   button {
-    margin: 0.5rem;
-    font-size: 0.7rem;
-    padding: 0.3rem 1rem;
-  }
-
-  /*Hike section buttons */
-  .hike-button {
-    margin: 0.1rem;
-    font-size: 0.5rem;
-    padding: 0.1rem;
-    width: 3rem;
-  }
-
-  /* Post a Hike page form section buttons */
-  .form-button {
-    margin: 0.1rem;
     font-size: 0.6rem;
-    padding: 0.2rem;
-    width: 6rem;
+    padding: 0.1rem;
+    width: auto;
+    height: 1.3rem;
+    margin: 0;
   }
 
   /**** General sections ****/
   /* Hike Sections on Bio, Join Hike and Post Hike pages */
   .hike-section {
-    height: 100%;
+    width: 50%;
     margin: 0.1rem;
     padding: 0 0.3rem;
     margin-left: 0.1rem;
+  }
+
+  .bio-section {
+    width: 50%;
   }
 
   /* Home page, Bio, Post Hike */
