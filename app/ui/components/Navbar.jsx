@@ -33,7 +33,7 @@ export default function Navbar() {
   }
 
   const menuLinks = [
-    {key: 1, name: "Bio", path: "/bio"},
+    {key: 1, name: "Bio", path: `/bio/${currentUser.id}`},
     {key: 2, name: "Post a Hike", path: "/post-hike"},
     {key: 3, name: "Join a Hike", path: "/join-hike"},
     {key: 4, name: "About", path: "/about"},

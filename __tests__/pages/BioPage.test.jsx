@@ -3,9 +3,9 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { fetchUserHikes } from "@/app/hooks/fetchUserHikes";
-import Bio from "@/app/(dashboard)/bio/page";
-import BioSection from "@/app/(dashboard)/bio/BioSection";
-import HikeSection from "@/app/(dashboard)/bio/HikeSection";
+import Bio from "@/app/(dashboard)/bio/[user_id]/page";
+import BioSection from "@/app/(dashboard)/bio/[user_id]/BioSection";
+import HikeSection from "@/app/(dashboard)/bio/[user_id]/HikeSection";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),

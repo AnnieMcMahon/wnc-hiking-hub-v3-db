@@ -7,7 +7,8 @@ export default function HikeSection({
 }) {
   return (
     <div className="hike-section">
-      <h2>My Hikes - Coming Up</h2>
+    {upcomingHikes.length > 0 && 
+      <h2>My Hikes - Coming Up</h2> }
       <div>
         {upcomingHikes?.map((hike) => (
           <HikeComponent
@@ -17,6 +18,7 @@ export default function HikeSection({
           />
         ))}
       </div>
+
       <h2>My Hikes - History</h2>
       <div>
         {pastHikes?.map((hike) => (

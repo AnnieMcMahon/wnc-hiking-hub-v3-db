@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import BioSection from "@/app/(dashboard)/bio/BioSection";
+import BioSection from "@/app/(dashboard)/bio/[user_id]/BioSection";
 import {
   DEFAULT_USER_NAME,
   DEFAULT_BIO,

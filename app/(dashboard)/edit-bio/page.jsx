@@ -21,7 +21,7 @@ function EditBio() {
   async function handleSubmit(newBioInfo) {
     if (currentUser.id == 1) {
       showModal("Demo", "Demo Mode - new bio cannot be saved.");
-      router.push("/bio");
+      router.push(`/bio/${currentUser.id}`);
       return;
     }
     let newName = currentUser.user_name == newBioInfo.user_name ? null : newBioInfo.user_name;
@@ -47,7 +47,7 @@ function EditBio() {
         showModal("Save Changes", "Changes have been saved successfully!", null, () => {
           closeModal();
         });
-        router.push("/bio");
+        router.push(`/bio/${currentUser.id}`);
       } catch (error) {
         showModal(
           "Error",
@@ -58,7 +58,7 @@ function EditBio() {
   };
 
   function handleClick() {
-    router.push("/bio");
+    router.push(`/bio/${currentUser.id}`);
   }
 
   function handleChange(e) {

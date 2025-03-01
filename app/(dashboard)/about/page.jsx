@@ -1,3 +1,5 @@
+"use client";
+
 export default function About() {
   return (
     <div id="about" className="text-box text-left">

@@ -28,7 +28,7 @@ export default function PostHike() {
     } else {
       if (currentUser.id == 1) {
         showModal("Demo", "Demo Mode - new hike cannot be posted.");
-        router.push("/bio");
+        router.push(`/bio/${currentUser.id}`);
         return;
       }
       let newHike = newHikeInfo;
@@ -40,7 +40,7 @@ export default function PostHike() {
         const newHikeId = newHikeAdded[0].id;
         await addParticipant(newHike.creator_id, newHikeId);
       }
-      router.push("/bio");
+      router.push(`/bio/${currentUser.id}`);
     }
   };
 
