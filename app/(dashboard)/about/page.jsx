@@ -19,8 +19,6 @@ export default function About() {
       <h2>Upcoming Features</h2>
       <ul>
         <li>Set a maximum participant limit for posted hikes</li>
-        <li>Comment on hikes posted or joined</li>
-        <li>Access other users&apos; profiles</li>
         <li>Optimize the app for mobile and tablet screens</li>
       </ul>
 
