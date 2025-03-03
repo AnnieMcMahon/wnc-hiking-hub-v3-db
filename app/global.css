@@ -240,6 +240,11 @@ button .add-trail-button {
     font-size: 1rem;
   }
 
+  #about {
+    width: 100%;
+    height: 100vh;
+  }
+
   /* Post a Hike form */
   form {
     font-size: 0.6rem;
