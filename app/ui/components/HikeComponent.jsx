@@ -1,6 +1,5 @@
 "use client";
 import { useGlobal } from "@/app/context/GlobalContext";
-import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { convertDate, convertTime } from "@/app/lib/utils";
