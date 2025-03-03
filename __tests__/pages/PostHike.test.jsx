@@ -195,7 +195,7 @@ describe("PostHike", () => {
           "Demo",
           "Demo Mode - new hike cannot be posted."
         );
-        expect(mockRouterPush).toHaveBeenCalledWith("/bio");
+        expect(mockRouterPush).toHaveBeenCalledWith("/bio/1");
       });
     });    
 
@@ -216,7 +216,7 @@ describe("PostHike", () => {
           status: "new",
         });
         expect(addParticipant).toHaveBeenCalledWith(2, 5);
-        expect(mockRouterPush).toHaveBeenCalledWith("/bio");
+        expect(mockRouterPush).toHaveBeenCalledWith("/bio/2");
       });
     });
   });

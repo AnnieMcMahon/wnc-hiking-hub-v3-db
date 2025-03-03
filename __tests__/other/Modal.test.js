@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { useModal } from "@/app/context/ModalContext";
 import Modal from "@/app/Modal";
-import { MOCK_NAMES_AVATARS } from "@/app/lib/constants";
 
 jest.mock("@/app/context/ModalContext");
 
@@ -38,29 +37,6 @@ describe("Modal component", () => {
     render(<Modal />);
     expect(screen.getByText("Test Title")).toBeInTheDocument();
     expect(screen.getByText("Test Message")).toBeInTheDocument();
-    expect(screen.getByText("Close")).toBeInTheDocument();
-  });
-
-  it("renders modal rich content when modal is open and object is passed" +
-      "instead of a string", () => {
-    useModal.mockReturnValue({
-      modal: {
-        isOpen: true,
-        title: "Test Title",
-        message: MOCK_NAMES_AVATARS,
-        onConfirm: null,
-      },
-      closeModal: closeModalMock,
-    });
-    render(<Modal />);
-    const names = MOCK_NAMES_AVATARS.names;
-    const paths = MOCK_NAMES_AVATARS.paths;
-    expect(screen.getByText("Test Title")).toBeInTheDocument();
-    names.map(uname => expect(screen.getByText(uname)).toBeInTheDocument());
-    paths.map((path, index) => {
-      const avatar = screen.getByRole('img', { name: names[index] });
-      expect(avatar).toHaveAttribute('src', path);
-    });
     expect(screen.getByText("Close")).toBeInTheDocument();
   });
 

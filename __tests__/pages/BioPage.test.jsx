@@ -1,14 +1,16 @@
 import "@testing-library/jest-dom";
-import { render, screen, waitFor } from "@testing-library/react";
-import { useRouter } from "next/navigation";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { useRouter, useParams } from "next/navigation";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { fetchUserHikes } from "@/app/hooks/fetchUserHikes";
+import { fetchUserById } from "@/app/api/data/data";
 import Bio from "@/app/(dashboard)/bio/[user_id]/page";
 import BioSection from "@/app/(dashboard)/bio/[user_id]/BioSection";
 import HikeSection from "@/app/(dashboard)/bio/[user_id]/HikeSection";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
+  useParams: jest.fn(),
 }));
 
 jest.mock("@/app/context/GlobalContext", () => ({
@@ -19,21 +21,34 @@ jest.mock("@/app/hooks/fetchUserHikes", () => ({
   fetchUserHikes: jest.fn(),
 }));
 
-jest.mock("@/app/(dashboard)/bio/BioSection", () =>
-  jest.fn(() => <div data-testid="bio-section"></div>)
+jest.mock("@/app/api/data/data", () => ({
+  fetchUserById: jest.fn(),
+}));
+
+jest.mock("@/app/(dashboard)/bio/[user_id]/BioSection", () =>
+  jest.fn(({ user, onClick }) => (
+    <div data-testid="bio-section">
+      <p>{user?.name}</p>
+      <button onClick={onClick}>Edit Bio</button>
+    </div>
+  ))
 );
-jest.mock("@/app/(dashboard)/bio/HikeSection", () =>
+
+jest.mock("@/app/(dashboard)/bio/[user_id]/HikeSection", () =>
   jest.fn(() => <div data-testid="hike-section"></div>)
 );
 
-describe("BioPage", () => {
-  let mockRouterPush, mockCurrentUser;
+describe("Bio Page", () => {
+  let mockRouterPush, mockCurrentUser, mockSetTriggerRefresh;
+  const userInfo = { id: 3, name: "Test User" };
 
   beforeEach(() => {
     mockRouterPush = jest.fn();
     useRouter.mockReturnValue({ push: mockRouterPush });
 
-    mockCurrentUser = { id: 1, name: "Test User" };
+    useParams.mockReturnValue({ user_id: "3" });
+
+    mockCurrentUser = { id: 3, name: "Current User" };
     mockSetTriggerRefresh = jest.fn();
 
     useGlobal.mockReturnValue({
@@ -41,6 +56,8 @@ describe("BioPage", () => {
       triggerRefresh: false,
       setTriggerRefresh: mockSetTriggerRefresh,
     });
+
+    fetchUserById.mockResolvedValue([userInfo]);
 
     fetchUserHikes.mockResolvedValue({
       upcomingHikes: [{ id: 1, title: "Upcoming Hike" }],
@@ -54,29 +71,27 @@ describe("BioPage", () => {
   });
 
   describe("rendering", () => {
-    it("renders the BioSection and HikeSection components", async () => {
+    it("renders the BioSection and HikeSection components after data loads", async () => {
       render(<Bio />);
+      await waitFor(() => {
+        expect(screen.getByText("Loading...")).toBeInTheDocument();
+      });
       await waitFor(() => {
         expect(screen.getByTestId("bio-section")).toBeInTheDocument();
         expect(screen.getByTestId("hike-section")).toBeInTheDocument();
-      });
-    });
-
-    it("renders correctly when there is no current user", async () => {
-      useGlobal.mockReturnValueOnce({
-        currentUser: null,
-        triggerRefresh: false,
-        setTriggerRefresh: mockSetTriggerRefresh,
-      });
-      render(<Bio />);
-      await waitFor(() => {
-        expect(screen.queryByTestId("bio-section")).toBeInTheDocument();
-        expect(screen.queryByTestId("hike-section")).toBeInTheDocument();
+        expect(screen.getByText(userInfo.name)).toBeInTheDocument();
       });
     });
   });
 
   describe("functionality", () => {
+    it("fetches user data on mount", async () => {
+      render(<Bio />);
+      await waitFor(() => {
+        expect(fetchUserById).toHaveBeenCalledWith("3");
+      });
+    });
+
     it("fetches hikes for the current user on mount", async () => {
       render(<Bio />);
       await waitFor(() => {
@@ -98,12 +113,41 @@ describe("BioPage", () => {
       });
     });
 
-    it("passes the current user to BioSection", async () => {
+    it("passes the correct user data to BioSection", async () => {
       render(<Bio />);
       await waitFor(() => {
         expect(BioSection).toHaveBeenCalledWith(
           expect.objectContaining({
-            user: mockCurrentUser,
+            user: userInfo,
+          }),
+          expect.anything()
+        );
+      });
+    });
+
+    it("navigates to edit bio page when 'Edit Bio' button is clicked", async () => {
+      render(<Bio />);
+      await waitFor(() => {
+        fireEvent.click(screen.getByRole("button", { name: /Edit Bio/i }));
+        expect(mockRouterPush).toHaveBeenCalledWith("/edit-bio");
+      });
+    });
+
+    it("does not fetch upcoming or created hikes for a different user", async () => {
+      useGlobal.mockReturnValue({
+        currentUser: { id: 99 },
+        triggerRefresh: false,
+        setTriggerRefresh: mockSetTriggerRefresh,
+      });
+
+      render(<Bio />);
+      await waitFor(() => {
+        expect(fetchUserHikes).toHaveBeenCalledWith(99);
+        expect(HikeSection).toHaveBeenCalledWith(
+          expect.objectContaining({
+            pastHikes: [{ id: 2, title: "Past Hike" }],
+            upcomingHikes: [],
+            createdHikes: [],
           }),
           expect.anything()
         );

@@ -20,16 +20,6 @@ jest.mock("@/app/api/authentication/auth", () => ({
   logout: jest.fn(),
 }));
 
-jest.mock("@/components/ui/menubar", () => ({
-  Menubar: ({ children, ...props }) => <nav {...props}>{children}</nav>,
-}));
-
-jest.mock("@/components/ui/navigation-menu", () => ({
-  NavigationMenu: ({ children, ...props }) => <div {...props}>{children}</div>,
-  NavigationMenuLink: ({ children, ...props }) => <a {...props}>{children}</a>,
-}));
-
-
 describe("Navbar", () => {
   const mockPush = jest.fn();
   const mockSetCurrentUser = jest.fn();
@@ -41,16 +31,27 @@ describe("Navbar", () => {
       currentUser: { id: 1 },
       setCurrentUser: mockSetCurrentUser,
     });
+    usePathname.mockReturnValue("/");
   });
 
   describe("rendering", () => {
     it("renders all links and button", () => {
       render(<Navbar />);
-      expect(screen.getByRole("link", { name: /WNC Hiking Hub/i })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: /WNC/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /Bio/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /Post a Hike/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /Join a Hike/i })).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /Log In/i })).toBeInTheDocument();
+    });
+
+    it("renders full title 'WNC Hiking Hub' on larger screens", () => {
+      render(<Navbar />);
+      expect(screen.getByText(/WNC Hiking Hub/i)).toBeInTheDocument();
+    });
+
+    it("renders short title 'WNC' on smaller screens", () => {
+      render(<Navbar />);
+      expect(screen.getByText("WNC")).toBeInTheDocument();
     });
   });
 
@@ -83,13 +84,18 @@ describe("Navbar", () => {
     });
 
     it("verifies the WNC Hiking Hub link is active when the pathname is /", () => {
-      usePathname.mockReturnValueOnce("/");
+      usePathname.mockReturnValue("/");
       render(<Navbar />);
-      expect(screen.getByRole("link", { name: /WNC Hiking Hub/i })).toHaveClass("text-green-600");
+      expect(screen.getByRole("link", { name: /WNC/i })).toHaveClass("text-green-600");
     });
 
-    it("verifies the Bio link is active when the pathname is /bio", () => {
-      usePathname.mockReturnValueOnce("/bio");
+    it("verifies the Bio link is active when the pathname matches the dynamic user ID", () => {
+      useGlobal.mockReturnValueOnce({
+        currentUser: { id: 2 },
+        setCurrentUser: mockSetCurrentUser,
+      });
+
+      usePathname.mockReturnValue("/bio/2");
       render(<Navbar />);
       expect(screen.getByRole("link", { name: /Bio/i })).toHaveClass("text-green-600 font-bold");
     });

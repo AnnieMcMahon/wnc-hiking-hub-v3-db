@@ -188,7 +188,7 @@ describe("EditHike", () => {
         const discardButton = screen.getByTestId("discard-button");
         discardButton.click();
       });
-      expect(mockRouterPush).toHaveBeenCalledWith("/bio");
+      expect(mockRouterPush).toHaveBeenCalledWith("/bio/2");
     });
 
     it("submits the form and updates the hike info", async () => {
@@ -226,7 +226,7 @@ describe("EditHike", () => {
         null,
         expect.any(Function)
       );
-      expect(mockRouterPush).toHaveBeenCalledWith("/bio");
+      expect(mockRouterPush).toHaveBeenCalledWith("/bio/2");
     });
 
     it("cancels the hike if the Cancel button is clicked", async () => {
