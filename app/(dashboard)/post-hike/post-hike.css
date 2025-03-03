@@ -42,16 +42,6 @@
   align-items: center;
 }
 
-#chosen-hike, #chosen-trail-placeholder {
-  line-height: 1rem;
-  width: 70%;
-}
-
-#chosen-trail {
-  margin: 0.5rem;
-  padding: 0.2rem 1rem;
-}
-
 @media only screen and (max-width: 768px) {
   #post-hike #form-area {
     height: auto;

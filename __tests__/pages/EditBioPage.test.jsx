@@ -131,7 +131,7 @@ describe("EditBio", () => {
         const discardButton = screen.getByTestId("discard-button");
         discardButton.click();
       });
-      expect(mockRouterPush).toHaveBeenCalledWith("/bio");
+      expect(mockRouterPush).toHaveBeenCalledWith("/bio/2");
     });
 
     it("submits the form and updates the user info", async () => {
@@ -160,7 +160,7 @@ describe("EditBio", () => {
       modalCallback();
       const { closeModal } = useModal();
       expect(closeModal).toHaveBeenCalled();
-      expect(mockRouterPush).toHaveBeenCalledWith("/bio");
+      expect(mockRouterPush).toHaveBeenCalledWith("/bio/2");
     });
 
     it("does not update user if no changes are made", async () => {

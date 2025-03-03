@@ -32,7 +32,7 @@ export default function EditHike() {
   async function handleSubmit(newHikeInfo) {
     if (currentUser.id == 1) {
       showModal("Demo", "Demo Mode - hike cannot be edited.");
-      router.push("/bio");
+      router.push(`/bio/${currentUser.id}`);
       return;
     }  
       let updatedHike = newHikeInfo;
@@ -50,7 +50,7 @@ export default function EditHike() {
           () => {
             closeModal();
           });
-        router.push("/bio");
+        router.push(`/bio/${currentUser.id}`);
       } catch (error) {
         showModal("Error", error.message || "Error updating hike.");
       }
@@ -65,7 +65,7 @@ export default function EditHike() {
       () => {
         closeModal();
       });
-      router.push("/bio");
+      router.push(`/bio/${currentUser.id}`);
   }
 
   function handleCancel() {
@@ -79,7 +79,7 @@ export default function EditHike() {
   async function handleNewCancellation() {
     if (currentUser.id == 1) {
       showModal("Demo", "Demo Mode - hike cannot be cancelled.");
-      router.push("/bio");
+      router.push(`/bio/${currentUser.id}`);
       return;
     }  
     let updatedHike = hikeInfo;
@@ -97,7 +97,7 @@ export default function EditHike() {
         () => {
           closeModal();
         });
-        router.push("/bio");
+        router.push(`/bio/${currentUser.id}`);
     } catch (error) {
       showModal("Error", error.message || "Error updating hike.");
     }

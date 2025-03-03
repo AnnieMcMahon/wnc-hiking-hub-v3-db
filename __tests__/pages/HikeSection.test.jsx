@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, waitFor } from "@testing-library/react";
-import HikeSection from "@/app/(dashboard)/bio/HikeSection";
+import HikeSection from "@/app/(dashboard)/bio/[user_id]/HikeSection";
 import { useRouter } from "next/navigation";
 import { useGlobal } from "@/app/context/GlobalContext";
 import { MOCK_USER } from "@/app/lib/constants";

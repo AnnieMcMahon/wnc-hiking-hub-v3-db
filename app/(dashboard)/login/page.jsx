@@ -25,7 +25,7 @@ function Login() {
         try {
           await login(newLogin);
           setCurrentUser(userInfo);
-          router.push("/bio");
+          router.push(`/bio/${userInfo.id}`);
         } catch (error) {
           showModal("Error", "Invalid password. Please try again.");
         }

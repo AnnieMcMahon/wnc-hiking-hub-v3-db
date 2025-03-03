@@ -61,11 +61,11 @@ describe("Login", () => {
   let mockRouterPush;
   let showModalMock;
   let closeModalMock;
+  const mockSetCurrentUser = jest.fn();
   const userInfo = { email: "user@abc.com", password: "ValidPassword1!" };
 
   beforeEach(() => {
-    const mockSetCurrentUser = jest.fn();
-
+    jest.clearAllMocks();
     useGlobal.mockReturnValue({
       setCurrentUser: mockSetCurrentUser,
     });
@@ -81,15 +81,10 @@ describe("Login", () => {
     });
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   describe("rendering", () => {
     it("renders a Login component", () => {
       render(<Login />);
-      const heading = screen.getByRole("heading", { level: 1 });
-      expect(heading).toHaveTextContent(/log in/i);
+      expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Log In/i);
     });
   });
 
@@ -98,24 +93,21 @@ describe("Login", () => {
       fetchUserByEmail.mockResolvedValue([userInfo]);
       login.mockResolvedValue();
       render(<Login />);
+      const loginButton = screen.getByTestId("login-button");
+      fireEvent.click(loginButton);
       await waitFor(() => {
-        const loginButton = screen.getByTestId("login-button");
-        fireEvent.click(loginButton);
         expect(fetchUserByEmail).toHaveBeenCalledWith("user@abc.com");
-        expect(login).toHaveBeenCalledWith({
-          email: "user@abc.com",
-          password: "ValidPassword1!",
-        });
-        expect(useGlobal().setCurrentUser).toHaveBeenCalledWith(userInfo);
-        expect(mockRouterPush).toHaveBeenCalledWith("/bio");
+        expect(login).toHaveBeenCalledWith(userInfo);
+        expect(mockSetCurrentUser).toHaveBeenCalledWith(userInfo);
+        expect(mockRouterPush).toHaveBeenCalledWith(`/bio/${userInfo.id}`);
       });
     });
-    it("shows error modal for invalid login password", async () => {
+
+    it("shows error modal for invalid password", async () => {
       fetchUserByEmail.mockResolvedValue([userInfo]);
       login.mockRejectedValue(new Error("Invalid password"));
       render(<Login />);
-      const loginButton = screen.getByTestId("login-button");
-      fireEvent.click(loginButton);
+      fireEvent.click(screen.getByTestId("login-button"));
       await waitFor(() => {
         expect(showModalMock).toHaveBeenCalledWith(
           "Error",
@@ -124,12 +116,11 @@ describe("Login", () => {
       });
     });
 
-    it("shows signup modal for non-existent user", async () => {
+    it("shows signup modal when no account is found", async () => {
       fetchUserByEmail.mockResolvedValue([]);
       render(<Login />);
+      fireEvent.click(screen.getByTestId("login-button"));
       await waitFor(() => {
-        const loginButton = screen.getByTestId("login-button");
-        fireEvent.click(loginButton);
         expect(showModalMock).toHaveBeenCalledWith(
           "Create Account",
           "No account found. Would you like to create one?",
@@ -139,12 +130,11 @@ describe("Login", () => {
     });
 
     it("handles password reset for valid email", async () => {
-      fetchUserByEmail.mockResolvedValue([{ email: "user@abc.com" }]);
+      fetchUserByEmail.mockResolvedValue([userInfo]);
       resetPassword.mockResolvedValue();
       render(<Login />);
-      const resetLink = screen.getByTestId("reset-pw-link");
+      fireEvent.click(screen.getByTestId("reset-pw-link"));
       await waitFor(() => {
-        fireEvent.click(resetLink);
         expect(fetchUserByEmail).toHaveBeenCalledWith("user@abc.com");
         expect(resetPassword).toHaveBeenCalledWith(
           "user@abc.com",
@@ -157,12 +147,11 @@ describe("Login", () => {
       });
     });
 
-    it("shows error modal for password reset with invalid email", async () => {
+    it("shows error modal when email for password reset is invalid", async () => {
       fetchUserByEmail.mockRejectedValue(new Error("Invalid email"));
       render(<Login />);
-      const resetLink = screen.getByTestId("reset-pw-link");
+      fireEvent.click(screen.getByTestId("reset-pw-link"));
       await waitFor(() => {
-        fireEvent.click(resetLink);
         expect(showModalMock).toHaveBeenCalledWith(
           "Error",
           "Please enter a valid e-mail address."
@@ -170,46 +159,36 @@ describe("Login", () => {
       });
     });
 
-    it("handles successful signup after account creation prompt", async () => {
-      const newUser = { id: 3, email: "user@abc.com" };
+    it("handles successful signup after user agrees to create an account", async () => {
       fetchUserByEmail.mockResolvedValue([]);
       signup.mockResolvedValue();
-      addUser.mockResolvedValue([newUser]);
+      addUser.mockResolvedValue([userInfo]);
       render(<Login />);
-
+      fireEvent.click(screen.getByTestId("login-button"));
       await waitFor(() => {
-        const loginButton = screen.getByTestId("login-button");
-        fireEvent.click(loginButton);
         expect(showModalMock).toHaveBeenCalledWith(
           "Create Account",
           "No account found. Would you like to create one?",
           expect.any(Function)
         );
-
         const signupCallback = showModalMock.mock.calls[0][2];
         signupCallback();
-        expect(
-          screen.getByText(
-            /By submitting this waiver and release of liability/i
-          )
-        ).toBeInTheDocument();
-        const agreeButton = screen.getByRole("button", { name: /I agree/i });
-        fireEvent.click(agreeButton);
+        expect(screen.getByText(/By submitting this waiver/i)).toBeInTheDocument();
+        fireEvent.click(screen.getByRole("button", { name: /I agree/i }));
         expect(signup).toHaveBeenCalledWith(userInfo);
         expect(addUser).toHaveBeenCalledWith(userInfo.email);
-        expect(useGlobal().setCurrentUser).toHaveBeenCalledWith(newUser);
+        expect(mockSetCurrentUser).toHaveBeenCalledWith(userInfo);
         expect(closeModalMock).toHaveBeenCalled();
         expect(mockRouterPush).toHaveBeenCalledWith("/edit-bio");
       });
     });
 
-    it("shows error modal if signup fails", async () => {
+    it("shows error modal when signup fails", async () => {
       fetchUserByEmail.mockResolvedValue([]);
       signup.mockRejectedValue(new Error("Signup failed"));
       render(<Login />);
+      fireEvent.click(screen.getByTestId("login-button"));
       await waitFor(() => {
-        const loginButton = screen.getByTestId("login-button");
-        fireEvent.click(loginButton);
         expect(showModalMock).toHaveBeenCalledWith(
           "Create Account",
           "No account found. Would you like to create one?",
@@ -217,8 +196,7 @@ describe("Login", () => {
         );
         const signupCallback = showModalMock.mock.calls[0][2];
         signupCallback();
-        const agreeButton = screen.getByRole("button", { name: /I agree/i });
-        fireEvent.click(agreeButton);
+        fireEvent.click(screen.getByRole("button", { name: /I agree/i }));
         expect(signup).toHaveBeenCalled();
         expect(showModalMock).toHaveBeenCalledWith(
           "Error",
