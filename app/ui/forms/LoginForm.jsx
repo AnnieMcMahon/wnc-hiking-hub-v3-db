@@ -49,7 +49,7 @@ export default function LoginForm({ onSubmit = () => {}, onClick = () => {}  }) 
       <br />
       <p>Password must be at least six characters and must contain at least one uppercase letter, one number, and one special character</p>
       <button type="submit" className="form-button">
-        Log In
+        Submit
       </button>
     </form>
   );
