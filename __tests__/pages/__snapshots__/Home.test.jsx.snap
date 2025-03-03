@@ -15,7 +15,7 @@ exports[`Home matches the snapshot 1`] = `
       <li>
         Create a free account using the 
         <b>
-          Log In
+          Log In / Sign Up
         </b>
          button
       </li>

@@ -73,7 +73,7 @@ function Login() {
 
   return (
     <div id="login">
-      <h1>Log In</h1>
+      <h1>Log In / Sign Up</h1>
       <div id="login-info" className="text-box">
         <LoginForm onSubmit={handleLogin} onClick={handlePasswordReset} />
         {showDisclosure && (

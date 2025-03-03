@@ -20,7 +20,6 @@ describe("auth - login", () => {
     const mockSignInWithPassword = jest.fn().mockResolvedValue({ error: null });
     const mockSupabase = {auth: { signInWithPassword: mockSignInWithPassword },};
     createClient.mockResolvedValue(mockSupabase);
-
     const newLogin = { email: "test@example.com", password: "Password123!" };
     await expect(login(newLogin)).resolves.not.toThrow();
     expect(mockSignInWithPassword).toHaveBeenCalledWith(newLogin);
@@ -30,7 +29,6 @@ describe("auth - login", () => {
     const mockSignInWithPassword = jest.fn().mockResolvedValue({ error: { message: "Invalid password." } });
     const mockSupabase = {auth: { signInWithPassword: mockSignInWithPassword },};
     createClient.mockResolvedValue(mockSupabase);
-
     const newLogin = { email: "test@example.com", password: "wrongpassword" };
     await expect(login(newLogin)).rejects.toThrow("Invalid password.");
   });
@@ -41,24 +39,19 @@ describe("auth - signup", () => {
     const mockSignUp = jest.fn().mockResolvedValue({ error: null });
     const mockSupabase = {auth: { signUp: mockSignUp },};
     createClient.mockResolvedValue(mockSupabase);
-
     const loginInfo = { email: "test@example.com", password: "Password123!" };
     const result = await signup(loginInfo);
     expect(mockSignUp).toHaveBeenCalledWith(loginInfo);
     expect(result).toBeNull();
   });
 
-  it("throws an error when signUp fails", async () => {
-    const mockSignUp = jest.fn().mockResolvedValue({ error: { message: "Auth error" } });
-    const mockSupabase = {
-      auth: { signUp: mockSignUp },
-    };
+  it("throws an error when signup fails", async () => {
+    const mockSignUp = jest.fn().mockResolvedValue({ error: { message: "Failed to sign up." } });
+    const mockSupabase = { auth: { signUp: mockSignUp } };
     createClient.mockResolvedValue(mockSupabase);
-    
     const loginInfo = { email: "existing@example.com", password: "password123" };
-    const result = await signup(loginInfo);
+    await expect(signup(loginInfo)).rejects.toThrow("Failed to sign up.");
     expect(mockSignUp).toHaveBeenCalledWith(loginInfo);
-    expect(result).toEqual({ message: "Auth error" });
   });
 });
 
@@ -70,7 +63,6 @@ describe("auth - retrieveUser", () => {
     });
     const mockSupabase = {auth: { getUser: mockGetUser },};
     createClient.mockResolvedValue(mockSupabase);
-
     const user = await retrieveUser();
     expect(mockGetUser).toHaveBeenCalled();
     expect(user).toEqual({ email: "test@example.com" });
