@@ -10,14 +10,10 @@ jest.mock("@/components/ui/avatar", () => ({
   AvatarImage: ({ src, ...props }) => <img src={src} {...props} alt="User Avatar" />,
 }));
 
-jest.mock("next/link", () => ({
-  __esModule: true,
-  default: ({ children, ...props }) => (
-    <a {...props} data-testid="mock-next-link">
-      {children}
-    </a>
-  ),
-}));
+jest.mock("next/link", () => {
+  return ({ children }) => children;
+});
+
 
 jest.mock("@/app/api/data/data", () => ({
   fetchUserById: jest.fn(),

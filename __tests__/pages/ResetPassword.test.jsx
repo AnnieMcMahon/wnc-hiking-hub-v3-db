@@ -58,7 +58,6 @@ describe("ResetPassword", () => {
       const form = screen.getByRole("form");
       const passwordInput = screen.getByLabelText(/new password:/i);
       fireEvent.change(passwordInput, { target: { value: "short" } });
-      console.log(passwordInput.value);
       fireEvent.submit(form);
       expect(validatePassword).toHaveBeenCalledWith("short");
       expect(showModalMock).toHaveBeenCalledWith("Error", errorMessage);

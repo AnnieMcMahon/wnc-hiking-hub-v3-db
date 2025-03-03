@@ -7,7 +7,6 @@ import { login, signup, resetPassword } from "@/app/api/authentication/auth";
 import { fetchUserByEmail, addUser } from "@/app/api/data/data";
 import LoginForm from "@/app/ui/forms/LoginForm";
 import Disclosure from "@/app/ui/components/Disclosure";
-import "./login.css";
 
 function Login() {
   const router = useRouter();
@@ -72,8 +71,8 @@ function Login() {
   }
 
   return (
-    <div id="login">
-      <h1>Log In</h1>
+    <div id="login" className="w-[95%] md:w-[85%] m-auto pt-2">
+      <h1>Log In / Sign Up</h1>
       <div id="login-info" className="text-box">
         <LoginForm onSubmit={handleLogin} onClick={handlePasswordReset} />
         {showDisclosure && (

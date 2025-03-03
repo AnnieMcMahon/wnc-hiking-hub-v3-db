@@ -42,7 +42,7 @@ export default function HikePost({
       <Comments comments={comments}/>
       <AddComment hikeId={hikeInfo.id}/>
       <hr className="mb-2"/>
-      <a href={trail.trail_link} target="_blank" className="text-green-800 hover:text-green-500">
+      <a href={trail.trail_link} target="_blank" className="text-green-800 hover:text-green-400">
         AllTrails Link
       </a>
       {hikeInfo.buttonMessage?.length > 0 && (

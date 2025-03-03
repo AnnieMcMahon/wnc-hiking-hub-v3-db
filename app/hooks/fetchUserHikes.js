@@ -32,8 +32,6 @@ export async function fetchUserHikes(userId) {
         if (hike.creator_id == userId) {
           createdHikes.push(hike.id);
         }
-      } else {
-        console.log("Hike not found in hikesData");
       }
     });
   }

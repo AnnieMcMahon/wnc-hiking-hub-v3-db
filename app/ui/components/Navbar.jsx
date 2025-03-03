@@ -12,15 +12,15 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [buttonMessage, setButtonMessage] = useState(
-    currentUser.id == 1 ? "Log In" : "Log Out"
+    currentUser.id == 1 ? "Log In / Sign Up" : "Log Out"
   );
 
   useEffect(() => {
-    setButtonMessage(currentUser.id == 1 ? "Log In" : "Log Out");
+    setButtonMessage(currentUser.id == 1 ? "Log In / Sign Up" : "Log Out");
   }, [currentUser]);
 
   async function handleClick() {
-    if (buttonMessage == "Log In") {
+    if (buttonMessage == "Log In / Sign Up") {
       router.push("/login");
     } else {
       setCurrentUser(DEFAULT_USER);

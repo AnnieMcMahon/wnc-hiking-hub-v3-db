@@ -33,7 +33,7 @@ describe("LoginForm", () => {
   describe("functional", () => {
     it("does not throw when function props are not provided", async () => {
       render(<LoginForm />);
-      const loginButton = screen.getByRole("button", { name: /log in/i });
+      const loginButton = screen.getByRole("button", { name: /submit/i });
       await userEvent.click(loginButton);
       const link = screen.getByRole("link", { name: /forgot password/i });
       await userEvent.click(link);
@@ -42,7 +42,7 @@ describe("LoginForm", () => {
     it("does not call onSubmit if required fields are empty", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       await userEvent.click(button);
       expect(mockOnSubmit).not.toHaveBeenCalled();
     });
@@ -50,7 +50,7 @@ describe("LoginForm", () => {
     it("does not call onSubmit if email format is invalid", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
       await userEvent.type(emailField, "invalid-email");
@@ -71,7 +71,7 @@ describe("LoginForm", () => {
     it("allows submission when button is clicked and e-mail and password are valid", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
       await userEvent.type(emailField, validEmail);
@@ -84,7 +84,7 @@ describe("LoginForm", () => {
     it("allows submission when password length is exactly 6 characters", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
       await userEvent.type(emailField, validEmail);
@@ -97,7 +97,7 @@ describe("LoginForm", () => {
     it("calls showModal with the correct error message when the password is too short", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
       await userEvent.type(emailField, validEmail);
@@ -113,7 +113,7 @@ describe("LoginForm", () => {
     it("calls showModal with the correct error message when the password does not have a number", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
       await userEvent.type(emailField, validEmail);
@@ -129,7 +129,7 @@ describe("LoginForm", () => {
     it("calls showModal with the correct error message when the password does not have an uppercase letter", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
       await userEvent.type(emailField, validEmail);
@@ -145,7 +145,7 @@ describe("LoginForm", () => {
     it("calls showModal with the correct error message when the password does not have a special character", async () => {
       const mockOnSubmit = jest.fn();
       render(<LoginForm onSubmit={mockOnSubmit} />);
-      const button = screen.getByRole("button", { name: /log in/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       const emailField = screen.getByLabelText(/e-mail/i);
       const passwordField = screen.getByLabelText(/password/i);
       await userEvent.type(emailField, validEmail);

@@ -17,7 +17,7 @@ export async function signup(loginInfo) {
   const data = loginInfo;
   const { error } = await supabase.auth.signUp(data);
   if (error) {
-    console.error("Auth Error:", error);
+    throw new Error("Failed to sign up.");
   }
   return error;
 }
@@ -32,7 +32,6 @@ export async function logout() {
   const supabase = await createClient();
   const { error } = await supabase.auth.signOut()
   if (error) {
-    console.error("Auth Error:", error);
     throw new Error("Failed to log out.");
   }
   revalidatePath("/", "layout");
