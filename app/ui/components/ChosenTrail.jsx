@@ -10,7 +10,7 @@ export default function ChosenTrail({ trailSelected }) {
           {trailSelected.route_type}
         </p>
         <a
-          className="text-green-800 hover:text-green-500"
+          className="text-green-800 hover:text-green-400"
           href={trailSelected.trail_link}
           target="_blank"
         >

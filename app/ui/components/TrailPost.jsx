@@ -20,7 +20,7 @@ export default function TrailPost({
         href={trailInfo.trail_link}
         target="_blank"
         onClick={(e) => e.stopPropagation()}
-        className="text-green-800 hover:text-green-500"
+        className="text-green-800 hover:text-green-400"
       >
         AllTrails Link
       </a>
