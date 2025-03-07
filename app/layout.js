@@ -7,6 +7,9 @@ import "./global.css";
 export const metadata = {
   title: "WNC Hiking Hub",
   description: "An app for hikers to join or post hikes",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
