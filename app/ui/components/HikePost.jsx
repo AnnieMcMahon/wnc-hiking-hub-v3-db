@@ -46,7 +46,7 @@ export default function HikePost({
       <a href={trail.trail_link} target="_blank" className="text-green-800 hover:text-green-400">
         AllTrails Link
       </a>
-      {hikeInfo.buttonMessage?.length > 0 && (
+      {hikeInfo.buttonMessage?.length > 0 && hikeInfo.buttonMessage !== "Hike Full" && (
         <button
           className="py-0 sm:py-1 sm:w-20 w-16 float-right text-xs"
           name={hikeInfo.id}
@@ -56,6 +56,15 @@ export default function HikePost({
           {hikeInfo.buttonMessage}
         </button>
       )}
+      {hikeInfo.buttonMessage == "Hike Full" && (
+        <p
+          style={{ borderRadius: "6px" }}
+          className="py-0 sm:py-1 sm:w-20 w-16 float-right text-xs bg-gray-500 text-white border border-gray-500 text-center pointer-events-none"
+        >
+          {hikeInfo.buttonMessage}
+        </p>
+      )}
+
     </div>
   );
 }
