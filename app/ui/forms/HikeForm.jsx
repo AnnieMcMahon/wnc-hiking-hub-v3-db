@@ -8,7 +8,10 @@ export default function HikeForm({ onSubmit = () => {} }) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const newHike = Object.fromEntries(formData.entries());
-    if (Object.values(newHike).some((value) => !value)) {
+    if (newHike.maxParticipants == "") {
+      newHike.maxParticipants = "10";
+    }
+    if (Object.entries(newHike).some(([key, value]) => key !== "maxParticipants" && !value)) {
       showModal("Error", "Please fill out all the information");
     } else {
       onSubmit(newHike);
@@ -27,6 +30,9 @@ export default function HikeForm({ onSubmit = () => {} }) {
       <br />
       <label htmlFor="location"> Location: </label>
       <input type="text" name="location" id="location" />
+      <br />
+      <label htmlFor="maxParticipants">Max Participants (default 10, max 30): </label>
+      <input type="number" name="maxParticipants" id="maxParticipants" min="2" max="30" placeholder="10" />
       <br />
       <label htmlFor="comments">Comments: </label>
       <br />

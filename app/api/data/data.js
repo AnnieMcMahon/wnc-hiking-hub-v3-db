@@ -110,6 +110,7 @@ export async function addHike(hikeInfo) {
       date: hikeInfo.date,
       time: hikeInfo.time,
       location: hikeInfo.location,
+      max_partic: hikeInfo.maxParticipants,
       comments: hikeInfo.comments,
       status: hikeInfo.status,
     })
@@ -136,6 +137,7 @@ export async function updateHike(hikeInfo) {
       date: hikeInfo.date,
       time: hikeInfo.time,
       location: hikeInfo.location,
+      max_partic: hikeInfo.maxParticipants,
       comments: hikeInfo.comments,
       status: hikeInfo.status,
     })

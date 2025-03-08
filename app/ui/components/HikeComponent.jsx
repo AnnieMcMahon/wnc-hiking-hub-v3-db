@@ -49,8 +49,6 @@ export default function HikeComponent({
         message = "Opt Out";
       } else if (type === "created") {
         message = "Edit Hike";
-      } else if (type === "available") {
-        message = "Join Hike";
       }
     }
     return message;
@@ -60,6 +58,20 @@ export default function HikeComponent({
     const participantsInfo = await fetchParticipantsByHike(hikeInfo.id);
     if (participantsInfo) {
       setParticipants(participantsInfo);
+    }
+    if (hikeType == "available") {
+      const maxPartic = hikeInfo.max_partic ? hikeInfo.max_partic : 10;
+      if (participantsInfo.length >= maxPartic) {
+        setHikeDisplay((prevState) => ({
+          ...prevState,
+          buttonMessage: "Hike Full",
+        }));
+      } else {
+        setHikeDisplay((prevState) => ({
+          ...prevState,
+          buttonMessage: "Join Hike",
+        }));
+      }
     }
   };
 
@@ -75,6 +87,7 @@ export default function HikeComponent({
       const buttonMessage = fetchButtonMessage(hikeInfo.status, hikeType);
       const hikingDate = convertDate(hikeInfo.date);
       const hikingTime = convertTime(hikeInfo.time);
+      const maxPartic = hikeInfo.max_partic ? hikeInfo.max_partic : 10;
 
       setHikeDisplay((prev) => ({
         ...prev,
@@ -83,6 +96,7 @@ export default function HikeComponent({
         date: hikingDate,
         time: hikingTime,
         location: hikeInfo.location,
+        maxParticipants: maxPartic,
         comments: hikeInfo.comments,
         buttonMessage: buttonMessage,
       }));
@@ -111,11 +125,17 @@ export default function HikeComponent({
       case "Edit Hike":
         setHike(hikeId);
         router.push("/edit-hike");
-        break; 
+        break;
     }
   }
 
   return (
-    <HikePost hikeInfo={hikeDisplay} comments={comments} participants={participants} trail={trail} onClick={handleClick} />
+    <HikePost
+      hikeInfo={hikeDisplay}
+      comments={comments}
+      participants={participants}
+      trail={trail}
+      onClick={handleClick}
+    />
   );
 }

@@ -81,6 +81,7 @@ describe("HikeForm", () => {
         date: "2026-01-01",
         time: "10:30",
         location: "here",
+        maxParticipants: "10",
         comments: "hello",
       });
     });
