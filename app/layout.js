@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="max-w-[1280px] h-[100vh] mx-auto text-center bg-cover bg-no-repeat bg-center bg-[url('/background.jpeg')]">
         <GlobalProvider>
           <ModalProvider>
             <Modal />

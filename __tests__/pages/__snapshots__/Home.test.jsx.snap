@@ -45,7 +45,9 @@ exports[`Home matches the snapshot 1`] = `
         </b>
          page to view or edit your hikes
       </li>
-      <p>
+      <p
+        class="text-center text-6 mt-2"
+      >
         Happy hiking!
       </p>
     </ul>

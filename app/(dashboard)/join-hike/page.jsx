@@ -31,7 +31,7 @@ function JoinHike() {
 
   return (
     <div id="join-hike">
-      <h3>Select a hike you would like to join:</h3>
+      <p className="text-4 text-center font-bold m-2">Select a hike you would like to join:</p>
       <div className="hike-section">
       {message && <div className="message">{message}</div>}
       {hikeList?.map((hike) => (

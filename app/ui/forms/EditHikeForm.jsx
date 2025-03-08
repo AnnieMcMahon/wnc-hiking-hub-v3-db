@@ -24,7 +24,7 @@ export default function EditHikeForm({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="text-sm">
       <label htmlFor="newTitle">Title: </label>
       <input
         type="text"

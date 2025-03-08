@@ -20,8 +20,8 @@ export default function TrailForm({ onSubmit = () => {}, onClick = () => {} }) {
   };
 
   return (
-    <form className="trail-form" onSubmit={handleSubmit}>
-      <p>Enter all the information from <a href="https://www.alltrails.com/" target="_blank">AllTrails</a>:</p>
+    <form className="text-left h-88 mt-2 mx-4 px-4 overflow-scroll text-sm" onSubmit={handleSubmit}>
+      <p className="pb-4">Enter all the information from <a href="https://www.alltrails.com/" target="_blank">AllTrails</a>:</p>
       <label htmlFor="trail_name">Trail Name: </label>
       <input type="text" name="trail_name" id="trail_name" />
       <br />
@@ -56,9 +56,9 @@ export default function TrailForm({ onSubmit = () => {}, onClick = () => {} }) {
       <label htmlFor="trail_link"> AllTrails Link: </label>
       <input type="trail_link" name="trail_link" id="trail_link" />
       <br />
-      <div className="form-button-section">
-        <button type="submit" className="form-button">Submit Form</button>
-        <button type="button" className="form-button" onClick={handleClick}>
+      <div className="flex justify-center gap-x-4 mt-4">  
+        <button type="submit" className="w-32 h-8">Submit Form</button>
+        <button type="button" className="w-32 h-8" onClick={handleClick}>
           Cancel
         </button>
       </div>

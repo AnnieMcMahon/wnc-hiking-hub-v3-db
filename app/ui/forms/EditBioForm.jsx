@@ -18,7 +18,7 @@ export default function EditBioForm({
     <div id="edit-bio">
       <h1>Edit Bio</h1>
       <div id="form-area" className="text-box">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="text-sm">
           <label htmlFor="user_name">Name: </label>
           <input
             type="text"

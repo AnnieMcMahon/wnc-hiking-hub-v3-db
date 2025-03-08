@@ -8,7 +8,7 @@ export default function Home() {
           <li><b>Post a hike</b> you would like others to explore with you</li>
           <li><b>Join a hike</b> someone else posted</li>
           <li>Go to your <b>Bio</b> page to view or edit your hikes</li>
-          <p>Happy hiking!</p>
+          <p className="text-center text-6 mt-2">Happy hiking!</p>
         </ul>
     </div>
   );

@@ -4,7 +4,6 @@ import { useModal } from "@/app/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { addTrail } from "@/app/api/data/data";
 import TrailForm from "@/app/ui/forms/TrailForm";
-import "./add-trail.css";
 
 export default function AddTrail() {
   const router = useRouter();
@@ -42,9 +41,9 @@ export default function AddTrail() {
   }
 
   return (
-    <div id="add-trail">
+    <div id="add-trail" className="pt-4 w-[90%] md:w-120 mx-auto">
       <h1>Add New Trail</h1>
-      <div id="form-area" className="text-box">
+      <div className="text-box">
         <TrailForm onSubmit={handleSubmit} onClick={handleCancel} />
       </div>
     </div>

@@ -19,7 +19,7 @@ export default function HikeForm({ onSubmit = () => {} }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="text-sm">
       <label htmlFor="hikeTitle">Title: </label>
       <input type="text" name="hikeTitle" id="hikeTitle" />
       <br />

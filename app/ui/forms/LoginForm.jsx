@@ -45,7 +45,7 @@ export default function LoginForm({ onSubmit = () => {}, onClick = () => {}  }) 
         autoComplete="off"
         required
       />
-      <a href="#" className="ml-2 text-green-800 hover:text-green-600" onClick={handleClick}>Forgot password?</a>
+      <a href="#" className="ml-2 text-green-800 hover:text-green-600 text-sm" onClick={handleClick}>Forgot password?</a>
       <br />
       <p className="my-4">Password must be at least six characters and must contain at least one uppercase letter, one number, and one special character</p>
       <button type="submit" className="form-button">
