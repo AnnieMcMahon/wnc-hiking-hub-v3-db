@@ -36,6 +36,7 @@ export default function HikePost({
         {trail.difficulty_rating} * {trail.length} mi * {trail.elevation_gain}{" "}
         ft elev gain * {trail.route_type}
       </p>
+      <p className="text-xs mb-2 text-center">Maximum Participants: {hikeInfo.maxParticipants ? hikeInfo.maxParticipants : "10"}</p>
       <p className="text-xs mb-2">{hikeInfo.comments}</p>
       <hr />
       <Participants participants={participants}/>
@@ -47,7 +48,7 @@ export default function HikePost({
       </a>
       {hikeInfo.buttonMessage?.length > 0 && (
         <button
-          className="py-0 sm-py-1 sm-w-20 w-16 float-right text-xs"
+          className="py-0 sm:py-1 sm:w-20 w-16 float-right text-xs"
           name={hikeInfo.id}
           value={hikeInfo.buttonMessage}
           onClick={handleClick}

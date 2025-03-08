@@ -66,6 +66,20 @@ export default function EditHikeForm({
       />
       <br />
 
+      <label htmlFor="newMaxPartic"> Max Participants: </label>
+      <input
+        type="number"
+        name="maxParticipants"
+        id="newMaxPartic"
+        min="2" max="30" placeholder="10"
+        value={hikeInfo.maxParticipants
+          ? hikeInfo.maxParticipants
+          : "10"
+        }
+        onChange={onChange}
+      />
+      <br />  
+
       <label htmlFor="newComments">Comments: </label>
       <br />
       <textarea
