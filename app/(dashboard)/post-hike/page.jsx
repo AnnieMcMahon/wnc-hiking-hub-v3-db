@@ -10,7 +10,6 @@ import SearchForm from "@/app/ui/forms/SearchForm";
 import HikeForm from "@/app/ui/forms/HikeForm";
 import TrailPost from "@/app/ui/components/TrailPost";
 import { Button } from "@/components/ui/button";
-import "./post-hike.css";
 
 export default function PostHike() {
   const { currentUser } = useGlobal();
@@ -46,8 +45,8 @@ export default function PostHike() {
 
   return (
     <div id="post-hike">
-      <div className="content">
-        <div id="form-area" className="text-box">
+      <div className="content flex flex-row">
+        <div className="text-box form-area">
           <h2>1. Search for a trail</h2>
           <SearchForm
             onSearch={(key, value) => updateSearchCriteria(key, value)}
@@ -58,9 +57,9 @@ export default function PostHike() {
           <HikeForm onSubmit={handleSubmit} />
         </div>
         <div className="hike-section">
-          <div className="section-header">
+          <div className="flex justify-between align-center mt-2">
             <h2>Trail Search Results</h2>
-            <Button className="add-trail-button" onClick={handleAddTrail}>
+            <Button className="float-right" onClick={handleAddTrail}>
               Add New Trail
             </Button>
           </div>

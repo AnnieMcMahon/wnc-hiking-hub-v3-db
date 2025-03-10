@@ -71,9 +71,9 @@ function Login() {
   }
 
   return (
-    <div id="login" className="w-[95%] md:w-[85%] m-auto pt-2">
+    <div id="login">
       <h1>Log In / Sign Up</h1>
-      <div id="login-info" className="text-box">
+      <div id="login-info" className="text-box form-area">
         <LoginForm onSubmit={handleLogin} onClick={handlePasswordReset} />
         {showDisclosure && (
         <>

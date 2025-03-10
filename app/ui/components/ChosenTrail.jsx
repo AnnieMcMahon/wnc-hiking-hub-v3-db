@@ -1,7 +1,7 @@
 export default function ChosenTrail({ trailSelected }) {
   if (trailSelected) {
     return (
-      <div className="text-left bg-white mb-4 p-2 border border-gray-300 w-[70%] ">
+      <div className="mini-form">
         <h4 className="text-sm font-bold">{trailSelected.trail_name}</h4>
         <p className="text-xs">{trailSelected.area_name}</p>
         <p className="text-xs">
@@ -10,9 +10,9 @@ export default function ChosenTrail({ trailSelected }) {
           {trailSelected.route_type}
         </p>
         <a
-          className="text-green-800 hover:text-green-400"
           href={trailSelected.trail_link}
           target="_blank"
+          className="all-trails-link"
         >
           AllTrails Link
         </a>
@@ -20,7 +20,7 @@ export default function ChosenTrail({ trailSelected }) {
     );
   } else {
     return (
-      <div className="text-left bg-white mb-4 p-2 w-[70%] border border-gray-300">
+      <div className="mini-form">
         <h4 className="text-sm font-bold">Choose a trail</h4>
       </div>
     );

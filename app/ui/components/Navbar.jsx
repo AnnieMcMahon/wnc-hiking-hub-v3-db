@@ -38,7 +38,7 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between p-2 bg-gray-100 w-full">
-      <Link href="/" className={`px-4 hover:text-green-400 ${pathname === "/" ? "text-green-600" : "text-green-800"}`}>
+      <Link href="/" className={`px-4 ${pathname === "/" ? "text-green-600" : "text-green-800"}`}>
         <h1 className="hidden md:block">WNC Hiking Hub</h1>
         <h1 className="block md:hidden">WNC</h1>
       </Link>

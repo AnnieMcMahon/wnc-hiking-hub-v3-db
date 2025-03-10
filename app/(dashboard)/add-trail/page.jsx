@@ -41,11 +41,6 @@ export default function AddTrail() {
   }
 
   return (
-    <div id="add-trail" className="pt-4 w-[90%] md:w-120 mx-auto">
-      <h1>Add New Trail</h1>
-      <div className="text-box">
-        <TrailForm onSubmit={handleSubmit} onClick={handleCancel} />
-      </div>
-    </div>
+    <TrailForm onSubmit={handleSubmit} onClick={handleCancel} />
   );
 }

@@ -6,7 +6,7 @@ export default function SearchForm({ onSearch = () => {} }) {
     onSearch(name, value);
   };
   return (
-    <form className="search-form text-sm">
+    <form className="mini-form">
       <label htmlFor="area">Area Name: </label>
       <select
         name="area"

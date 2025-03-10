@@ -39,16 +39,21 @@ export default function HikePost({
       <p className="text-xs mb-2 text-center">Maximum Participants: {hikeInfo.maxParticipants ? hikeInfo.maxParticipants : "10"}</p>
       <p className="text-xs mb-2">{hikeInfo.comments}</p>
       <hr />
+
+      <div className="flex flex-row justify-between align-center flex-wrap">
       <Participants participants={participants}/>
       <Comments comments={comments}/>
       <AddComment hikeId={hikeInfo.id}/>
-      <hr className="mb-2"/>
-      <a href={trail.trail_link} target="_blank" className="text-green-800 hover:text-green-400">
+      </div>
+      <hr />
+
+      <div className="flex flex-row justify-between">
+      <a href={trail.trail_link} target="_blank" className="all-trails-link">
         AllTrails Link
       </a>
       {hikeInfo.buttonMessage?.length > 0 && hikeInfo.buttonMessage !== "Hike Full" && (
         <button
-          className="py-0 sm:py-1 sm:w-20 w-16 float-right text-xs"
+          className="hike-post-button"
           name={hikeInfo.id}
           value={hikeInfo.buttonMessage}
           onClick={handleClick}
@@ -59,12 +64,13 @@ export default function HikePost({
       {hikeInfo.buttonMessage == "Hike Full" && (
         <p
           style={{ borderRadius: "6px" }}
-          className="py-0 sm:py-1 sm:w-20 w-16 float-right text-xs bg-gray-500 text-white border border-gray-500 text-center pointer-events-none"
+          className="hike-post-button bg-gray-300"
         >
           {hikeInfo.buttonMessage}
         </p>
+        
       )}
-
+    </div>
     </div>
   );
 }

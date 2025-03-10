@@ -33,7 +33,7 @@ export default function LoginForm({ onSubmit = () => {}, onClick = () => {}  }) 
   };
 
   return (
-    <form className="w-[90%] text-left ml-4 mt-2 py-4" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="email">E-mail: </label>
       <input type="email" name="email" id="email" className="w-80" autoComplete="on" required onChange={handleEmailChange} />
       <br />
