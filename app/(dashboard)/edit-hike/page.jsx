@@ -7,7 +7,6 @@ import { updateHike, fetchHikeById } from "@/app/api/data/data";
 import { fetchUserHikes } from "@/app/hooks/fetchUserHikes";
 import { BLANK_HIKE } from "@/app/lib/constants";
 import EditHikeForm from "@/app/ui/forms/EditHikeForm";
-import "./edit-hike.css";
 
 export default function EditHike() {
   const { hike, currentUser } = useGlobal();
@@ -111,11 +110,6 @@ export default function EditHike() {
   }
 
   return (
-    <div id="edit-hike">
-      <h1>Edit Hike</h1>
-      <div id="form-area" className="text-box">
-      <EditHikeForm hikeInfo={hikeInfo} onSubmit={handleSubmit} onChange={handleChange} handleCancel={handleCancel} handleDiscard={handleDiscard}/>
-      </div>
-    </div>
+    <EditHikeForm hikeInfo={hikeInfo} onSubmit={handleSubmit} onChange={handleChange} handleCancel={handleCancel} handleDiscard={handleDiscard}/>
   );
 }

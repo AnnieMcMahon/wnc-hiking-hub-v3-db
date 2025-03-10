@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { useModal } from "@/app/context/ModalContext";
 import { updatePassword } from "@/app/api/authentication/auth";
 import { validatePassword } from "@/app/lib/utils";
-import "./reset-password.css";
 
 function ResetPassword() {
   const { showModal, closeModal } = useModal();
@@ -30,10 +29,10 @@ function ResetPassword() {
   }
 
   return (
-    <div id="reset-pw">
+    <div id="reset-pw" className="mt-4">
       <h1>Reset Password</h1>
-      <div id="login-info" className="text-box">
-        <form role="form" onSubmit={handleSubmit}>
+      <div id="login-info" className="text-box form-area">
+        <form className="h-48" onSubmit={handleSubmit}>
           <label htmlFor="password">New Password: </label>
           <input
             type="password"
@@ -43,7 +42,7 @@ function ResetPassword() {
             required
           />
           <br />
-          <p>
+          <p className="mb-4">
             Password must be at least six characters and must contain at least
             one uppercase letter, one number, and one special character
           </p>

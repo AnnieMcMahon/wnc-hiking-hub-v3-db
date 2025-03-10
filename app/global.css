@@ -3,26 +3,17 @@
 @custom-variant dark (&:is(.dark *));
 
 body {
-  max-width: 1280px;
-  height: 100vh;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  margin: 0 auto;
-  text-align: center;
-  background-image: url("/background.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 /**** Fonts ****/
-/* Home page title, Bio name */
 h1 {
   font-size: 1.2rem;
   text-align: center;
   font-weight: bold;
+  padding-bottom: 0.5rem;
 }
 
-/* Each page's titles */
 h2 {
   font-size: 1rem;
   text-align: left;
@@ -31,27 +22,78 @@ h2 {
   padding-bottom: 0.5rem;
 }
 
-/* Join Hike title */
-h3 {
-  font-size: 1rem;
-  text-align: center;
-  font-weight: bold;
-  margin: 0.5rem;
+li {
+  font-size: 0.9rem;
+  padding: 0.2rem;
+  text-align: left;
+  list-style-type: square;
+  margin-left: 1rem;
 }
 
-/* Home page last sentence */
-#home p {
-  text-align: center;
+a {
+  color: #166534;
+}
+
+a:hover {
+  color: #4ade80;
+}
+
+.all-trails-link {
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+#about a {
+  font-size: inherit;
+}
+
+#about h1 {
+  font-size: 1.5rem;
+}
+
+#about h2 {
   font-size: 1.2rem;
 }
 
-/* Forms */
-form {
-  font-size: 0.8rem;
+
+/**** Forms ****/
+
+.form-area {
+  width: 35rem;
+  margin: auto;
+  height: auto;
 }
 
-label {
+#post-hike .form-area {
+  width: 60%;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.mini-form {
+    background: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 1rem;
+    height: auto;
+    text-align: left;
+}
+
+.button-area {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+form {
   font-size: 0.9rem;
+  text-align: left;
+  margin: 1rem;
+  padding: 1rem;
+  overflow: scroll;
+  width: auto;
 }
 
 input,
@@ -65,18 +107,41 @@ textarea {
   margin: 0.2rem;
 }
 
-/* Home page instructions */
-li {
-  font-size: 0.9rem;
-  padding: 0.2rem;
-  text-align: left;
-  list-style-type: square;
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 20rem;
 }
 
-/* Hike section links */
-a {
-  font-size: 0.8rem;
+textarea {
+  width: 25rem;
+  height: 10rem;
 }
+
+input[type="number"] {
+  width: 5rem;
+}
+
+input[type="date"], 
+input[type="time"] 
+{
+  width: 8rem;
+}
+
+#add-trail label{
+  display: inline-block;
+  width: 8rem;
+}
+
+#add-trail input {
+  display: inline-block;
+  clear: left;
+  padding-right: 1rem;
+  width: 15rem;
+}
+
+#post-hike input[list="area"] {
+  width: 15rem;
+}
+
 
 /**** Buttons ****/
 button {
@@ -91,16 +156,6 @@ button:hover {
   cursor: pointer;
 }
 
-button .button-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-button .add-trail-button {
-  float: right;
-}
-
-/* Participant list buttons */
 .comments,
 .participants {
   background: none;
@@ -113,15 +168,15 @@ button .add-trail-button {
   border-radius: 0;
 }
 
-.add-comment-button {
-    margin: 0.1rem 0.5rem;
+.hike-post-button {
+    margin: 0.5rem;
     font-size: 0.6rem;
     padding: 0.2rem;
     width: 5rem;
     height: 1.3rem;
+    text-align: center;
   }
 
-/* Used by PostHike and EditBio pages */
 .form-button {
   margin: 0.1rem;
   font-size: 0.7rem;
@@ -129,16 +184,12 @@ button .add-trail-button {
   width: 6rem;
 }
 
-/* Button hidden for history items on Bio page */
-.hike .history {
-  visibility: collapse;
-}
-
 /**** General sections ****/
 /* Hike Sections on Bio, Join Hike and Post Hike pages */
 .hike-section {
   width: 40%;
-  height: 100vh;
+  height: auto;
+  max-height: 90vh;
   background: #82a87b;
   margin: 0.5rem;
   padding: 0 1rem;
@@ -148,129 +199,116 @@ button .add-trail-button {
   overflow: scroll;
 }
 
-.bio-section {
-  width: 60%;
+#join-hike .hike-section {
+  width: 65%;
+  margin: auto;
+  padding-top: 1rem;
+  min-height: 25rem;
 }
 
-/* Home page, Bio, Post Hike */
+
 .text-box {
   background: whitesmoke;
   opacity: 75%;
   border: 1px solid green;
   border-radius: 5px;
-}
-
-/* Home page */
-#home {
-  width: 40%;
+  padding: 0.5rem;
   margin: 1rem auto;
-  padding: 1rem 2rem;
-}
-
-/* About page */
-#about {
-  width: 60%;
-  height: 25rem;
-  margin: 1rem auto;
-  padding: 1rem 2rem;
+  height: auto;
+  max-height: 90vh;
   overflow: scroll;
 }
 
-#about h1 {
-  text-align: left;
-}
-
-#about a {
-  font-size: inherit;
-}
-
-#about li {
-  font-size: 0.9rem;
-  margin-left: 1rem;
-}
-
-#about p {
-  font-size: 0.9rem;
-}
-
-/* Disclosure component */
-#disclosure {
-  padding: 0 1rem;
-}
-
-#disclosure li {
-  font-size: 0.9rem;
-  list-style-type: square;
+#about {
+  padding: 1.5rem;
 }
 
 /*************************/
 /**** Smaller screens ****/
 /*************************/
 @media only screen and (max-width: 768px) {
-  /**** Home page ****/
-  #home {
-    width: 95%;
-    margin: 1rem auto;
-    padding: 0.1rem;
+
+  /*** Forms ***/
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 10rem;
+  }
+  
+  textarea {
+    width: 15rem;
+    height: 5rem;
+  }
+  
+  input[type="date"], 
+  input[type="time"] 
+  {
+    width: 5rem;
+  }
+  
+  #add-trail label{
+    width: 6rem;
+  }
+  
+  #add-trail input {
+    width: 10rem;
+  }
+  
+  #post-hike input[list="area"] {
+    width: 10rem;
+  }
+
+  #post-hike input[name="title"] {
+    width: 10rem;
+  }
+
+  #post-hike input[list="area"] {
+    width: 10rem;
+  }
+
+  #post-hike input[name="location"] {
+    width: 10rem;
+  }
+
+  #post-hike textarea {
+    width: 15rem;
+    height: 5rem;
   }
 
   /**** Fonts ****/
-  /* Home page title, Bio name */
-  h1 {
-    font-size: 1rem;
-  }
-
-  /* Each page's titles */
-  h2 {
-    font-size: 0.8rem;
-  }
-
-  /* Join Hike title */
-  h3 {
-    font-size: 0.8rem;
-    margin: 0.5rem;
-  }
-
-  a {
-    font-size: 0.6rem;
-  }
-
-  /* Home page last sentence */
-  #home p {
-    font-size: 1rem;
-  }
-
-  #about {
-    width: 100%;
-    height: 100vh;
-  }
-
-  /* Post a Hike form */
   form {
     font-size: 0.6rem;
-  }
-
-  label {
-    font-size: 0.7rem;
-  }
-
-  /* Home page instructions */
-  li {
-    font-size: 1rem;
-    padding: 0.2rem;
   }
 
   /**** Buttons ****/
   button {
     font-size: 0.6rem;
-    padding: 0.1rem;
+    padding: 0.2rem;
     width: auto;
-    height: 1.3rem;
     margin: 0;
   }
 
   /**** General sections ****/
   /* Hike Sections on Bio, Join Hike and Post Hike pages */
+  .form-area {
+    width: 90%;
+    padding: 0.1rem;
+    margin: 0.1rem auto;
+  }
+
+  #post-hike .form-area {
+    margin: 0.1rem;
+    padding: 0.5rem;
+  }
+
+  .mini-form {
+    padding: 0.1rem;
+    margin: 0;
+}
+
+  #post-hike textarea {
+    width: 12rem;
+    height: 5rem;
+  }
+
   .hike-section {
     width: 50%;
     margin: 0.1rem;
@@ -278,16 +316,9 @@ button .add-trail-button {
     margin-left: 0.1rem;
   }
 
-  .bio-section {
-    width: 50%;
-  }
-
-  /* Home page, Bio, Post Hike */
-  .text-box {
-    background: whitesmoke;
-    opacity: 75%;
-    border: 1px solid green;
-    border-radius: 5px;
+  #join-hike .hike-section {
+    width: 90%;
+    padding: 1rem;
   }
 }
 

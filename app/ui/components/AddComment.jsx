@@ -49,11 +49,11 @@ export function AddComment({ hikeId }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="add-comment-button">
+        <Button className="hike-post-button">
           Add Comment
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-white sm:max-w-[425px]" aria-describedby={undefined}>
+      <DialogContent className="bg-white" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Add Comment</DialogTitle>
         </DialogHeader>

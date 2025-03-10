@@ -38,7 +38,7 @@ export default function Navbar() {
 
   return (
     <div className="flex justify-between p-2 bg-gray-100 w-full">
-      <Link href="/" className={`px-4 hover:text-green-400 ${pathname === "/" ? "text-green-600" : "text-green-800"}`}>
+      <Link href="/" className={`px-4 ${pathname === "/" ? "text-green-600" : "text-green-800"}`}>
         <h1 className="hidden md:block">WNC Hiking Hub</h1>
         <h1 className="block md:hidden">WNC</h1>
       </Link>
@@ -46,7 +46,7 @@ export default function Navbar() {
       <div className="flex items-center md:space-x-8 space-x-2 mx-auto">
         {menuLinks.map((link) => (
           <Link
-            href={link.path} className={`hover:text-green-400 ${pathname === link.path ? "text-green-600 font-bold" : "text-green-800"}`} key={link.key}
+            href={link.path} className={`${pathname === link.path ? "text-green-600 font-bold" : "text-green-800"} text-[12px] md:text-[16px]`} key={link.key}
           >
             {link.name}
           </Link>

@@ -3,7 +3,6 @@ import { useGlobal } from "@/app/context/GlobalContext";
 import { fetchHikesToJoin } from "@/app/hooks/fetchHikesToJoin";
 import { useState, useEffect } from "react";
 import HikeComponent from "@/app/ui/components/HikeComponent";
-import "./join-hike.css";
 
 function JoinHike() {
   const { currentUser, triggerRefresh, setTriggerRefresh } = useGlobal();
@@ -31,7 +30,7 @@ function JoinHike() {
 
   return (
     <div id="join-hike">
-      <h3>Select a hike you would like to join:</h3>
+      <p className="text-center font-bold m-2">Select a hike you would like to join:</p>
       <div className="hike-section">
       {message && <div className="message">{message}</div>}
       {hikeList?.map((hike) => (

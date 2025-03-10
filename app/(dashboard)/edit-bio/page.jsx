@@ -4,9 +4,7 @@ import { useRouter } from "next/navigation";
 import { useModal } from "@/app/context/ModalContext";
 import { useState } from "react";
 import { updateUser, uploadAvatar } from "@/app/api/data/data";
-
 import EditBioForm from "@/app/ui/forms/EditBioForm";
-import "./edit-bio.css";
 
 function EditBio() {
   const router = useRouter();

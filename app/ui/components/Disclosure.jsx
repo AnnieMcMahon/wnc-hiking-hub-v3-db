@@ -1,7 +1,7 @@
 export default function Disclosure() {
 
   return (
-    <div id="disclosure">
+    <div id="disclosure" className="py-0 px-4">
       <h1>Waiver and Release of Liability</h1>
       <p>
         By submitting this waiver and release of liability, I acknowledge and agree to the following:

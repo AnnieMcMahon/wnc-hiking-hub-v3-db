@@ -6,7 +6,7 @@ export default function SearchForm({ onSearch = () => {} }) {
     onSearch(name, value);
   };
   return (
-    <form className="search-form">
+    <form className="mini-form">
       <label htmlFor="area">Area Name: </label>
       <select
         name="area"
@@ -19,7 +19,7 @@ export default function SearchForm({ onSearch = () => {} }) {
         ))}
       </select>
       <br />
-      <label htmlFor="difficulty">Difficulty Rating: </label>
+      <label htmlFor="difficulty">Difficulty: </label>
       <select
         name="difficulty"
         id="difficulty"
@@ -31,6 +31,7 @@ export default function SearchForm({ onSearch = () => {} }) {
           <option key={diff} value={diff}>{diff}</option>
         ))}
       </select>
+      <br/>
       <label htmlFor="length"> Length: </label>
       <select
         name="length"

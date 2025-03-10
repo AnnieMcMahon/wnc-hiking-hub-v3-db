@@ -19,12 +19,13 @@ export default function HikeForm({ onSubmit = () => {} }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="mini-form">
       <label htmlFor="hikeTitle">Title: </label>
       <input type="text" name="hikeTitle" id="hikeTitle" />
       <br />
       <label htmlFor="date">Date: </label>
       <input type="date" name="date" id="date" min={today} />
+      <br/>
       <label htmlFor="time"> Time: </label>
       <input type="time" name="time" id="time" />
       <br />

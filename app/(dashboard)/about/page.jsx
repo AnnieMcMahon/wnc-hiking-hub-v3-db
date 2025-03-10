@@ -2,7 +2,7 @@
 
 export default function About() {
   return (
-    <div id="about" className="text-box text-left">
+    <div id="about" className="text-box w-[95%] md:w-[80%] text-left">
       <h1>About WNC Hiking Hub</h1>
       <p>
         WNC Hiking Hub&apos;s mission is to

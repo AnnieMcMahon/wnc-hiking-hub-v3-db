@@ -15,7 +15,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="h-[100vh] text-center bg-no-repeat bg-center bg-[url('/background.jpeg')] bg-cover"
+        >   
         <GlobalProvider>
           <ModalProvider>
             <Modal />

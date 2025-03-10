@@ -12,7 +12,7 @@ export default function BioSection({ user = {}, onClick = () => {} }) {
   const showEditButton = user.id == currentUser.id;
   const handleClick = () => {onClick()};
   return (
-    <div className="bio-section">
+    <div className="w-[50%] md:w-[60%]">
         <div className={`flex items-center gap-4 m-2 md:m-4 ${showEditButton ? "justify-between" : "justify-left"}`}>
           <img className="h-8 md:h-16 w-8 md:w-16 border border-green-800 rounded-full" src={avatar} alt="avatar"/>
           <h1>{userName}</h1>
@@ -20,9 +20,9 @@ export default function BioSection({ user = {}, onClick = () => {} }) {
           <Button onClick={handleClick}>Edit Bio</Button>
         }
         </div>
-        <div className="px-1">
+        <div className="px-2 md:px-16">
           <h2>About Me</h2>
-          <div className="text-box md:py-2 md:px-4 py-0 px-1 md:min-h-40 min-h-56">
+          <div className="text-box min-h-40">
             <p className="text-sm text-left pt-2">{bio}</p>
           </div>
         </div>
