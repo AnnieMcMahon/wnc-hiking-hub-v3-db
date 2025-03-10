@@ -25,6 +25,7 @@ export default function HikeForm({ onSubmit = () => {} }) {
       <br />
       <label htmlFor="date">Date: </label>
       <input type="date" name="date" id="date" min={today} />
+      <br/>
       <label htmlFor="time"> Time: </label>
       <input type="time" name="time" id="time" />
       <br />

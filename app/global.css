@@ -59,7 +59,7 @@ a:hover {
 /**** Forms ****/
 
 .form-area {
-  width: 30rem;
+  width: 35rem;
   margin: auto;
   height: auto;
 }
@@ -74,8 +74,8 @@ a:hover {
     background: white;
     border: 1px solid gray;
     border-radius: 5px;
-    padding: 0.5rem;
-    margin: 1rem auto;
+    padding: 1rem;
+    margin: 1rem;
     height: auto;
     text-align: left;
 }
@@ -93,6 +93,7 @@ form {
   margin: 1rem;
   padding: 1rem;
   overflow: scroll;
+  width: auto;
 }
 
 input,
@@ -297,6 +298,11 @@ button:hover {
     margin: 0.1rem;
     padding: 0.5rem;
   }
+
+  .mini-form {
+    padding: 0.1rem;
+    margin: 0;
+}
 
   #post-hike textarea {
     width: 12rem;

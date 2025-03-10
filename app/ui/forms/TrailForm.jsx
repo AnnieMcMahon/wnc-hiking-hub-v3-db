@@ -29,8 +29,7 @@ export default function TrailForm({ onSubmit = () => {}, onClick = () => {} }) {
         >
           <p className="pb-4">
             Enter all the information from{" "}
-            <a href="https://www.alltrails.com/" target="_blank"
-            className="all-trails-link">
+            <a href="https://www.alltrails.com/" target="_blank">
               AllTrails
             </a>
             :

@@ -46,7 +46,7 @@ export default function Navbar() {
       <div className="flex items-center md:space-x-8 space-x-2 mx-auto">
         {menuLinks.map((link) => (
           <Link
-            href={link.path} className={`hover:text-green-400 ${pathname === link.path ? "text-green-600 font-bold" : "text-green-800"}`} key={link.key}
+            href={link.path} className={`${pathname === link.path ? "text-green-600 font-bold" : "text-green-800"} text-[12px] md:text-[16px]`} key={link.key}
           >
             {link.name}
           </Link>
