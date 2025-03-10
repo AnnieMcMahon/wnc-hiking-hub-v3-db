@@ -40,7 +40,7 @@ a:hover {
 
 .all-trails-link {
   font-size: 0.8rem;
-  margin: 0.5rem;
+  margin: 0.5rem 0;
 }
 
 #about a {
@@ -291,7 +291,7 @@ button:hover {
   .form-area {
     width: 90%;
     padding: 0.1rem;
-    margin: 0.1rem;
+    margin: 0.1rem auto;
   }
 
   #post-hike .form-area {
