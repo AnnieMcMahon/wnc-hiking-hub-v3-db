@@ -52,7 +52,7 @@ export default function Bio() {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-row">
+    <div className="flex md:flex-row flex-col max-h-[90vh]">
       <BioSection user={user} onClick={handleClick} />
       <HikeSection
         pastHikes={pastHikes}

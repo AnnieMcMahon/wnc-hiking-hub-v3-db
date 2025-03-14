@@ -29,7 +29,7 @@ function JoinHike() {
   }, [triggerRefresh]);
 
   return (
-    <div id="join-hike">
+    <div id="join-hike" className="">
       <p className="text-center font-bold m-2">Select a hike you would like to join:</p>
       <div className="hike-section">
       {message && <div className="message">{message}</div>}

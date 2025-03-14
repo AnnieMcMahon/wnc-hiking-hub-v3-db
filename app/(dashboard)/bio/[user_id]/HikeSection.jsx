@@ -6,7 +6,7 @@ export default function HikeSection({
   createdHikes = []
 }) {
   return (
-    <div className="hike-section">
+    <div className="hike-section w-[95%] mx-auto md:w-[40%] md:m-2 px-2">
     {upcomingHikes.length > 0 && 
       <h2>My Hikes - Coming Up</h2> }
       <div>
