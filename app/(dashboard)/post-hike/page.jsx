@@ -46,7 +46,7 @@ export default function PostHike() {
   return (
     <div id="post-hike">
       <div className="content flex flex-row">
-        <div className="text-box form-area">
+        <div className="text-box form-area w-[40%] md:w-[60%]">
           <h2>1. Search for a trail</h2>
           <SearchForm
             onSearch={(key, value) => updateSearchCriteria(key, value)}
@@ -56,7 +56,7 @@ export default function PostHike() {
           <h2>3. Fill out the hike information</h2>
           <HikeForm onSubmit={handleSubmit} />
         </div>
-        <div className="hike-section">
+        <div className="hike-section w-[60%] md:w-[40%]">
           <div className="flex justify-between align-center mt-2">
             <h2>Trail Search Results</h2>
             <Button className="float-right" onClick={handleAddTrail}>

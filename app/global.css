@@ -23,7 +23,7 @@ h2 {
 }
 
 li {
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 0.2rem;
   text-align: left;
   list-style-type: square;
@@ -187,23 +187,24 @@ button:hover {
 /**** General sections ****/
 /* Hike Sections on Bio, Join Hike and Post Hike pages */
 .hike-section {
-  width: 40%;
   height: auto;
   max-height: 90vh;
   background: #82a87b;
-  margin: 0.5rem;
-  padding: 0 1rem;
   border: 1px solid #41553e;
   border-radius: 5px;
-  margin-left: 1rem;
   overflow: scroll;
 }
 
 #join-hike .hike-section {
   width: 65%;
   margin: auto;
-  padding-top: 1rem;
+  padding: 1rem;
   min-height: 25rem;
+}
+
+#post-hike .hike-section {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
 }
 
 
@@ -227,6 +228,21 @@ button:hover {
 /**** Smaller screens ****/
 /*************************/
 @media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 0.9rem;
+  }
+
+  li {
+    font-size: 0.8rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
 
   /*** Forms ***/
   input[type="text"], input[type="email"], input[type="password"] {
@@ -294,11 +310,6 @@ button:hover {
     margin: 0.1rem auto;
   }
 
-  #post-hike .form-area {
-    margin: 0.1rem;
-    padding: 0.5rem;
-  }
-
   .mini-form {
     padding: 0.1rem;
     margin: 0;
@@ -309,16 +320,8 @@ button:hover {
     height: 5rem;
   }
 
-  .hike-section {
-    width: 50%;
-    margin: 0.1rem;
-    padding: 0 0.3rem;
-    margin-left: 0.1rem;
-  }
-
   #join-hike .hike-section {
-    width: 90%;
-    padding: 1rem;
+    width: 95%;
   }
 }
 
