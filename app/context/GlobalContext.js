@@ -9,21 +9,34 @@ const GlobalContext = createContext();
 export function GlobalProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
   const [hike, setHike] = useState();
+  const [loading, setLoading] = useState(true);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
-  
-useEffect(() => {
-  const fetchUser = async () => {
-    const user = await retrieveUser();
-    if (user) {
-      const userInfo = await fetchUserByEmail(user.email);
-      if (userInfo) {
-        setCurrentUser(userInfo[0]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      setLoading(true); 
+      try {
+        const user = await retrieveUser();
+        if (user) {
+          console.log("🔄 User session retrieved:", user);
+          const userInfo = await fetchUserByEmail(user.email);
+          if (userInfo?.length > 0) {
+            setCurrentUser(userInfo[0]);
+          }
+        } else {
+          console.warn("⚠️ No user session found in GlobalContext");
+          setCurrentUser(DEFAULT_USER);
+        }
+      } catch (error) {
+        console.error("❌ Error retrieving user:", error);
+      } finally {
+        setLoading(false); 
       }
-    }
-  };
-  fetchUser();
-}, [currentUser]);
-  
+    };
+
+    fetchUser();
+  }, [triggerRefresh]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -31,8 +44,9 @@ useEffect(() => {
         setCurrentUser,
         hike,
         setHike,
+        loading,
         triggerRefresh,
-        setTriggerRefresh
+        setTriggerRefresh,
       }}
     >
       {children}
