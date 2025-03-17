@@ -22,7 +22,7 @@ describe("SearchForm", () => {
       render(<SearchForm />);
       const areaDropdown = screen.getByRole("combobox", { name: /area name/i });
       const difficultyDropdown = screen.getByRole("combobox", {
-        name: /difficulty rating/i,
+        name: /difficulty/i,
       });
       const lengthDropdown = screen.getByRole("combobox", { name: /length/i });
       expect(areaDropdown).toHaveValue(ANY_AREA);
@@ -61,7 +61,7 @@ describe("SearchForm", () => {
         "Pisgah National Forest"
       );
       const difficultyDropdown = screen.getByRole("combobox", {
-        name: /difficulty rating/i,
+        name: /difficulty/i,
       });
       await user.selectOptions(difficultyDropdown, "moderate");
       expect(mockOnSearch).toHaveBeenCalledWith("difficulty", "moderate");

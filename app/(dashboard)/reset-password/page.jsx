@@ -32,7 +32,7 @@ function ResetPassword() {
     <div id="reset-pw" className="mt-4">
       <h1>Reset Password</h1>
       <div id="login-info" className="text-box form-area">
-        <form className="h-48" onSubmit={handleSubmit}>
+        <form className="h-48" aria-label="form" onSubmit={handleSubmit}>
           <label htmlFor="password">New Password: </label>
           <input
             type="password"

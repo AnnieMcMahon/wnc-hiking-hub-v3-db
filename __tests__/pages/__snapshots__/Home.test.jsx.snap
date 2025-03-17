@@ -3,14 +3,14 @@
 exports[`Home matches the snapshot 1`] = `
 <div>
   <div
-    class="text-box"
+    class="text-box w-[95%] md:w-120 my-4 mx-auto py-4 px-1 md:px-8 leading-8"
     id="home"
   >
     <h1>
       How to Use This Site
     </h1>
     <ul
-      class="ml-6 md:ml-2"
+      class="m-0 md:m-2"
     >
       <li>
         Create a free account using the 
@@ -46,7 +46,7 @@ exports[`Home matches the snapshot 1`] = `
          page to view or edit your hikes
       </li>
       <p
-        class="text-center text-6 mt-2"
+        class="text-center mt-2"
       >
         Happy hiking!
       </p>

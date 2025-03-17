@@ -50,7 +50,7 @@ export default function TrailForm({ onSubmit = () => {}, onClick = () => {} }) {
             ))}
           </datalist>
           <br />
-          <label htmlFor="difficulty_rating"> Difficulty Rating: </label>
+          <label htmlFor="difficulty_rating"> Difficulty: </label>
           <select name="difficulty_rating" id="difficulty_rating">
             {DIFFICULTIES.map((diff) => (
               <option key={diff} value={diff}>
