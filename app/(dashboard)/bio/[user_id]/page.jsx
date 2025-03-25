@@ -26,7 +26,7 @@ export default function Bio() {
       }
     };
     fetchUserData();
-  }, [user_id]);
+  }, [user_id, currentUser]);
 
   useEffect(() => {
     const fetchHikes = async () => {
@@ -43,7 +43,7 @@ export default function Bio() {
     };
     fetchHikes();
     setTriggerRefresh(false);
-  }, [triggerRefresh]);
+  }, [triggerRefresh, currentUser.id]);
 
   function handleClick() {
     router.push("/edit-bio");

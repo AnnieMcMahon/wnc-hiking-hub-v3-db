@@ -26,7 +26,7 @@ function JoinHike() {
     };
     fetchHikes();
     setTriggerRefresh(false);
-  }, [triggerRefresh]);
+  }, [triggerRefresh, currentUser.id]);
 
   return (
     <div id="join-hike" className="">
