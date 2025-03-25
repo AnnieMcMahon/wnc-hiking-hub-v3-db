@@ -7,7 +7,7 @@ jest.mock("@/app/api/data/data", () => ({
 }));
 
 describe("fetchHikesToJoin", () => {
-  const mockUserId = 1;
+  const mockUserId = 2;
   const fixedDate = "2025-01-08T19:13:20.863Z";
     global.Date = jest.fn(() => ({
       toISOString: jest.fn(() => fixedDate),
@@ -20,7 +20,7 @@ describe("fetchHikesToJoin", () => {
       location: "Blue Ridge Parkway",
       comments: "Bring water and snacks.",
       status: "new",
-      creator_id: 1
+      creator_id: 2
       }];
 
   beforeEach(() => {

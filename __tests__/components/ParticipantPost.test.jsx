@@ -3,6 +3,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import Participant from "@/app/ui/components/Participant";
 import { fetchUserById } from "@/app/api/data/data";
 import { MOCK_USER } from "@/app/lib/constants";
+import { useGlobal } from "@/app/context/GlobalContext";
+
 
 jest.mock("@/components/ui/avatar", () => ({
   Avatar: ({ children, ...props }) => <div {...props}>{children}</div>,
@@ -14,6 +16,9 @@ jest.mock("next/link", () => {
   return ({ children }) => children;
 });
 
+jest.mock("@/app/context/GlobalContext", () => ({
+  useGlobal: jest.fn(),
+}));
 
 jest.mock("@/app/api/data/data", () => ({
   fetchUserById: jest.fn(),
@@ -28,6 +33,11 @@ const mockParticipant = {
 describe("Participant", () => {
   beforeEach(() => {
     fetchUserById.mockResolvedValue([MOCK_USER]);
+
+    useGlobal.mockReturnValue({
+      currentUser: MOCK_USER,
+    });
+
   });
 
   afterEach(() => {
