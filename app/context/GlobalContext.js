@@ -18,17 +18,14 @@ export function GlobalProvider({ children }) {
       try {
         const user = await retrieveUser();
         if (user) {
-          console.log("🔄 User session retrieved:", user);
           const userInfo = await fetchUserByEmail(user.email);
           if (userInfo?.length > 0) {
             setCurrentUser(userInfo[0]);
           }
         } else {
-          console.warn("⚠️ No user session found in GlobalContext");
           setCurrentUser(DEFAULT_USER);
         }
       } catch (error) {
-        console.error("❌ Error retrieving user:", error);
       } finally {
         setLoading(false); 
       }

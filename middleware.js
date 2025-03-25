@@ -2,8 +2,6 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 
 export async function middleware(request) {
-  console.log("✅ Middleware is running on:", request.nextUrl.pathname);
-
   let response = NextResponse.next();
 
   request.cookies.getAll();
@@ -23,13 +21,8 @@ export async function middleware(request) {
     }
   );
 
-  const { data: user, error } = await supabase.auth.getUser();
+  await supabase.auth.getUser();
 
-  if (error || !user) {
-    console.warn("⚠️ No user session found.");
-  } else {
-    console.log("✅ User session active");
-  }
 
   return response;
 }
