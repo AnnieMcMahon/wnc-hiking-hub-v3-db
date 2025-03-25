@@ -31,15 +31,17 @@ describe("GlobalContext", () => {
     jest.clearAllMocks();
   });
 
-  it("provides default values correctly", () => {
+  it("provides default values correctly", async () => {
     render(
       <GlobalProvider>
         <TestComponent />
       </GlobalProvider>
     );
+    await waitFor(() => {
     expect(screen.getByTestId("current-user").textContent).toBe(JSON.stringify(DEFAULT_USER));
     expect(screen.getByTestId("hike").textContent).toBe("");
     expect(screen.getByTestId("trigger-refresh").textContent).toBe("false");
+  });
   });
 
   it("updates context values correctly", async () => {
@@ -48,12 +50,12 @@ describe("GlobalContext", () => {
         <TestComponent />
       </GlobalProvider>
     );
-    const hikeButton = screen.getByText("Set Hike");
-    const refreshButton = screen.getByText("Trigger Refresh");
-    await userEvent.click(hikeButton);
-    await userEvent.click(refreshButton);
-    expect(screen.getByTestId("hike").textContent).toBe("Test Hike");
-    expect(screen.getByTestId("trigger-refresh").textContent).toBe("true");
+    await userEvent.click(screen.getByText("Set Hike"));
+    await userEvent.click(screen.getByText("Trigger Refresh"));
+    await waitFor(() => {
+      expect(screen.getByTestId("hike").textContent).toBe("Test Hike");
+      expect(screen.getByTestId("trigger-refresh").textContent).toBe("true");
+  });
   });
 
   it("fetches user data and updates currentUser", async () => {
