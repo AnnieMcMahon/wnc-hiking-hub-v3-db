@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import HikeComponent from "@/app/ui/components/HikeComponent";
 
 function JoinHike() {
-  const { currentUser, loading, triggerRefresh, setTriggerRefresh } = useGlobal();
+  const { currentUser, triggerRefresh, setTriggerRefresh } = useGlobal();
   const [hikeList, setHikeList] = useState([]);
   const [message, setMessage] = useState("Loading hikes...");
 
