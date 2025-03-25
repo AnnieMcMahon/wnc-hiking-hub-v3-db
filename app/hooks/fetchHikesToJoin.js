@@ -17,6 +17,12 @@ export async function fetchHikesToJoin(userId) {
   } else {
     hikeIds = "()";
   }
-  const availableHikes = fetchAvailableHikes(userId, currentDate, hikeIds);
-  return availableHikes;
+  const availableHikes = await fetchAvailableHikes(userId, currentDate, hikeIds);
+  let hikesToJoin = [];
+  if (userId == 1) {
+    hikesToJoin = availableHikes.filter((hike) => hike.status == "sample");
+  } else {
+    hikesToJoin = availableHikes.filter((hike) => hike.status !== "sample");
+  };
+  return hikesToJoin;
 };
