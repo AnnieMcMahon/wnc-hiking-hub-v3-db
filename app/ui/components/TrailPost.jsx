@@ -9,7 +9,7 @@ export default function TrailPost({
   };
 
   return (
-    <div id="TrailPost" className="text-left bg-white mb-4 p-2 border border-green-800" onClick={handleClick}>
+    <div id="TrailPost" className="text-left bg-white mb-4 p-2 border border-green-800 hover:bg-green-500" onClick={handleClick}>
       <h4 className="text-sm font-bold">{trailInfo.trail_name}</h4>
       <p className="text-xs">{trailInfo.area_name}</p>
       <p className="text-xs">
