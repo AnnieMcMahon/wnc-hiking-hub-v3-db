@@ -12,10 +12,9 @@ export default function Participant({ participant }) {
   useEffect(() => {
     const fetchData = async () => {
       const userInfo = await fetchUserById(participant.user_id);
-      const user_name = userInfo[0]?.user_name
-        ? userInfo[0].user_name
-        : "unknown";
-      const avatar = userInfo[0]?.avatar ? userInfo[0].avatar : "newUser.png";
+      const user = userInfo[0] || {};
+      const user_name = user.user_name || "unknown";
+      const avatar = user.avatar || "/newUser.png";
       setParticipantData({
         user_name: user_name,
         avatar: avatar,

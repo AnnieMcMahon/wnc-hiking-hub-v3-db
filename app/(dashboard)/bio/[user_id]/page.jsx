@@ -32,7 +32,7 @@ export default function Bio() {
     const fetchHikes = async () => {
       if (currentUser) {
         const { upcomingHikes, pastHikes, createdHikes } = await fetchUserHikes(
-          currentUser.id
+          user_id
         );
         setPastHikes(pastHikes);
         if (user_id == currentUser.id) {
@@ -43,7 +43,7 @@ export default function Bio() {
     };
     fetchHikes();
     setTriggerRefresh(false);
-  }, [triggerRefresh, currentUser.id]);
+  }, [triggerRefresh, currentUser.id, user_id]);
 
   function handleClick() {
     router.push("/edit-bio");

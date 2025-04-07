@@ -48,7 +48,7 @@ describe("Bio Page", () => {
 
     useParams.mockReturnValue({ user_id: "3" });
 
-    mockCurrentUser = { id: 3, name: "Current User" };
+    mockCurrentUser = { id: "3", name: "Current User" };
     mockSetTriggerRefresh = jest.fn();
 
     useGlobal.mockReturnValue({
@@ -134,15 +134,10 @@ describe("Bio Page", () => {
     });
 
     it("does not fetch upcoming or created hikes for a different user", async () => {
-      useGlobal.mockReturnValue({
-        currentUser: { id: 99 },
-        triggerRefresh: false,
-        setTriggerRefresh: mockSetTriggerRefresh,
-      });
-
+      useParams.mockReturnValue({ user_id: "2" });
       render(<Bio />);
       await waitFor(() => {
-        expect(fetchUserHikes).toHaveBeenCalledWith(99);
+        expect(fetchUserHikes).toHaveBeenCalledWith("2");
         expect(HikeSection).toHaveBeenCalledWith(
           expect.objectContaining({
             pastHikes: [{ id: 2, title: "Past Hike" }],

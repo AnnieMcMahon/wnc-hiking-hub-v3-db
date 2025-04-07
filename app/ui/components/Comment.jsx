@@ -10,8 +10,9 @@ export default function Comment({comment}) {
   useEffect(() => {
     const fetchData = async () => {
       const userInfo = await fetchUserById(comment.user_id);
-      const user_name = userInfo[0]?.user_name ? userInfo[0].user_name : "unknown";
-      const avatar = userInfo[0]?.avatar ? userInfo[0].avatar : "newUser.png"
+      const user = userInfo[0] || {};
+      const user_name = user.user_name || "unknown";
+      const avatar = user.avatar || "/newUser.png";
       const date = convertDate(comment.created_at);
       setCommentData({
         user_name: user_name,
